@@ -2,11 +2,14 @@
 
 Putting the most visible and relied upon  processes  of a business in an automated system is a good idea. Ones without built in assurance the worst. Because BPM solutions are built to become your most visible pile of technical debt. 
 
-If you are like me and have worked in or would like to implement BPM workflow software you get why it’s important. It enables you to make a visual map of the process, changes are clearly visible and can be done on the fly. You don’t need to be a software developer to make a big impact. 
+### Starting down the path
+If you are like me and have worked in or would like to implement BPM workflow software you get why it’s important. 
+It enables you to make a visual map of the process, changes are clearly visible and can be done on the fly. You don’t need to be a software developer to make a big impact. 
 
 What processes have you or are you thinking about automating? The low hanging fruit, right? It’s probably some type of accounting or administrative work. The kind of work that doesn’t change often, you have a standard method whether or not it’s written down. At first blush it id easy to imagine the working pieces. When thinking about the problem there are probably a few hard and fast rules that you know you have to comply with.  Like new vendor payments require approval, the packing slip has to match the invoice or new employees have to have a signed contract, you get the idea. No matter what happens you want to make sure THOSE are happening. 
 
-Fast forwarding to a happy place where you have an automated process in place, people have accepted and trusted the system, even through the bumps. While working on there are ideas on how to improve the process or great feedback from users that would make their lives easier. If this is your first time automating a process it's all steams ahead. If this is your second time around you are already nervous. 
+Fast forwarding to a happy place where you have an automated process in place, people have accepted and trusted the system, even through the bumps. 
+While working on there are ideas on how to improve the process or great feedback from users that would make their lives easier. If this is your first time automating a process it's all steams ahead. If this is your second time around you are already nervous. 
 
 You start making the requested changes people are enjoying the process your simple and easy to understand process is adapting to the real world. 
 It’s starting to handle the one off situations. 
@@ -14,6 +17,7 @@ Not to break the system or for times sake shortcuts are taken here and there and
 Everything works great if you are lucky for a year or two. 
 But if your organization is competitive, processes are always adapting to the changing world. 
 
+### Make it real
 Taking a real world example I’m living in. 
 We implemented an expense report process that takes expense reports created by our sales staff, routes them to their Approver, highlights out of policy spend, once approved is forwarded to accounting and then is sent off to be paid. 
 Simple. 
@@ -41,6 +45,7 @@ The only solution now is to have a test example that you run every time you make
 That generally works, it’s not always possible if you don’t have a separate test system, but it takes a long time so if you’re like most people you stop doing it. 
 Or do it every once in a while. 
 
+### Testing and Assurance should be first class citizens
 There are a lot of changes but testing only happens every once in a while. 
 If ever. 
 That means you won’t know what changes broke the most important part of your process. 
