@@ -1,3 +1,12 @@
+Title: The Debt Builder
+Date: 2019-09-07
+Modified: 2019-09-07
+Category: BPM
+Tags: Workflow, RPA, Robotic Process Automation, Bots
+Slug: the-debt-builder
+Author: Daniel Butler
+Summary: Putting the most visible and relied upon  processes  of a business in an automated system is a good idea. Ones without built in assurance the worst. Because BPM solutions are built to become your most visible pile of technical debt. 
+
 #BPM - The Debt Builder 
 
 Putting the most visible and relied upon  processes  of a business in an automated system is a good idea. Ones without built in assurance the worst. Because BPM solutions are built to become your most visible pile of technical debt. 
