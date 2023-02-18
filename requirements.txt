@@ -1,3 +1,0 @@
-pelican
-invoke
-ghp-import
