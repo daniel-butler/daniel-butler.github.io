@@ -226,7 +226,7 @@ function Resume() {
           </li>
         ))}
       </ol>
-      <Button href="/media/Daniel_Butler_-_CV_202104.pdf" variant="secondary" className="group mt-6 w-full">
+      <Button href="/media/Daniel_Butler_-_CV_202104.pdf" target="_blank" variant="secondary" className="group mt-6 w-full">
         Download CV
         <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
       </Button>
