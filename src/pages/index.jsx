@@ -21,7 +21,6 @@ import logoAmazon from '@/images/logos/amazon.svg'
 import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
 import { getAllArticles } from '@/lib/getAllArticles'
-import { getAllProjects } from '@/lib/getAllProjects'
 import { formatDate } from '@/lib/formatDate'
 
 function MailIcon(props) {
