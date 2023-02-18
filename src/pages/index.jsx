@@ -18,6 +18,7 @@ import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import logoAmazon from '@/images/logos/amazon.svg'
+import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
 import { getAllArticles } from '@/lib/getAllArticles'
 import { formatDate } from '@/lib/formatDate'
@@ -155,7 +156,7 @@ function Resume() {
     {
       company: 'Order Post App LLC',
       title: 'Founder',
-      logo: logoAmazon,
+      logo: logoOpenShuttle,
       start: '2022',
       end: {
         label: 'Present',
