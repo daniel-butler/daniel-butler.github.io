@@ -16,7 +16,7 @@ import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
-import coreFS from '@/images/logos/core-foodservice.svg'
+import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import logoAmazon from '@/images/logos/amazon.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
 import { getAllArticles } from '@/lib/getAllArticles'
@@ -165,21 +165,21 @@ function Resume() {
     {
       company: 'The CORE Group',
       title: 'Accounting System Developer',
-      logo: coreFS,
+      logo: logoCoreFS,
       start: '2018',
       end: '2021',
     },
     {
       company: 'The CORE Group',
       title: 'Assistant Controller',
-      logo: coreFS,
+      logo: logoCoreFS,
       start: '2015',
       end: '2018',
     },
     {
       company: 'The CORE Group - HOPCO Foodservice',
       title: 'Staff Accountant',
-      logo: coreFS,
+      logo: logoCoreFS,
       start: '2013',
       end: '2015',
     },
