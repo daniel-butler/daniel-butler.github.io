@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Sat, 18 Feb 2023 13:33:38 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 18 Feb 2023 14:30:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -181,7 +181,7 @@ recuso; refert Coroniden ignotos manat, adfectu.</p>]]></content:encoded>
     <span class="token function">say</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">as_bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> width<span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> writer<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>I derive a large amount of my self-worth from whether or not Hacker News is impressed with the work I&#x27;m doing, so when I realized this, I cancelled all of our existing projects and started migrating everything to Rust immediately.</p>
+<p>I derive a large amount of my self-worth from whether or not Hacker News is impressed with the work I&#x27;m doing, so when I realized this, I cancelled all of our existing index and started migrating everything to Rust immediately.</p>
 <h2>Sermone fata</h2>
 <p>Lorem markdownum, bracchia in redibam! Terque unda puppi nec, linguae posterior
 in utraque respicere candidus Mimasque formae; quae conantem cervice. Parcite
