@@ -5,6 +5,7 @@ import { Card } from '@/components/Card'
 import { SimpleLayout } from '@/components/SimpleLayout'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
+import {getAllProjects} from "@/lib/getAllProjects";
 
 const index = [
   {
@@ -81,11 +82,11 @@ function LinkIcon(props) {
   )
 }
 
-export default function Projects() {
+export default function ProjectsIndex({ projects }) {
   return (
     <>
       <Head>
-        <title>Projects - Spencer Sharp</title>
+        <title>Projects - Daniel Butler</title>
         <meta
           name="description"
           content="Things I’ve made trying to put my dent in the universe."
@@ -93,7 +94,7 @@ export default function Projects() {
       </Head>
       <SimpleLayout
         title="Things I’ve made trying to put my dent in the universe."
-        intro="These are some of the projects I’ve worked on over the years. All built from scratch, independently, and with a lot of love. The joy of buildingg something that improves the lives of others is what drives me to keep going."
+        intro="These are some of the projects I’ve worked on over the years. All built from scratch, independently, and with a lot of love. The joy of building something that improves the lives of others is what drives me to keep going."
       >
         <ul
           role="list"
@@ -113,7 +114,7 @@ export default function Projects() {
                 <Card.Link href={project.link.href}>{project.platform}</Card.Link>
               </h5>
               <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                <Card.Link href={project.link.href}>{project.name}</Card.Link>
+                <Card.Link href={`/projects/${projects[0].slug}`}>{project.name}</Card.Link>
               </h2>
               <Card.Description>{project.description}</Card.Description>
               <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
@@ -126,4 +127,12 @@ export default function Projects() {
       </SimpleLayout>
     </>
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      projects: (await getAllProjects()).map(({ component, ...meta }) => meta),
+    },
+  }
 }
