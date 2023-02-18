@@ -16,10 +16,8 @@ import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
-import logoAirbnb from '@/images/logos/airbnb.svg'
-import logoFacebook from '@/images/logos/facebook.svg'
+import coreFS from '@/images/logos/core-foodservice.svg'
 import logoAmazon from '@/images/logos/amazon.svg'
-import logoStarbucks from '@/images/logos/starbucks.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
 import { getAllArticles } from '@/lib/getAllArticles'
 import { formatDate } from '@/lib/formatDate'
@@ -160,21 +158,21 @@ function Resume() {
     {
       company: 'The CORE Group',
       title: 'Accounting System Developer',
-      logo: logoAirbnb,
+      logo: coreFS,
       start: '2018',
       end: '2021',
     },
     {
       company: 'The CORE Group',
       title: 'Assistant Controller',
-      logo: logoFacebook,
+      logo: coreFS,
       start: '2015',
       end: '2018',
     },
     {
       company: 'The CORE Group - HOPCO Foodservice',
       title: 'Staff Accountant',
-      logo: logoStarbucks,
+      logo: coreFS,
       start: '2013',
       end: '2015',
     },
