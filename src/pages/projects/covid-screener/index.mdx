@@ -1,10 +1,14 @@
-import { ArticleLayout } from '@/components/ArticleLayout'
+import {ArticleLayout} from '@/components/ArticleLayout'
+import logoCoreFS from '@/images/logos/core-foodservice.svg'
 
 export const meta = {
-  author: 'Daniel Butler',
-  date: '2020-05-15',
-  title: 'COVID Screener',
-  description: 'Web App to keep employees safe during COVID.',
+    author: 'Daniel Butler',
+    date: '2020-05-15',
+    title: 'COVID Screener',
+    description: 'Web App to keep employees safe during COVID.',
+    tags: ['Python', 'Flask', 'SQL', 'IIS', 'BambooHR', 'Analytics'],
+    platform: 'Connect',
+    logo: logoCoreFS,
 }
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
