@@ -13,8 +13,15 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-  }
-}
+  },
+  webpack5: true,
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false };
+
+    return config;
+  },
+};
+
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,
