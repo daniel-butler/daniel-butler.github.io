@@ -137,13 +137,20 @@ function Resume() {
   let resume = [
     {
       company: 'Amazon',
-      title: 'Software Development Engineer',
+      title: 'Software Development Engineer II',
       logo: logoAmazon,
-      start: '2021',
+      start: '2022',
       end: {
         label: 'Present',
         dateTime: new Date().getFullYear(),
       },
+    },
+    {
+      company: 'Amazon',
+      title: 'Software Development Engineer I',
+      logo: logoAmazon,
+      start: '2021',
+      end: '2022',
     },
     {
       company: 'Order Post App LLC',
