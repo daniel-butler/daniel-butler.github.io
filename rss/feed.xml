@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Spencer Sharp</title>
-        <link>undefined</link>
+        <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Sat, 18 Feb 2023 05:34:41 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 18 Feb 2023 05:54:11 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
             <title>Spencer Sharp</title>
-            <url>undefined/favicon.ico</url>
-            <link>undefined</link>
+            <url>https://daniel-butler.com/favicon.ico</url>
+            <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2023</copyright>
         <item>
             <title><![CDATA[Crafting a design system for a multiplanetary future]]></title>
-            <link>undefined/articles/crafting-a-design-system-for-a-multiplanetary-future</link>
-            <guid>undefined/articles/crafting-a-design-system-for-a-multiplanetary-future</guid>
+            <link>https://daniel-butler.com/articles/crafting-a-design-system-for-a-multiplanetary-future</link>
+            <guid>https://daniel-butler.com/articles/crafting-a-design-system-for-a-multiplanetary-future</guid>
             <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Most companies try to stay ahead of the curve when it comes to visual design, but for Planetaria we needed to create a brand that would still inspire us 100 years from now when humanity has spread across our entire solar system.]]></description>
             <content:encoded><![CDATA[<p>Most companies try to stay ahead of the curve when it comes to visual design, but for Planetaria we needed to create a brand that would still inspire us 100 years from now when humanity has spread across our entire solar system.</p>
@@ -82,8 +82,8 @@ recuso; refert Coroniden ignotos manat, adfectu.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Introducing Animaginary: High performance web animations]]></title>
-            <link>undefined/articles/introducing-animaginary</link>
-            <guid>undefined/articles/introducing-animaginary</guid>
+            <link>https://daniel-butler.com/articles/introducing-animaginary</link>
+            <guid>https://daniel-butler.com/articles/introducing-animaginary</guid>
             <pubDate>Fri, 02 Sep 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[When you’re building a website for a company as ambitious as Planetaria, you need to make an impression. I wanted people to visit our website and see animations that looked more realistic than reality itself.]]></description>
             <content:encoded><![CDATA[<p>When you’re building a website for a company as ambitious as Planetaria, you need to make an impression. I wanted people to visit our website and see animations that looked more realistic than reality itself.</p>
@@ -164,8 +164,8 @@ recuso; refert Coroniden ignotos manat, adfectu.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Rewriting the cosmOS kernel in Rust]]></title>
-            <link>undefined/articles/rewriting-the-cosmos-kernel-in-rust</link>
-            <guid>undefined/articles/rewriting-the-cosmos-kernel-in-rust</guid>
+            <link>https://daniel-butler.com/articles/rewriting-the-cosmos-kernel-in-rust</link>
+            <guid>https://daniel-butler.com/articles/rewriting-the-cosmos-kernel-in-rust</guid>
             <pubDate>Thu, 14 Jul 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[When we released the first version of cosmOS last year, it was written in Go. Go is a wonderful programming language, but it’s been a while since I’ve seen an article on the front page of Hacker News about rewriting some important tool in Go and I see articles on there about rewriting things in Rust every single week.]]></description>
             <content:encoded><![CDATA[<p>When we released the first version of cosmOS last year, it was written in Go. Go is a wonderful programming language with a lot of benefits, but it’s been a while since I’ve seen an article on the front page of Hacker News about rewriting some important tool in Go and I see articles on there about rewriting things in Rust every single week.</p>
