@@ -2,74 +2,8 @@ import Image from 'next/future/image'
 import Head from 'next/head'
 
 import { Card } from '@/components/Card'
-import { SimpleLayout } from '@/components/SimpleLayout'
-import logoCoreFS from '@/images/logos/core-foodservice.svg'
-import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
-import {getAllProjects} from "@/lib/getAllProjects";
-
-const index = [
-  {
-    name: 'Order Post App',
-    description:
-      'Streamlining Real Estate Post Rental processes with a web app.',
-    link: { href: 'https://orderpost.app', label: 'orderpost.app' },
-    logo: logoOpenShuttle,
-    platform: null,
-  },
-  {
-    name: 'Disbursements',
-    description: 'A web app for managing payment disbursements, to replace manual check cutting.',
-    link: { href: '/projects/disbursements', label: '/Disbursements' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-  {
-    name: 'Revenue',
-    description: 'A web app for cutting the tedious drudgery of codifying revenue.',
-    link: { href: '/projects/revenue', label: '/Revenue' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-  {
-    name: 'Receipt Capture',
-    description: 'Web app to capture receipts for salespeople on-the-go.',
-    link: { href: '/projects/receipt-capture', label: '/Receipt-Capture' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-  {
-    name: 'COVID Screener',
-    description:
-      'Real-time video streaming library, optimized for interstellar transmission.',
-    link: { href: '/projects/covid-screener', label: '/COVID-Screener' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-  {
-    name: 'Payment Authorization',
-    description:
-      'The operating system that powers our Planetaria space shuttles.',
-    link: { href: '/projects/payment-authorization', label: '/Payment-Authorization' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-  {
-    name: 'Multipayable Importer',
-    description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: { href: '/projects/multipayable-importer', label: '/MultiPayable-Importer' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-  {
-    name: 'Out of Field',
-    description:
-      'The schematics for the first rocket I designed that successfully made it to orbit.',
-    link: { href: '/projects/out-of-field', label: '/Out-Of-Field' },
-    logo: logoCoreFS,
-    platform: 'Connect',
-  },
-]
+import { SimpleLayout } from '@/components/SimpleLayout' 
+import { getAllProjects } from "@/lib/getAllProjects";
 
 function LinkIcon(props) {
   return (
@@ -100,7 +34,7 @@ export default function ProjectsIndex({ projects }) {
           role="list"
           className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {index.map((project) => (
+          {projects.map((project) => (
             <Card as="li" key={project.name}>
               <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
                 <Image
@@ -111,10 +45,10 @@ export default function ProjectsIndex({ projects }) {
                 />
               </div>
               <h5 className="mt-1 text-base font-medium italic text-zinc-500 dark:text-zinc-300">
-                <Card.Link href={project.link.href}>{project.platform}</Card.Link>
+                <Card.Link href={`/projects/${project.slug}`}>{project.platform}</Card.Link>
               </h5>
               <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
-                <Card.Link href={`/projects/${projects[0].slug}`}>{project.name}</Card.Link>
+                <Card.Link href={`/projects/${project.slug}`}>{project.name}</Card.Link>
               </h2>
               <Card.Description>{project.description}</Card.Description>
               <p className="relative z-10 mt-6 flex text-sm font-medium text-zinc-400 transition group-hover:text-teal-500 dark:text-zinc-200">
