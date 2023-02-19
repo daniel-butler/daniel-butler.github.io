@@ -89,11 +89,11 @@ export default function ProjectsIndex({ projects }) {
         <title>Projects - Daniel Butler</title>
         <meta
           name="description"
-          content="Things I’ve made trying to put my dent in the universe."
+          content="My dents in the universe."
         />
       </Head>
       <SimpleLayout
-        title="Things I’ve made trying to put my dent in the universe."
+        title="My dents in the universe."
         intro="These are some of the projects I’ve worked on over the years. All built from scratch, independently, and with a lot of love. The joy of building something that improves the lives of others is what drives me to keep going."
       >
         <ul
