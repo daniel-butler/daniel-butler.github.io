@@ -11,11 +11,11 @@ import {
   LinkedInIcon,
   StackOverflowIcon,
 } from '@/components/SocialIcons'
-import image1 from '@/images/photos/image-1.jpg'
-import image2 from '@/images/photos/image-2.jpg'
-import image3 from '@/images/photos/image-3.jpg'
-import image4 from '@/images/photos/image-4.jpg'
-import image5 from '@/images/photos/image-5.jpg'
+import image1 from '@/images/photos/me and aurther.jpeg'
+import image2 from '@/images/photos/me and charlotte 2.jpeg'
+import image3 from '@/images/photos/family photo.jpeg'
+import image4 from '@/images/photos/aubree.jpeg'
+import image5 from '@/images/photos/me 2.jpeg'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import logoAmazon from '@/images/logos/amazon.svg'
 import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
