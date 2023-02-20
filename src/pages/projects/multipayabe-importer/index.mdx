@@ -12,7 +12,7 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-## Overview
+# Overview
 The major requirement for the project was to give the Accounts Payable team a way to enter hundreds of lines for 70+ invoices or credit memos at a time. Not only will the payables be created, Multipayable importer will generate the required expensing journal entries when designated.
 
 Once the excel file was imported, Look up exactly what payables were added into the Accounting system, the lines that were generated, and with a link directly into the Accounting System. The system can also generate separate expensing journal entries when prepaying an invoice those are also viewable!
@@ -43,4 +43,3 @@ That is why MVPs are incredibly important. It gave me the feedback on the direct
 After several iterations, I finally figured out how to kick off a separate unconnected python process.
 The process handles generating the pdfs - what takes a long time - and sending them to the accounting system.
 When processing 70+ invoices can take 3+ minutes to complete.
-
