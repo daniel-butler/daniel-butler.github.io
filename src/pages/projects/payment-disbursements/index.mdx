@@ -12,5 +12,34 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
+## Problem space 
 
-# TODO: Add content
+The AP department was cutting manual checks
+
+TODO: What was the dollar savings including time?
+
+## customer experience
+AP department was always cutting checks in batches. Needed a way to send payments through Nvoicepay. 
+
+Integrates with the accounts payable, DocuPhase, and accounting system. 
+
+Value:
+
+During COViD and the rapid work from home switch was able to completely rely on the system and eliminated all checks cut from the office. 
+
+## Concepts
+Payables grouped together into a payment and payments sent as a loose batch. Essentially a payment could be resent but the payables in the payment would not be split. 
+
+
+
+## developer experience
+
+Flask app based on test driven development and event driven design. 
+
+Integration with nvoicepay
+
+Grouping of payments into payment batches. 
+
+Api errors from Nvoicepay. Bubbling them up to end users. 
+
+Once and only once can paments be sent because people will not notify you when there is an overpayment however they will not of paid twice. 
