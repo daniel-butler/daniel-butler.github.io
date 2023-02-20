@@ -5,11 +5,46 @@ export const meta = {
     author: 'Daniel Butler',
     date: '2018-01-01',
     title: 'Multi-Payable Importer',
-    description: '',
+    description: 'Revolutionize Your Accounts Payable Process with Multipayable Importer - Save 8+ Hours Monthly!" This developer created a game-changing tool that allows the Accounts Payable team to enter hundreds of lines for 70+ invoices or credit memos at a time, saving hours of manual entry. With the ability to generate required expensing journal entries and easily track payables in the accounting system, this tool improves workflow consistency and accuracy during critical times like Month End, Audit, and Tax preparation. Plus, with Vuetify's Material Design and a separate background process for long running tasks, this tool offers a rich responsive user experience. Learn how this developer overcame the challenge of long running tasks to create a valuable MVP.',
     logo: logoCoreFS,
     platform: 'Connect',
 }
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-# TODO: Complete this article
+## Overview
+The major requirement for the project was to give the Accounts Payable team a way to enter hundreds of lines for 70+ invoices or credit memos at a time. Not only will the payables be created, Multipayable importer will generate the required expensing journal entries when designated.
+
+Once the excel file was imported, Look up exactly what payables were added into the Accounting system, the lines that were generated, and with a link directly into the Accounting System. The system can also generate separate expensing journal entries when prepaying an invoice those are also viewable!
+
+Let's face it we don't have the same team working on the same things year after year and we would not want it that way! People deserve to grow. The users, system configurations, and system level operations can be performed - based on permissions - all from the settings page.
+
+When extra expensing entries are required the system has your back, generating those along with the payables. This comes in handy when prepaying large and complex payables.
+
+Keeps the finance team in a tool they love. The spreadsheets can do a lot of prep work required to cut down entry time dramtically.
+
+## Developer Experience
+Uses Vuetify's Material Design to give a rich responsive user experience.
+
+The integration happens in a background thread  allowing for quick user response.
+
+Payable documents are generated as backup and support to tie against the information sent into the System.
+
+## Value
+Only considering the savings from entering Rents, not the savings when using this for larger split invoices.
+The time savings is roughly 8¼ hours per month considering 7 minutes would be spent entering each of the rents into the accounting system and the time required to manage the recurring journal entry.
+The system allows for a consistent workflow which is a huge plus when reviewing entries and documents during Month End, Audit, and Tax preparation.
+Additionally the time savings and accuracy gained on large invoices that are entered has yet to be evaluated. Considering most of these are recurring in nature the time savings can add up really quickly, close to 20-30 minutes per invoice.
+
+## what i learned
+The largest challenge with this project was sending long running tasks to a separate background process.
+When first implementing the project there were no background processes after a user’s web browser waited over a minute then killed the process while only half of the invoices were sent to the Accounting system... It was not a viable option!
+That is why MVPs are incredibly important. It gave me the feedback on the direction that was needed to keep the project moving along.
+After several iterations, I finally figured out how to kick off a separate unconnected python process.
+The process handles generating the pdfs - what takes a long time - and sending them to the accounting system.
+When processing 70+ invoices can take 3+ minutes to complete.
+
+
+
+
+
