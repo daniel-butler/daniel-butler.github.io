@@ -8,10 +8,58 @@ export const meta = {
     description: '',
     logo: logoCoreFS,
     platform: 'Connect',
+    integrations: ['Active Directory'],
+    linesOfCode: 4391,
+    tests: 123,
+    codeCoverage: '95%'
 }
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
+## Overview
+This was my first foray into building web applications from the ground up. 
+The entire staff including the CEO's receipts' being uploaded would be corrupted because
+the images were being converted to a PDF on the clients side. 
+It was impossible to debug because the issue wasn't related to a speci device or photo so it couldn't be replicated. 
+
 ## Customer Experience
 salespeople on the go needed a way to upload their receipts without errors. 
+
+The prior receipt Website corrupttes images before being sent to Accounting. A simple, reliable, and fast solution was need to capture receipt images, 
+so the staff can be reimbursed faster.
+
+People would have to group their expenses together then scan them. 
+
+
+## Developer Experience
+The website was built with Django. 
+
+Receipt images saved to the server without any client side preprocessing to avoid the issues of the prior website. 
+The images were further processed  using the images ext data. 
+
+Images processed on the server in a background process, so the end user experience is faster. 
+
+
+In production in a month
+
+
+
+## What did I learn
+### The value of testing
+Testing and code coverage was at the center of this project. The value that was being provided was reliability, so a reliable way to achieve that goal was required.
+Throughout the project I learned how to implement and use test driven development. The practice goes back to the root of why the application is being created in the first place.
+You start with the end goal first then build the code to fit that goal. All edge cases expected and even the ones found in production become a test case.
+At first testing seemed to add a lot of time to the development process, but as the project got bigger it only sped up the development.
+I was able to refactor with little worry of breaking changes, it was amazing! I had just came from implementing an entire Accounts Payable workflow where any change could bring down the system.
+
+### Going to production
+Along the lines of testing is always having the end goal in mind. This was the first project from the ground up that I ventured into.
+I needed to learn how to handle security, user access, integrations into the HR system, web hosting, and how to start a project from stratch.
+The process was exhilarating. When I finished I looked for even harder to tackle problems!
+
+### Communication
+This is immensely important and cannot be understated at all. I am constantly learning how to be a better communicator.
+In this project the key was to give a clear deadline. While this was the first project I had ever built from the ground up.
+I made sure I truely understood the problem we were facing, the possible paths forward, and how best to communicate my intentions and deadline to the stakeholders.
+With this project almost everyone at the company uses the site from the Sales associate to the C suite executives to the back office administrators - anyone who has expenses!
 
