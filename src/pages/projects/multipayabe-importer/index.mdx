@@ -5,7 +5,7 @@ export const meta = {
     author: 'Daniel Butler',
     date: '2018-01-01',
     title: 'Multi-Payable Importer',
-    description: 'Revolutionize Your Accounts Payable Process with Multipayable Importer - Save 8+ Hours Monthly!" This developer created a game-changing tool that allows the Accounts Payable team to enter hundreds of lines for 70+ invoices or credit memos at a time, saving hours of manual entry. With the ability to generate required expensing journal entries and easily track payables in the accounting system, this tool improves workflow consistency and accuracy during critical times like Month End, Audit, and Tax preparation. Plus, with Vuetify's Material Design and a separate background process for long running tasks, this tool offers a rich responsive user experience. Learn how this developer overcame the challenge of long running tasks to create a valuable MVP.',
+    description: 'Revolutionize Your Accounts Payable Process with Multipayable Importer - Save 8+ Hours Monthly! This developer created a game-changing tool that allows the Accounts Payable team to enter hundreds of lines for 70+ invoices or credit memos at a time, saving hours of manual entry. With the ability to generate required expensing journal entries and easily track payables in the accounting system, this tool improves workflow consistency and accuracy during critical times like Month End, Audit, and Tax preparation. Plus, with Vuetify's Material Design and a separate background process for long running tasks, this tool offers a rich responsive user experience. Learn how this developer overcame the challenge of long running tasks to create a valuable MVP.',
     logo: logoCoreFS,
     platform: 'Connect'
 }
@@ -36,15 +36,11 @@ The time savings is roughly 8¼ hours per month considering 7 minutes would be s
 The system allows for a consistent workflow which is a huge plus when reviewing entries and documents during Month End, Audit, and Tax preparation.
 Additionally the time savings and accuracy gained on large invoices that are entered has yet to be evaluated. Considering most of these are recurring in nature the time savings can add up really quickly, close to 20-30 minutes per invoice.
 
-## what i learned
+## What I learned
 The largest challenge with this project was sending long running tasks to a separate background process.
 When first implementing the project there were no background processes after a user’s web browser waited over a minute then killed the process while only half of the invoices were sent to the Accounting system... It was not a viable option!
 That is why MVPs are incredibly important. It gave me the feedback on the direction that was needed to keep the project moving along.
 After several iterations, I finally figured out how to kick off a separate unconnected python process.
 The process handles generating the pdfs - what takes a long time - and sending them to the accounting system.
 When processing 70+ invoices can take 3+ minutes to complete.
-
-
-
-
 
