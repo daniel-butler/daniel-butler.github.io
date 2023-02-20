@@ -1,5 +1,15 @@
 import {ArticleLayout} from '@/components/ArticleLayout'
+import Image from 'next/future/image'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
+import screener from '@/images/covid-screener/iphone - new screener start.png'
+import completed from '@/images/covid-screener/iphone - completed screener success.png'
+import completedFollowUp from '@/images/covid-screener/iphone - completed screener follow up.png'
+import hrLogin from '@/images/covid-screener/admin homepage covid screener.png'
+import surveyView from '@/images/covid-screener/screener admin view covid.png'
+import followUpEmail from '@/images/covid-screener/covid screener follow up email.png'
+import firstReminder from '@/images/covid-screener/covid screener first reminder email.png'
+import secondReminder from '@/images/covid-screener/covid screener second reminder email.png'
+
 
 export const meta = {
     author: 'Daniel Butler',
@@ -32,19 +42,19 @@ by the time the human capital team member determined who to contact it would som
 The burden to sort through the surveys was large it would be put off and those who did not complete the surveys would not followed up on.
 
 Page to fill in the survey
-![Screener](./iphone - new screener start.png)
+<Image src={screener} alt="screener" />
 
 Completed Suvery
-![completed survey](./iphone - completed screener success.png)
+<Image src={completed} alt="completed survey" />
 
 Completed Survey with follow up
-![completed survey with follow up](./iphone - completed screener follow up.png)
+<Image src={completedFollowUp} alt="completed survey with follow up" />
 
 The Human Capital login page
-![hr login page](./admin homepage covid screener.png)
+<Image src={hrLogin} alt="hr login" />
 
 Human Captial survey followup page
-![survey view for hr](./screener admin view covid.png)
+<Image src={surveyView} alt="survey view" />
 
 
 After the web app, all the problems described above were eliminated. Employee's ids were validated and displayed when entering.
@@ -55,14 +65,13 @@ Additionally, the web app connected to the Human Capital Management (HCM) system
 It sent reminders to all employees who were working and had not completed the screeners by the due date.
 
 Follow up Email
-![follow up](./covid screener follow up email.png)
+<Image src={followUpEmail} alt="follow up email" />
 
 First Reminder email
-![reminder](./covid screener first reminder email.png)
+<Image src={firstReminder} alt="first reminder" />
 
 Second Reminder Email
-![second reminder](./covid screener second reminder email.png)
-
+<Image src="{secondReminder}" alt="second reminder" />
 
 
 The gains were not only on the Human Capital's side also the employee filling out the survey experienced times savings.
