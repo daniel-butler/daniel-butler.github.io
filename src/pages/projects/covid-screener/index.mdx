@@ -1,14 +1,14 @@
 import {ArticleLayout} from '@/components/ArticleLayout'
 import Image from 'next/future/image'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
-import screener from '@/images/covid-screener/iphone - new screener start.png'
-import completed from '@/images/covid-screener/iphone - completed screener success.png'
-import completedFollowUp from '@/images/covid-screener/iphone - completed screener follow up.png'
-import hrLogin from '@/images/covid-screener/admin homepage covid screener.png'
-import surveyView from '@/images/covid-screener/screener admin view covid.png'
-import followUpEmail from '@/images/covid-screener/covid screener follow up email.png'
-import firstReminder from '@/images/covid-screener/covid screener first reminder email.png'
-import secondReminder from '@/images/covid-screener/covid screener second reminder email.png'
+import screener from '@/pages/projects/covid-screener/iphone-new-screener-start.png'
+import completed from '@/pages/projects/covid-screener/iphone-completed-screener-success.png'
+import completedFollowUp from '@/pages/projects/covid-screener/iphone-completed-screener-follow-up.png'
+import hrLogin from '@/pages/projects/covid-screener/admin-homepage-covid-screener.png'
+import surveyView from '@/pages/projects/covid-screener/screener-admin-view-covid.png'
+import followUpEmail from '@/pages/projects/covid-screener/covid-screener-follow-up-email.jpg'
+import firstReminder from '@/pages/projects/covid-screener/covid-screener-first-reminder-email.jpg'
+import secondReminder from '@/pages/projects/covid-screener/covid-screener-second-reminder-email.jpg'
 
 
 export const meta = {
@@ -39,12 +39,12 @@ the results twice a daily then sorted through the Excel sheet to figure out the 
 There was no validation of the employee id entered into the survey each day, so there was around 15 percent
 of the surveys that had to be thrown out. Additionally, because the surveys were downloaded and parsed in bulk
 by the time the human capital team member determined who to contact it would sometime be hours after they had started working.
-The burden to sort through the surveys was large it would be put off and those who did not complete the surveys would not followed up on.
+The burden to sort through the surveys was large it would be put off and those who did not complete the surveys would not be followed up on.
 
 Page to fill in the survey
 <Image src={screener} alt="screener" />
 
-Completed Suvery
+Completed Survey
 <Image src={completed} alt="completed survey" />
 
 Completed Survey with follow up
@@ -53,7 +53,7 @@ Completed Survey with follow up
 The Human Capital login page
 <Image src={hrLogin} alt="hr login" />
 
-Human Captial survey followup page
+Human Capital survey followup page
 <Image src={surveyView} alt="survey view" />
 
 
@@ -64,7 +64,7 @@ The link was to a page to display the employees survey results, contact informat
 Additionally, the web app connected to the Human Capital Management (HCM) system [BambooHR] to see who was working that day.
 It sent reminders to all employees who were working and had not completed the screeners by the due date.
 
-Follow up Email
+Follow-up Email
 <Image src={followUpEmail} alt="follow up email" />
 
 First Reminder email
