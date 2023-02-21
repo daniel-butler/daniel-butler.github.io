@@ -1,5 +1,4 @@
-import Image from 'next/future/image'
-import Link from 'next/link'
+import ExportedImage from "next-image-export-optimizer";
 import { useRouter } from 'next/router'
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
@@ -7,6 +6,7 @@ import clsx from 'clsx'
 import { Container } from '@/components/Container'
 import avatarImage from '@/images/avatar.jpg'
 import { Fragment, useEffect, useRef } from 'react'
+import Link from "next/link";
 
 function CloseIcon(props) {
   return (
@@ -233,7 +233,7 @@ function Avatar({ large = false, className, ...props }) {
       className={clsx(className, 'pointer-events-auto')}
       {...props}
     >
-      <Image
+      <ExportedImage
         src={avatarImage}
         alt=""
         sizes={large ? '4rem' : '2.25rem'}

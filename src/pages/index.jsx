@@ -11,11 +11,14 @@ import {
   LinkedInIcon,
   StackOverflowIcon,
 } from '@/components/SocialIcons'
-import image1 from '@/images/photos/me and aurther.jpeg'
-import image2 from '@/images/photos/me and charlotte 2.jpeg'
-import image3 from '@/images/photos/family photo.jpeg'
-import image4 from '@/images/photos/aubree.jpeg'
-import image5 from '@/images/photos/me 2.jpeg'
+import arthurAndI from '@/images/photos/me and aurther.jpeg'
+import charlotteAndI2 from '@/images/photos/me and charlotte 2.jpeg'
+import family1 from '@/images/photos/family photo.jpeg'
+import aubree1 from '@/images/photos/aubree.jpeg'
+import me2 from '@/images/photos/me 2.jpeg'
+import me3 from '@/images/photos/me 3.jpeg'
+import me4 from '@/images/photos/me 4.jpeg'
+import charlotteSwing from '@/images/photos/charlotte on swing.jpeg'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import logoAmazon from '@/images/logos/amazon.svg'
 import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
@@ -206,17 +209,18 @@ function Resume() {
 }
 
 function Photos() {
-  let rotations = ['rotate-2', '-rotate-2', 'rotate-2', 'rotate-2', '-rotate-2']
-
+  const photos = [
+      arthurAndI, charlotteAndI2, family1, aubree1, me2, charlotteSwing, me3, me4,
+  ]
   return (
     <div className="mt-16 sm:mt-20">
       <div className="-my-4 flex snap-x snap-mandatory scrollbar-hidden gap-5 overflow-x-auto py-4 sm:gap-8 before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw]">
-        {[image1, image2, image3, image4, image5].map((image, imageIndex) => (
+        {photos.map((image, imageIndex) => (
           <div
             key={image.src}
             className={clsx(
               'relative snap-center aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl',
-              rotations[imageIndex % rotations.length]
+              imageIndex % 2 === 0 ? 'rotate-2' : '-rotate-2'
             )}
           >
             <ExportedImage
