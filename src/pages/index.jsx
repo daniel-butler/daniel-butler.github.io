@@ -244,7 +244,7 @@ function Photos() {
           <div
             key={image.src}
             className={clsx(
-              'relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl',
+              'relative aspect-[9/10] w-44 flex-none overflow-x-auto snap-x snap-manditory rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl before:shrink-0 before:w-[30vw] after:shrink-0 after:w-[30vw]',
               rotations[imageIndex % rotations.length]
             )}
           >
@@ -252,7 +252,7 @@ function Photos() {
               src={image}
               alt=""
               sizes="(min-width: 640px) 18rem, 11rem"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="snap-center absolute inset-0 h-full w-full object-cover"
             />
           </div>
         ))}
