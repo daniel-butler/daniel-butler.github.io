@@ -1,5 +1,5 @@
 import {ArticleLayout} from '@/components/ArticleLayout'
-import Image from 'next/future/image'
+import ExportedImage from "next-image-export-optimizer";
 import previewImg from '@/pages/projects/covid-screener/covid-screener-preview.jpeg'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import screener from '@/pages/projects/covid-screener/iphone-new-screener-start.png'
@@ -29,7 +29,7 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 The COVID Screener web app went from idea to production in three weeks.
 The web app essentially facilitated daily checkins to reduce the spread of COVID.
 
-<Image src={previewImg} alt="preview" />
+<ExportedImage src={previewImg} alt="preview" />
 
 ## Customer Experience
 The covid screener was built to help the human capital team process all the screener surveys sent out each morning.
@@ -47,7 +47,7 @@ The burden to sort through the surveys was large it would be put off and those w
 <div className="grid grid-cols-2 gap-2 justify-items-center">
     <div className="col-span-2">
         Survey Page
-        <Image
+        <ExportedImage
             width={250}
             src={screener}
             alt="screener"
@@ -55,7 +55,7 @@ The burden to sort through the surveys was large it would be put off and those w
     </div>
     <div>
         Completed Survey without follow up.
-        <Image
+        <ExportedImage
             width={250}
             src={completed}
             alt="completed survey"
@@ -63,7 +63,7 @@ The burden to sort through the surveys was large it would be put off and those w
     </div>
     <div>
         Completed Survey with follow up.
-        <Image
+        <ExportedImage
             width={250}
             src={completedFollowUp}
             alt="completed survey with follow up"
@@ -71,7 +71,7 @@ The burden to sort through the surveys was large it would be put off and those w
     </div>
     <div className="col-span-2">
         The Human Capital login page
-        <Image
+        <ExportedImage
             width={650}
             src={hrLogin}
             alt="hr login"
@@ -79,7 +79,7 @@ The burden to sort through the surveys was large it would be put off and those w
     </div>
     <div className="col-span-2">
         Human Capital survey followup page
-        <Image
+        <ExportedImage
             width={650}
             src={surveyView}
             alt="survey view"
@@ -98,7 +98,7 @@ It sent reminders to all employees who were working and had not completed the sc
 <div className="grid grid-cols-2 gap-2 justify-items-center">
     <div className="col-span-2">
         Follow-up Email
-        <Image
+        <ExportedImage
             width={300}
             src={followUpEmail}
             alt="follow up email"
@@ -106,7 +106,7 @@ It sent reminders to all employees who were working and had not completed the sc
     </div>
     <div>
         First Reminder email
-        <Image
+        <ExportedImage
             width={300}
             src={firstReminder}
             alt="first reminder"
@@ -114,7 +114,7 @@ It sent reminders to all employees who were working and had not completed the sc
     </div>
     <div>
         Second Reminder Email
-        <Image
+        <ExportedImage
             width={300}
             src={secondReminder}
             alt="second reminder"
