@@ -1,5 +1,6 @@
 import {ArticleLayout} from '@/components/ArticleLayout'
 import Image from 'next/future/image'
+import previewImg from '@/pages/projects/covid-screener/covid-screener-preview.jpeg'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import screener from '@/pages/projects/covid-screener/iphone-new-screener-start.png'
 import completed from '@/pages/projects/covid-screener/iphone-completed-screener-success.png'
@@ -17,6 +18,7 @@ export const meta = {
     title: 'COVID Screener',
     description: 'COVID Screener web app I built in just three weeks, revolutionized daily check-ins for a safer workplace!',
     tags: ['Python', 'Flask', 'SQL', 'IIS', 'BambooHR', 'Analytics'],
+    preview: previewImg,
     platform: 'Connect',
     logo: logoCoreFS,
 }
@@ -27,6 +29,7 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 The COVID Screener web app went from idea to production in three weeks.
 The web app essentially facilitated daily checkins to reduce the spread of COVID.
 
+<Image src={previewImg} alt="preview" />
 
 ## Customer Experience
 The covid screener was built to help the human capital team process all the screener surveys sent out each morning.
@@ -41,20 +44,48 @@ of the surveys that had to be thrown out. Additionally, because the surveys were
 by the time the human capital team member determined who to contact it would sometime be hours after they had started working.
 The burden to sort through the surveys was large it would be put off and those who did not complete the surveys would not be followed up on.
 
-Page to fill in the survey
-<Image src={screener} alt="screener" />
-
-Completed Survey
-<Image src={completed} alt="completed survey" />
-
-Completed Survey with follow up
-<Image src={completedFollowUp} alt="completed survey with follow up" />
-
-The Human Capital login page
-<Image src={hrLogin} alt="hr login" />
-
-Human Capital survey followup page
-<Image src={surveyView} alt="survey view" />
+<div className="grid grid-cols-2 gap-2 justify-items-center">
+    <div className="col-span-2">
+        Survey Page
+        <Image
+            width={250}
+            src={screener}
+            alt="screener"
+        />
+    </div>
+    <div>
+        Completed Survey without follow up.
+        <Image
+            width={250}
+            src={completed}
+            alt="completed survey"
+        />
+    </div>
+    <div>
+        Completed Survey with follow up.
+        <Image
+            width={250}
+            src={completedFollowUp}
+            alt="completed survey with follow up"
+        />
+    </div>
+    <div className="col-span-2">
+        The Human Capital login page
+        <Image
+            width={650}
+            src={hrLogin}
+            alt="hr login"
+        />
+    </div>
+    <div className="col-span-2">
+        Human Capital survey followup page
+        <Image
+            width={650}
+            src={surveyView}
+            alt="survey view"
+        />
+    </div>
+</div>
 
 
 After the web app, all the problems described above were eliminated. Employee's ids were validated and displayed when entering.
@@ -64,15 +95,32 @@ The link was to a page to display the employees survey results, contact informat
 Additionally, the web app connected to the Human Capital Management (HCM) system [BambooHR] to see who was working that day.
 It sent reminders to all employees who were working and had not completed the screeners by the due date.
 
-Follow-up Email
-<Image src={followUpEmail} alt="follow up email" />
-
-First Reminder email
-<Image src={firstReminder} alt="first reminder" />
-
-Second Reminder Email
-<Image src={secondReminder} alt="second reminder" />
-
+<div className="grid grid-cols-2 gap-2 justify-items-center">
+    <div className="col-span-2">
+        Follow-up Email
+        <Image
+            width={300}
+            src={followUpEmail}
+            alt="follow up email"
+        />
+    </div>
+    <div>
+        First Reminder email
+        <Image
+            width={300}
+            src={firstReminder}
+            alt="first reminder"
+        />
+    </div>
+    <div>
+        Second Reminder Email
+        <Image
+            width={300}
+            src={secondReminder}
+            alt="second reminder"
+        />
+    </div>
+</div>
 
 The gains were not only on the Human Capital's side also the employee filling out the survey experienced times savings.
 The survey would remember them, tab complete responses, and display hints or direction at known sticking points
