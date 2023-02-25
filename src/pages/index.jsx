@@ -226,6 +226,7 @@ function Photos() {
             <ExportedImage
               src={image}
               alt=""
+              layout="fill"
               sizes="(min-width: 640px) 18rem, 11rem"
               className="inset-0 h-full w-full object-cover"
             />
