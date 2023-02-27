@@ -14,6 +14,7 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 
 [orderpost.app](https://orderpost.app)
 
+# Customer Experience
 The process starts when the realtor has a new listing. Part of listing a house is to get the word out by putting up a for sale sign. Realtors can buy all the posts and signs and put them up themselves or use a local contracting company to do the work for them. Many realtors decide to go with the latter because they don't need to spend money up to buy the posts, find a place to store them, or even haul them around.
 
 When a realtor wants to get a post to a listing they enter a place post order through the site. The order specifies the realtors information making the order, what rental assets they want, where the assets should be setup (including how the Realty sign will be hung up), the listing address, and what, if any, special instructions are needed to get to the listing. The realtor then informs the owners a for sale post will be placed in the yard and to mark where not to put the post, and possibly where to put it.
@@ -37,3 +38,8 @@ If after a predetermined time, normally 3-6 months, and the assets are still at 
 There are circumstances where the post and other rental assets could be removed from one listing and placed at another by the realtor. In those circumstances the realtor is invoiced as if the installer did the work themselves. The prior listing will be removed and a new order is placed which requires no work, planning, or approval(?). (What do we do if no approval is obtained - only make the approval a task?)
 
 Placement or removal orders can be canceled up the point they are tasks_completed (the installer left the property). Depending on the circumstances and relationship with the realtor will be invoiced for the time and/or costs including time to receive a third party approval.
+
+# Developer Experience
+A Django project that leverages both django-tenants and django-tenant-users.
+
+The project is full continuous integration and continuous deployment using GitHub actions and AWS's CDK.
