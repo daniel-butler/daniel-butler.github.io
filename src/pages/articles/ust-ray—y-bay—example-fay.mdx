@@ -1,0 +1,116 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Daniel Butler',
+  date: '2023-03-03',
+  title: 'ust-ray y-bay example-fay',
+  description:
+    'Python and Rust code helps translate English to Pig Latin! Learn how to speak like a pro with this code, and avoid the pitfalls of type mismatches in Rust.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+
+This is a part of the series going through the [rust book](https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary). I'm most comfortable with python code, so I've sketched out the program to be written in rust with python first. It help iron out any misunderstandings I may have. 
+
+## Python Version
+
+```python
+words = input()
+
+output_words = []
+for word in words.split(" "):
+	if len(word) == 0:
+		continue
+		
+	start = ""
+	end = "ay"
+	new_word = ""
+	
+	for i, letter in enumerate(word):
+		if letter.lower() in [
+			'a', 'e', 'i', 'o', 'u',
+		]:
+			start = "f" if i == 0 else start
+			new_word = f"{word[i:]}-{start}{end}"
+			break
+		
+		start += letter
+		
+	output_words.append(new_word)
+	
+print(" ".join(output_words))
+```
+
+English Input
+`This is a great example of what it means to speak a foreign language with class.`
+
+Translated
+`is-Thay is-fay a-fay eat-gray example-fay of-fay at-whay it-fay eans-may o-tay eak-spay a-fay oreign-fay anguage-lay ith-way ass.-clay`
+
+## Rust version
+I did use this [stack overflow](https://codereview.stackexchange.com/questions/278267/rust-pig-latin-exercise-solution) to unstick myself. 
+```rust
+use std::io;
+
+fn main() {
+	const VOWELS: [char; 5] = ['a', 'e', 'i', 'o', 'u'];
+
+	let mut input = String::new();
+	io::stdin().read_line(&mut input).expect("E most String");
+	let input = input.trim().to_string();
+	
+	let mut translated_words: Vec<String> = Vec::new();
+	for word in input.split_whitespace() {
+		let mut start = String::new();
+		let mut translated_word = String::new();
+		let mut complete = false;
+		for letter in word.chars() {
+			if complete {
+				translated_word.push(letter);
+				continue
+			}
+			
+			if VOWELS.contains(&letter) {
+				if start.len() == 0 {
+					start = String::from("f");
+				}
+				translated_word.push(letter);
+				complete = true;
+				
+			} else {
+				start.push(letter);
+			}
+		}
+		
+		translated_word = format!("{}-{}ay", translated_word, start);
+		
+		translated_words.push(translated_word);
+	}
+	
+	println!("{}", translated_words.join(" "))
+}
+```
+
+English Input
+`This is a great example of what it means to speak a foreign language with class.`
+
+Translated
+`is-Thay is-fay a-fay eat-gray example-fay of-fay at-whay it-fay eans-may o-tay eak-spay a-fay oreign-fay anguage-lay ith-way ass.-clay`
+
+## Challenges
+Creating the `{}-{}ay` because of Type mismatch of `String` and `str`. The problem seemed to be because I was adding a vector of chars and a string together. 
+
+```
+error[E0308]: mismatched types
+  --> compiler.rs:31:22
+   |
+31 |         translated_word += format!("-{}ay", &(*start.as_str()));
+   |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `&str`, found struct `String`
+   |
+   = note: this error originates in the macro `format` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0308`.
+```
