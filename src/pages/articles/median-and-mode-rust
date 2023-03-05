@@ -1,0 +1,298 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Daniel Butler',
+  date: '2023-03-05',
+  title: 'Median and Mode in Rust',
+  description:
+    'First example in the Rust book. Refactored with ChatGPT 4s help.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+This is the second example I'm working on from the [rust book](https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary).
+
+In python, I've used the statistics standard library module as the test case to validate the code written in the "brute force method". If this was production code, I would use the statistics module instead of rolling my own. 
+
+## Problem Statement
+Given a list of integers, use a vector and return the median (when sorted, the value in the middle position) and mode (the value that occurs most often; a hash map will be helpful here) of the list.
+
+### Input
+```
+[13, 8, 2, 21, 21, 6, 27, 15, 14, 22, 17, 16, 7, 15, 12, 10, 25, 21, 27, 29, 17, 29, 26, 10, 14, 11, 23, 8, 27, 4]
+```
+
+# Median
+What we are looking for is when sorted, the value in the middle position of an array of numbers. When there are an even number of values in the array then find the middle value between the two middle entries. 
+
+## Python
+
+```python
+nums = [
+		13, 8, 2, 21, 21, 6, 27, 15, 14, 22, 17, 16, 7, 15, 12, 10, 25, 21, 27, 29, 17, 29, 26, 10, 14, 11, 23, 8, 27, 4
+]
+
+nums = sorted(nums)
+
+if len(nums) % 2 == 1:
+	median = nums[int(len(nums)/2)]
+else:
+	middle_index = len(nums) / 2
+	first_index = int(middle_index - .5)
+	second_index = int(middle_index + .5)
+	median = (nums[first_index]+nums[second_index])/2
+
+print(f"Median Brute method: {median}")
+
+import statistics
+print(f"Median Standard library method: {statistics.median(nums)}")
+```
+
+Output
+```
+Median Brute method: 15.5
+Median Standard library method: 15.5
+```
+
+## Rust
+
+```rust
+fn main() {
+	let mut nums = vec![13, 8, 2, 21, 21, 6, 27, 15, 14, 22, 17, 16, 7, 15, 12, 10, 25, 21, 27, 29, 17, 29, 26, 10, 14, 11, 23, 8, 27, 4];
+
+	nums.sort();
+	print!("Median: {}", median(&nums))
+}
+
+fn median(nums: &Vec<u32>) -> f32 {
+	let length: f32= nums.len() as f32;
+	let middle_index: f32 = length / 2.;
+	
+	match nums.len() % 2 {
+		0 => {
+			let first= nums[(middle_index - 0.5) as u32 as usize];
+			let second = nums[(middle_index + 0.5) as u32 as usize];
+			return (first as f32 + second as f32) / 2.
+		}
+		_ => {
+			return nums[middle_index as u32 as usize] as f32
+		}
+	}
+}
+```
+
+Output
+```
+Median: 15.5
+```
+
+## Challenges
+
+Not understanding Scope and types being returned. My solution was to put the logic into its own function. 
+```
+error[E0425]: cannot find value `median` in this scope
+  --> compiler.rs:21:23
+   |
+21 |     print!("Median: {}", median)
+   |                          ^^^^^^ not found in this scope
+```
+
+Numbers are not all the same type. I solved it by casting the numbers into the proper type. Sometimes casting the numbers twice because `f32` can't be cast into `usize` type. [This stack overflow](https://stackoverflow.com/a/44552464/7838574) helped get me to the solution. 
+
+```
+error[E0277]: cannot subtract `{float}` from `usize`
+  --> compiler.rs:12:34
+   |
+12 |             let first = nums[middle_index - 0.5];
+   |                                           ^ no implementation for `usize - {float}`
+```
+
+# Mode
+
+## Python
+```python
+nums = [
+		13, 8, 2, 21, 21, 6, 27, 15, 14, 22, 17, 16, 7, 15, 12, 10, 25, 21, 27, 29, 17, 29, 26, 10, 14, 11, 23, 8, 27, 4
+]
+
+count_dict = {}
+for num in nums:
+	count_dict[num] = count_dict.get(num, 0) + 1
+	
+mode_dict = {}
+highest = 0
+for key, value in count_dict.items():
+	val_list = mode_dict.get(value, [])
+	val_list.append(key)
+	mode_dict[value] = val_list
+	if value > highest:
+		highest = value
+
+print(f"Mode Brute force method: {mode_dict[highest]}")
+
+import statistics
+print(f"Mode Standard library method: {statistics.mode(nums)}")
+```
+
+Output
+```
+Mode Brute force method: [21, 27]
+
+statistics.StatisticsError: no unique mode; found 2 equally common values
+```
+The statistics standard library throws an error because there are two most common values. 
+
+## Rust
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+	let mut nums = vec![13, 8, 2, 21, 21, 6, 27, 15, 14, 22, 17, 16, 7, 15, 12, 10, 25, 21, 27, 29, 17, 29, 26, 10, 14, 11, 23, 8, 27, 4];
+	
+	println!("Mode: {:?}", mode(&nums));
+}
+
+fn mode(nums: &Vec<u32>) -> Vec<u32> {
+	let mut counter = HashMap::new();
+	
+	for num in nums {
+		match counter.get(&num) {
+			Some(count) => counter.insert(num, count + 1),
+			None => counter.insert(num, 1)
+		};
+	}
+
+	let mut moder: HashMap<u32, Vec<u32>> = HashMap::new();
+	let mut highest = 0;
+	for (key, value) in &counter {
+		if value > &highest {
+			highest = *value;
+		}
+		match moder.get_mut(&value) {
+			Some(keys) => {
+				let mut ks = keys.to_vec();
+				ks.push(**key);
+				moder.insert(*value, ks);
+			},
+			None => {
+				let mut keys = Vec::new();
+				keys.push(**key);
+				moder.insert(*value, keys);
+			}
+		};
+	}
+	
+	if let Some(keys) = moder.get(&highest) {
+		return keys.to_vec()
+	} else {
+		return Vec::new()
+	};
+}
+```
+
+
+
+When I asked ChatGPT how I can make the code more idiomatic. This was the response
+
+>Here are some suggestions to make the Rust code more idiomatic:
+>
+>1.  Use a `&[u32]` slice instead of a `Vec<u32>` for the function parameters. This allows the function to accept both a `Vec<u32>` and a slice, which is more flexible.
+>2.  Use `unwrap_or` instead of the `match` statement in the `mode` function to insert a value into the hash map with a default value of 1 if the key does not exist.
+>3.  Use `entry` method to insert or update values in the hash map.
+>4.  Use `iter()` method instead of a reference to iterate over the vector elements.
+>5.  Use `collect` method to convert an iterator to a vector.
+>6.  Use `copied` method to create an iterator over the copied elements.
+>7.  Use `cloned` method to create an iterator over the cloned elements.
+>
+>Here's the updated code:
+
+```rust
+use std::collections::HashMap; 
+
+fn main() { 
+    let mut nums = vec![ 13, 8, 2, 21, 21, 6, 27, 15, 14, 22, 17, 16, 7, 15, 12, 10, 25, 21, 27, 29, 17, 29, 26, 10, 14, 11, 23, 8, 27, 4, ]; 
+    nums.sort(); 
+    println!("Median: {}", median(&nums));
+    println!("Mode: {:?}", mode(&nums)); 
+} 
+
+fn median(nums: &[u32]) -> f32 { 
+    let length = nums.len(); 
+    match length % 2 { 
+        0 => { 
+            let first = nums[(length / 2) - 1]; 
+            let second = nums[length / 2]; 
+            (first asf32 + second as f32) / 2.
+         },
+         _ => nums[length / 2] as f32, 
+    } 
+} 
+
+fn mode(nums: &[u32]) ->Vec<u32> { 
+    let mut counter = HashMap::new(); 
+    for num in nums.iter() { 
+        *counter.entry(num).or_insert(0) += 1; 
+    } 
+    
+    let mut moder: HashMap<u32, Vec<u32>> = HashMap::new(); 
+    let mut highest = 0; 
+    for (key, value) in &counter { 
+        if value > &highest { 
+            highest = *value; 
+        } 
+        moder.entry(*value).or_insert_with(Vec::new).push(*key); 
+    } 
+    moder.get(&highest).copied().unwrap_or_default().collect() 
+}
+```
+
+When running the program it produced the following errors
+
+```
+error[E0308]: mismatched types
+  --> compiler.rs:41:59
+   |
+41 |         moder.entry(*value).or_insert_with(Vec::new).push(*key);
+   |                                                      ---- ^^^^ expected `u32`, found `&u32`
+   |                                                      |
+   |                                                      arguments to this function are incorrect
+   |
+note: associated function defined here
+help: consider dereferencing the borrow
+   |
+41 |         moder.entry(*value).or_insert_with(Vec::new).push(**key);
+   |                                                           +
+
+error[E0277]: the trait bound `Vec<u32>: Copy` is not satisfied
+  --> compiler.rs:44:25
+   |
+44 |     moder.get(&highest).copied().unwrap_or_default().collect()
+   |                         ^^^^^^ the trait `Copy` is not implemented for `Vec<u32>`
+   |
+note: required by a bound in `Option::<&T>::copied`
+
+error[E0599]: `Vec<u32>` is not an iterator
+  --> compiler.rs:44:54
+   |
+44 |       moder.get(&highest).copied().unwrap_or_default().collect()
+   |                                                        ^^^^^^^ `Vec<u32>` is not an iterator; try calling `.into_iter()` or `.iter()`
+   |
+   = note: the following trait bounds were not satisfied:
+           `Vec<u32>: Iterator`
+           which is required by `&mut Vec<u32>: Iterator`
+           `[u32]: Iterator`
+           which is required by `&mut [u32]: Iterator`
+
+error: aborting due to 3 previous errors
+
+Some errors have detailed explanations: E0277, E0308, E0599.
+For more information about an error, try `rustc --explain E0277`.
+```
+
+The first error complaining about using a `&key` was easy to fix with another deference. The second error related to copying the `Vec<u32>` , a type on the heap, was fixed by cloning instead. [This stack overflow answer](https://stackoverflow.com/a/63127877/7838574) helped figure that one out. 
+
+What did I learn from ChatGPTs revision? 
+- Use the most flexible type in the scope. Todo: more on Slice vs. Vec
+- Hashmap's `Entry`'s are extremely helpful. 
+> Ensures a value is in the entry by inserting the default if empty, and returns a mutable reference to the value in the entry. [Rust docs](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html)
