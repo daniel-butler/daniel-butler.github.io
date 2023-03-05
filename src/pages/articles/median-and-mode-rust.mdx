@@ -293,6 +293,6 @@ For more information about an error, try `rustc --explain E0277`.
 The first error complaining about using a `&key` was easy to fix with another deference. The second error related to copying the `Vec<u32>` , a type on the heap, was fixed by cloning instead. [This stack overflow answer](https://stackoverflow.com/a/63127877/7838574) helped figure that one out. 
 
 What did I learn from ChatGPTs revision? 
-- Use the most flexible type in the scope. Todo: more on Slice vs. Vec
+- When borrowing a vector it it's probably best to use a slice. [This stack overflow](https://stackoverflow.com/a/32573802/7838574) elucidates it well. 
 - Hashmap's `Entry`'s are extremely helpful. 
 > Ensures a value is in the entry by inserting the default if empty, and returns a mutable reference to the value in the entry. [Rust docs](https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html)
