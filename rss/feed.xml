@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Sun, 05 Mar 2023 14:48:16 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Mar 2023 15:10:37 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -265,7 +265,7 @@ For more information about an error, try `rustc --explain E0277`.
 <p>The first error complaining about using a <code>&amp;key</code> was easy to fix with another deference. The second error related to copying the <code>Vec&lt;u32&gt;</code> , a type on the heap, was fixed by cloning instead. <a href="https://stackoverflow.com/a/63127877/7838574">This stack overflow answer</a> helped figure that one out.</p>
 <p>What did I learn from ChatGPTs revision?</p>
 <ul>
-<li>Use the most flexible type in the scope. Todo: more on Slice vs. Vec</li>
+<li>When borrowing a vector it it&#x27;s probably best to use a slice. <a href="https://stackoverflow.com/a/32573802/7838574">This stack overflow</a> elucidates it well.</li>
 <li>Hashmap&#x27;s <code>Entry</code>&#x27;s are extremely helpful.</li>
 </ul>
 <blockquote>
