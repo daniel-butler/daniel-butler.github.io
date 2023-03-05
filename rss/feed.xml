@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Sun, 05 Mar 2023 15:10:37 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 05 Mar 2023 21:12:14 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -271,6 +271,26 @@ For more information about an error, try `rustc --explain E0277`.
 <blockquote>
 <p>Ensures a value is in the entry by inserting the default if empty, and returns a mutable reference to the value in the entry. <a href="https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html">Rust docs</a></p>
 </blockquote>]]></content:encoded>
+            <author>spencer@planetaria.tech (Spencer Sharp)</author>
+        </item>
+        <item>
+            <title><![CDATA[Rust Book Examples]]></title>
+            <link>https://daniel-butler.com/articles/rust-examples</link>
+            <guid>https://daniel-butler.com/articles/rust-examples</guid>
+            <pubDate>Sun, 05 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Rust Book example and solutions index. Refactored with ChatGPT 4s help.]]></description>
+            <content:encoded><![CDATA[<h2>Introduction</h2>
+<p>This is the collection of completed examples while working  though the excellently written <a href="https://doc.rust-lang.org/stable/book/">rust book</a> on a journey to learn Rust.</p>
+<p>My experience with programming while going through this book is mostly python, a few years of JavaScript, a little less of typescript, and about a year and a half of Java. This is my second attempt to go through the book. At the time, types and differences in computers memory didn&#x27;t really click. This time around the decisions made with the language are making a lot more sense.</p>
+<p>Since I don&#x27;t have any real world problems to solve with rust, I&#x27;m completing every example and will be posting it here. Also, to help give feedback and to test chat gpt I&#x27;m using it to review the code.</p>
+<h2>Chapters</h2>
+<h3>8</h3>
+<ul>
+<li>8.3 <a href="https://www.daniel-butler.com/articles/median-and-mode-rust">Median and Mode</a></li>
+<li>8.3 <a href="https://www.daniel-butler.com/articles/ust-ray%E2%80%94y-bay%E2%80%94example-fay">Pig Latin</a></li>
+<li>8.3 <a href="https://daniel-butler.com">Employee Directory</a></li>
+</ul>
+<p>More to come!</p>]]></content:encoded>
             <author>spencer@planetaria.tech (Spencer Sharp)</author>
         </item>
         <item>
