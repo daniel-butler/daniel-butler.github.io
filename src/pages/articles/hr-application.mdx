@@ -407,6 +407,32 @@ fn record_employee(command: &String, employees: &mut HashMap<String, Vec<String>
 
 Output
 ```
+Welcome: to the employee directory! when you are done type exit.
+============================
+Input: Add Sally to Engineering
+Added Sally to engineering
+Input: Add Amir to Sales
+Added Amir to sales
+Input: Add Juan to Accounting
+Added Juan to accounting
+Input: Add George to HR
+Added George to hr
+Input: Add Eric to Sales
+Added Eric to sales
+Input: Add Sam to Engineering
+Added Sam to engineering
+Input: Add Cole to Engineering
+Added Cole to engineering
+Input: List Employees
+Employees: ["Amir", "Cole", "Eric", "George", "Juan", "Sally", "Sam"]
+Input: List Sales
+Employees in Department sales: ["Amir", "Eric"]
+Input: List Engineering
+Employees in Department engineering: ["Cole", "Sally", "Sam"]
+Input: List HR
+Employees in Department hr: ["George"]
+Input: Exit
+Exiting...
 ```
 
 Overall I'm impressed with the result. I think it helped show how to use the `collect::<T>()` method to convert types and how to use `if let` idiomatically. 
