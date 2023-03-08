@@ -209,32 +209,31 @@ The major hurdle when creating the solution above was the described below. I dec
 
 Question by me:
 
->How to fix this error: “a value of type `Vec<&String>` cannot be built from an iterator over elements of type `&str`” from this line of rust code let command_words: Vec<&String> = command.split_whitespace().collect();
+> How to fix this error: “a value of type `Vec<&String>` cannot be built from an iterator over elements of type `&str`” from this line of rust code let command_words: Vec<&String> = command.split_whitespace().collect();
 
 The response which was very helpful. 
->The error message suggests that the `split_whitespace()` method is returning an iterator over `&str` values, but you are trying to collect them into a `Vec<&String>`, which expects references to `String` values.
->
->To fix this error, you can either change the type of `command_words` to `Vec<&str>`:
->
->```rust
+> The error message suggests that the `split_whitespace()` method is returning an iterator over `&str` values, but you are trying to collect them into a `Vec<&String>`, which expects references to `String` values.
+> To fix this error, you can either change the type of `command_words` to `Vec<&str>`:
+
+```rust
 `let command_words: Vec<&str> = command.split_whitespace().collect();`
->```
->
->Or you can change the type of the elements in the `Vec` to `String` instead of `&String`:
->
->```rust
-`let command_words: Vec<String> = command.split_whitespace().map(String::from).collect();`
->```
->
+```
+
+> Or you can change the type of the elements in the `Vec` to `String` instead of `&String`:
+
+```rust
+let command_words: Vec<String> = command.split_whitespace().map(String::from).collect();`
+```
+
 >The `map()` method is used to transform each `&str` value into a `String` value.
 
 ## Refactoring
 Now time for the refactoring!! I asked how the code above could be more idiomatic. Here was the response. 
 
 >Here are some suggestions to make the Rust code more idiomatic:
->
->1.  Use pattern matching instead of if/else statements:
->
+
+> 1.  Use pattern matching instead of if/else statements:
+
 ```rust
 match cmd.as_str() {
     "add" => {
@@ -268,9 +267,9 @@ match cmd.as_str() {
     }
 }
 ```
->
->2.  Use `if let` instead of `unwrap_or_default`:
->
+
+> 2.  Use `if let` instead of `unwrap_or_default`:
+
 ```rust
 if let Some(emps) = employees.get(&list_type) {
     let mut emps = emps.clone();
@@ -281,16 +280,16 @@ if let Some(emps) = employees.get(&list_type) {
 }
 true
 ```
->
+
 > 3.  Use `flatten` instead of nested loops:
->
+
 ```rust
 let emps = employees.values().flatten().cloned().collect::<Vec<_>>();
 println!("Employees: {:?}", emps);
 true
 
 ```
->
+
 >4.  Use `&str` instead of `String` when possible:
 
 ```rust
@@ -330,9 +329,9 @@ fn record_employee(command: &str, employees: &mut HashMap<String, Vec<String>>) 
     }
 }
 ```
->
->5.  Use `let mut` only when necessary:
->
+
+> 5.  Use `let mut` only when necessary:
+
 ```rust
 let mut emps = Vec::new();
 for dept_emps in employees.values() {
@@ -405,6 +404,7 @@ fn record_employee(command: &String, employees: &mut HashMap<String, Vec<String>
 ```
 
 Output
+
 ```
 Welcome: to the employee directory! when you are done type exit.
 ============================
