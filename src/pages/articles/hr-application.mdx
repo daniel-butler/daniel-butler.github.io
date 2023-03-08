@@ -209,7 +209,14 @@ The major hurdle when creating the solution above was the described below. I dec
 
 Question by me:
 
-> How to fix this error: “a value of type `Vec<&String>` cannot be built from an iterator over elements of type `&str`” from this line of rust code let command_words: Vec<&String> = command.split_whitespace().collect();
+> How to fix this error: 
+```
+a value of type `Vec<&String>` cannot be built from an iterator over elements of type `&str`
+```
+from this line of rust code let command_words: 
+```rust
+Vec<&String> = command.split_whitespace().collect();
+```
 
 The response which was very helpful. 
 > The error message suggests that the `split_whitespace()` method is returning an iterator over `&str` values, but you are trying to collect them into a `Vec<&String>`, which expects references to `String` values.
