@@ -1,0 +1,412 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Daniel Butler',
+  date: '2023-03-08',
+  title: 'Rust HR Example Question',
+  description:
+    'Rust Book example and solution to the HR application exercise',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+This is [the third example problem](https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary) from the rust book. As before there will be a python example then the trust example. 
+
+
+
+## Problem Statement
+Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.
+
+### Input
+
+```
+Add Sally to Engineering
+Add Amir to Sales
+Add Juan to Accounting
+Add George to HR
+Add Eric to Sales
+Add Sam to Engineering
+Add Cole to Engineering
+List Employees
+List Sales
+List Engineering
+List HR
+```
+
+## Python
+This uses a simple while loop and stored the data in a dictionary by department which is flattened with a simple list comprehension. 
+
+```python
+employees = {}
+repeat = True
+
+
+def company(command):
+	command_words = command.split(" ")
+	cmd = command_words[0].lower()
+	if cmd == "add":
+		name = command_words[1]
+		department = command_words[3].lower()
+		emp_department = employees.get(department, [])
+		emp_department.append(name)
+		employees[department] = emp_department
+		print(f"Added {name} to {department}!")
+	elif cmd == "list":
+		list_type = command_words[1].lower()
+		if list_type == "employees":
+			emps = [
+				emp
+				for emps_dep in employees.values()
+				for emp in emps_dep
+			]
+			emps.sort()
+			print(f"Employees: {emps}")
+		else:
+			emps = employees.get(list_type, [])
+			emps.sort()
+			print(f"Employees in Department {list_type}: {emps}")
+	elif cmd in ["exit", "quit"]:
+		print(f"Exiting...")
+		return False
+	
+	return True
+
+
+print("Welcome: to the employee directory! when you are done type exit.\n============================\n")
+
+while repeat:
+	command = input()
+	repeat = company(command)
+	
+```
+
+Output
+```
+Welcome: to the employee directory! when you are done type exit.
+============================
+
+Add Sally to Engineering
+Added Sally to engineering!
+Add Amir to Sales
+Added Amir to sales!
+Add Juan to Accounting
+Added Juan to accounting!
+Add George to HR
+Added George to hr!
+Add Eric to Sales
+Added Eric to sales!
+Add Sam to Engineering
+Added Sam to engineering!
+Add Cole to Engineering
+Added Cole to engineering!
+list employees 
+Employees: ['Amir', 'Cole', 'Eric', 'George', 'Juan', 'Sally', 'Sam']
+list sales
+Employees in Department sales: ['Amir', 'Eric']
+list engineering
+Employees in Department engineering: ['Cole', 'Sally', 'Sam']
+list hr 
+Employees in Department hr: ['George']
+exit
+Exiting...
+```
+
+
+## Rust
+
+This is my original rust solution. The solution takes advantage of the lessons learned from the median and mode refactoring by using entries when modifying `HashMap`s. When running into issues about typing being off or the size not being known at compile time, the errors made more sense. The stack vs. the heap is an integral concept that is never touched on in python. 
+
+```rust
+use std::collections::HashMap;
+use std::io;
+
+fn main() {
+	let mut employees_real: HashMap<String, Vec<String>> = HashMap::new();
+	let mut repeat = true;
+	
+	println!("Welcome: to the employee directory! when you are done type exit.");
+	println!("============================");
+	
+	while repeat {
+		let mut input = String::new();
+		io::stdin().read_line(&mut input).expect("Invalid input!");
+		let input = input.trim().to_string();
+		println!("Input: {}", input);
+		repeat = record_employee(&input, &mut employees_real);
+	}
+}
+
+fn record_employee(command: &String, employees: &mut HashMap<String, Vec<String>>) -> bool {
+	let command_words: Vec<String> = command.split_whitespace().map(String::from).collect();
+	let cmd = command_words[0].to_string().to_lowercase();
+	
+	if cmd == "add" {
+		let name = command_words[1].to_string();
+		let dep = command_words[3].to_string().to_lowercase();
+		println!("Added {} to {}", name, dep);
+		employees.entry(dep).or_insert_with(Vec::new).push(name);
+		return true;
+	} else if cmd == "list" {
+		let list_type = command_words[1].to_lowercase();
+		
+		if list_type == "employees" {
+			let mut emps = Vec::new();
+			for (_dept, dept_emps) in employees.iter() {
+				for emp in dept_emps.into_iter() {
+					emps.push(emp);
+				}
+			}
+			emps.sort();
+			println!("Employees: {:?}", emps);
+			return true;
+		} else {
+			let nut emps = employees.get(&list_type).cloned().unwrap_or_default();
+			emps.sort();
+			println!("Employees in Department {}: {:?}", list_type, emps);
+			return true;
+		}
+	} else {
+		println!("Exiting...");
+		return false;
+	}
+}
+```
+
+
+Output
+```
+Welcome: to the employee directory! when you are done type exit.
+============================
+Input: Add Sally to Engineering
+Added Sally to engineering
+Input: Add Amir to Sales
+Added Amir to sales
+Input: Add Juan to Accounting
+Added Juan to accounting
+Input: Add George to HR
+Added George to hr
+Input: Add Eric to Sales
+Added Eric to sales
+Input: Add Sam to Engineering
+Added Sam to engineering
+Input: Add Cole to Engineering
+Added Cole to engineering
+Input: List Employees
+Employees: ["Amir", "Cole", "Eric", "George", "Juan", "Sally", "Sam"]
+Input: List Sales
+Employees in Department sales: ["Amir", "Eric"]
+Input: List Engineering
+Employees in Department engineering: ["Cole", "Sally", "Sam"]
+Input: List HR
+Employees in Department hr: ["George"]
+Input: Exit
+Exiting...
+```
+
+Looks good!!
+
+### Challenges
+The major hurdle when creating the solution above was the described below. I decided to try asking ChatGPT for some help... 
+
+Question by me:
+
+>How to fix this error: “a value of type `Vec<&String>` cannot be built from an iterator over elements of type `&str`” from this line of rust code let command_words: Vec<&String> = command.split_whitespace().collect();
+
+The response which was very helpful. 
+>The error message suggests that the `split_whitespace()` method is returning an iterator over `&str` values, but you are trying to collect them into a `Vec<&String>`, which expects references to `String` values.
+>
+>To fix this error, you can either change the type of `command_words` to `Vec<&str>`:
+>
+>```rust
+`let command_words: Vec<&str> = command.split_whitespace().collect();`
+>```
+>
+>Or you can change the type of the elements in the `Vec` to `String` instead of `&String`:
+>
+>```rust
+`let command_words: Vec<String> = command.split_whitespace().map(String::from).collect();`
+>```
+>
+>The `map()` method is used to transform each `&str` value into a `String` value.
+
+## Refactoring
+Now time for the refactoring!! I asked how the code above could be more idiomatic. Here was the response. 
+
+>Here are some suggestions to make the Rust code more idiomatic:
+>
+>1.  Use pattern matching instead of if/else statements:
+>
+```rust
+match cmd.as_str() {
+    "add" => {
+        let name = command_words[1].to_string();
+        let dep = command_words[3].to_string().to_lowercase();
+        println!("Added {} to {}", name, dep);
+        employees.entry(dep).or_insert_with(Vec::new).push(name);
+        true
+    }
+    "list" => {
+        let list_type = command_words[1].to_lowercase();
+
+        if list_type == "employees" {
+            let mut emps = Vec::new();
+            for (_dept, dept_emps) in employees.iter() {
+                emps.extend(dept_emps);
+            }
+            emps.sort();
+            println!("Employees: {:?}", emps);
+            true
+        } else {
+            let mut emps = employees.get(&list_type).cloned().unwrap_or_default();
+            emps.sort();
+            println!("Employees in Department {}: {:?}", list_type, emps);
+            true
+        }
+    }
+    _ => {
+        println!("Exiting...");
+        false
+    }
+}
+```
+>
+>2.  Use `if let` instead of `unwrap_or_default`:
+>
+```rust
+if let Some(emps) = employees.get(&list_type) {
+    let mut emps = emps.clone();
+    emps.sort();
+    println!("Employees in Department {}: {:?}", list_type, emps);
+} else {
+    println!("Department {} not found", list_type);
+}
+true
+```
+>
+> 3.  Use `flatten` instead of nested loops:
+>
+```rust
+let emps = employees.values().flatten().cloned().collect::<Vec<_>>();
+println!("Employees: {:?}", emps);
+true
+
+```
+>
+>4.  Use `&str` instead of `String` when possible:
+
+```rust
+fn record_employee(command: &str, employees: &mut HashMap<String, Vec<String>>) -> bool {
+    let command_words: Vec<_> = command.split_whitespace().collect();
+    let cmd = command_words[0].to_lowercase();
+
+    match cmd.as_str() {
+        "add" => {
+            let name = command_words[1].to_string();
+            let dep = command_words[3].to_lowercase();
+            println!("Added {} to {}", name, dep);
+            employees.entry(dep).or_insert_with(Vec::new).push(name);
+            true
+        }
+        "list" => {
+            let list_type = command_words[1].to_lowercase();
+
+            if list_type == "employees" {
+                let emps = employees.values().flatten().cloned().collect::<Vec<_>>();
+                println!("Employees: {:?}", emps);
+                true
+            } else if let Some(emps) = employees.get(&list_type) {
+                let mut emps = emps.clone();
+                emps.sort();
+                println!("Employees in Department {}: {:?}", list_type, emps);
+                true
+            } else {
+                println!("Department {} not found", list_type);
+                true
+            }
+        }
+        _ => {
+            println!("Exiting...");
+            false
+        }
+    }
+}
+```
+>
+>5.  Use `let mut` only when necessary:
+>
+```rust
+let mut emps = Vec::new();
+for dept_emps in employees.values() {
+    emps.extend(dept_emps);
+}
+emps.sort();
+println!("Employees: {:?}", emps);
+true
+```
+
+Since it is broken into a few sections. I've put it all into a working code block below with the exception of point #5 because it conflicts with the flatten method #3. Flatten makes more sense to me. It is debatable that #5 is a clearer way to express the logic. 
+
+```rust
+use std::collections::HashMap;
+use std::io;
+
+fn main() {
+	let mut employees_real: HashMap<String, Vec<String>> = HashMap::new();
+	let mut repeat = true;
+	
+	println!("Welcome: to the employee directory! when you are done type exit.");
+	println!("============================");
+	
+	while repeat {
+		let mut input = String::new();
+		io::stdin().read_line(&mut input).expect("Invalid input!");
+		let input = input.trim().to_string();
+		println!("Input: {}", input);
+		repeat = record_employee(&input, &mut employees_real);
+	}
+}
+
+fn record_employee(command: &String, employees: &mut HashMap<String, Vec<String>>) -> bool {
+	let command_words: Vec<_> = command.split_whitespace().collect();
+	let cmd = command_words[0].to_lowercase();
+	
+	match cmd.as_str() {
+		
+		"add" => {
+		    let name = command_words[1].to_string();
+		    let dep = command_words[3].to_lowercase();
+		    println!("Added {} to {}", name, dep);
+		    employees.entry(dep).or_insert_with(Vec::new).push(name);
+		    true
+	    }
+		
+	    "list" => {
+		    let list_type = command_words[1].to_lowercase();
+		
+		    if list_type == "employees" {
+			    let mut emps = employees.values().flatten().cloned().collect::<Vec<_>>();
+			    emps.sort();
+			    println!("Employees: {:?}", emps);
+		    } else if let Some(emps) = employees.get(&list_type) {
+				let mut emps = emps.clone();
+				emps.sort();
+				println!("Employees in Department {}: {:?}", list_type, emps);
+			} else {
+				println!("Department {} not found", list_type);
+			}
+			true
+	    }
+		
+	    _ => {
+		    println!("Exiting...");
+		    false
+	    }
+	}
+}
+```
+
+Output
+```
+```
+
+Overall I'm impressed with the result. I think it helped show how to use the `collect::<T>()` method to convert types and how to use `if let` idiomatically. 
