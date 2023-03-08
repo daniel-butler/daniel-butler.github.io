@@ -11,7 +11,7 @@ export const meta = {
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
 # Overview
-This is [the third example problem](https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary) from the rust book. As before there will be a python example then the trust example. 
+This is [the third example problem](https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary) from the rust book. As before there will be a python example then the Rust example. 
 
 ## Problem Statement
 Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.
@@ -33,7 +33,7 @@ List HR
 ```
 
 ## Python
-This uses a simple while loop and stored the data in a dictionary by department which is flattened with a simple list comprehension. 
+This uses a simple while loop and stores the data in a dictionary by department which is flattened with a simple list comprehension. 
 
 ```python
 employees = {}
@@ -205,17 +205,15 @@ Exiting...
 Looks good!!
 
 ### Challenges
-The major hurdle when creating the solution above was the described below. I decided to try asking ChatGPT for some help... 
+The major hurdle when creating the solution above was how to split the input by whitespace into a vector of strings.  I asked ChatGPT for some help... 
 
-Question by me:
-
-> How to fix this error: 
+> How can this error be fixed?
 ```
 a value of type `Vec<&String>` cannot be built from an iterator over elements of type `&str`
 ```
-from this line of rust code let command_words: 
+> the error comes from this line of rust code: 
 ```rust
-Vec<&String> = command.split_whitespace().collect();
+let command_words: Vec<&String> = command.split_whitespace().collect();
 ```
 
 The response which was very helpful. 
