@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Wed, 08 Mar 2023 13:16:19 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 08 Mar 2023 13:37:21 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -20,7 +20,7 @@
             <pubDate>Wed, 08 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Rust Book example and solution to the HR application exercise.]]></description>
             <content:encoded><![CDATA[<h1>Overview</h1>
-<p>This is <a href="https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary">the third example problem</a> from the rust book. As before there will be a python example then the trust example.</p>
+<p>This is <a href="https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary">the third example problem</a> from the rust book. As before there will be a python example then the Rust example.</p>
 <h2>Problem Statement</h2>
 <p>Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.</p>
 <h3>Input</h3>
@@ -37,7 +37,7 @@ List Engineering
 List HR
 </code></pre>
 <h2>Python</h2>
-<p>This uses a simple while loop and stored the data in a dictionary by department which is flattened with a simple list comprehension.</p>
+<p>This uses a simple while loop and stores the data in a dictionary by department which is flattened with a simple list comprehension.</p>
 <pre class="language-python"><code class="language-python">employees <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 repeat <span class="token operator">=</span> <span class="token boolean">True</span>
 
@@ -195,15 +195,16 @@ Exiting...
 </code></pre>
 <p>Looks good!!</p>
 <h3>Challenges</h3>
-<p>The major hurdle when creating the solution above was the described below. I decided to try asking ChatGPT for some help...</p>
-<p>Question by me:</p>
+<p>The major hurdle when creating the solution above was how to split the input by whitespace into a vector of strings.  I asked ChatGPT for some help...</p>
 <blockquote>
-<p>How to fix this error:</p>
+<p>How can this error be fixed?</p>
 </blockquote>
 <pre><code>a value of type `Vec&lt;&amp;String&gt;` cannot be built from an iterator over elements of type `&amp;str`
 </code></pre>
-<p>from this line of rust code let command_words:</p>
-<pre class="language-rust"><code class="language-rust"><span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<blockquote>
+<p>the error comes from this line of rust code:</p>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">let</span> command_words<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The response which was very helpful.</p>
 <blockquote>
