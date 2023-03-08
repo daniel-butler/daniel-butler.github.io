@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Mon, 06 Mar 2023 03:11:17 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 08 Mar 2023 13:16:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,422 @@
             <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2023</copyright>
+        <item>
+            <title><![CDATA[Rust HR Example Question]]></title>
+            <link>https://daniel-butler.com/articles/hr-application</link>
+            <guid>https://daniel-butler.com/articles/hr-application</guid>
+            <pubDate>Wed, 08 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Rust Book example and solution to the HR application exercise.]]></description>
+            <content:encoded><![CDATA[<h1>Overview</h1>
+<p>This is <a href="https://doc.rust-lang.org/stable/book/ch08-03-hash-maps.html#summary">the third example problem</a> from the rust book. As before there will be a python example then the trust example.</p>
+<h2>Problem Statement</h2>
+<p>Using a hash map and vectors, create a text interface to allow a user to add employee names to a department in a company. For example, “Add Sally to Engineering” or “Add Amir to Sales.” Then let the user retrieve a list of all people in a department or all people in the company by department, sorted alphabetically.</p>
+<h3>Input</h3>
+<pre><code>Add Sally to Engineering
+Add Amir to Sales
+Add Juan to Accounting
+Add George to HR
+Add Eric to Sales
+Add Sam to Engineering
+Add Cole to Engineering
+List Employees
+List Sales
+List Engineering
+List HR
+</code></pre>
+<h2>Python</h2>
+<p>This uses a simple while loop and stored the data in a dictionary by department which is flattened with a simple list comprehension.</p>
+<pre class="language-python"><code class="language-python">employees <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+repeat <span class="token operator">=</span> <span class="token boolean">True</span>
+
+
+<span class="token keyword">def</span> <span class="token function">company</span><span class="token punctuation">(</span>command<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	command_words <span class="token operator">=</span> command<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">&quot; &quot;</span><span class="token punctuation">)</span>
+	cmd <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> cmd <span class="token operator">==</span> <span class="token string">&quot;add&quot;</span><span class="token punctuation">:</span>
+		name <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+		department <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+		emp_department <span class="token operator">=</span> employees<span class="token punctuation">.</span>get<span class="token punctuation">(</span>department<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+		emp_department<span class="token punctuation">.</span>append<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+		employees<span class="token punctuation">[</span>department<span class="token punctuation">]</span> <span class="token operator">=</span> emp_department
+		<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Added </span><span class="token interpolation"><span class="token punctuation">{</span>name<span class="token punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token punctuation">{</span>department<span class="token punctuation">}</span></span><span class="token string">!&quot;</span></span><span class="token punctuation">)</span>
+	<span class="token keyword">elif</span> cmd <span class="token operator">==</span> <span class="token string">&quot;list&quot;</span><span class="token punctuation">:</span>
+		list_type <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span>
+		<span class="token keyword">if</span> list_type <span class="token operator">==</span> <span class="token string">&quot;employees&quot;</span><span class="token punctuation">:</span>
+			emps <span class="token operator">=</span> <span class="token punctuation">[</span>
+				emp
+				<span class="token keyword">for</span> emps_dep <span class="token keyword">in</span> employees<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span>
+				<span class="token keyword">for</span> emp <span class="token keyword">in</span> emps_dep
+			<span class="token punctuation">]</span>
+			emps<span class="token punctuation">.</span>sort<span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Employees: </span><span class="token interpolation"><span class="token punctuation">{</span>emps<span class="token punctuation">}</span></span><span class="token string">&quot;</span></span><span class="token punctuation">)</span>
+		<span class="token keyword">else</span><span class="token punctuation">:</span>
+			emps <span class="token operator">=</span> employees<span class="token punctuation">.</span>get<span class="token punctuation">(</span>list_type<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+			emps<span class="token punctuation">.</span>sort<span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Employees in Department </span><span class="token interpolation"><span class="token punctuation">{</span>list_type<span class="token punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token punctuation">{</span>emps<span class="token punctuation">}</span></span><span class="token string">&quot;</span></span><span class="token punctuation">)</span>
+	<span class="token keyword">elif</span> cmd <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token string">&quot;exit&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;quit&quot;</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+		<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f&quot;Exiting...&quot;</span></span><span class="token punctuation">)</span>
+		<span class="token keyword">return</span> <span class="token boolean">False</span>
+	
+	<span class="token keyword">return</span> <span class="token boolean">True</span>
+
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Welcome: to the employee directory! when you are done type exit.\n============================\n&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">while</span> repeat<span class="token punctuation">:</span>
+	command <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	repeat <span class="token operator">=</span> company<span class="token punctuation">(</span>command<span class="token punctuation">)</span>
+	
+</code></pre>
+<p>Output</p>
+<pre><code>Welcome: to the employee directory! when you are done type exit.
+============================
+
+Add Sally to Engineering
+Added Sally to engineering!
+Add Amir to Sales
+Added Amir to sales!
+Add Juan to Accounting
+Added Juan to accounting!
+Add George to HR
+Added George to hr!
+Add Eric to Sales
+Added Eric to sales!
+Add Sam to Engineering
+Added Sam to engineering!
+Add Cole to Engineering
+Added Cole to engineering!
+list employees 
+Employees: [&#x27;Amir&#x27;, &#x27;Cole&#x27;, &#x27;Eric&#x27;, &#x27;George&#x27;, &#x27;Juan&#x27;, &#x27;Sally&#x27;, &#x27;Sam&#x27;]
+list sales
+Employees in Department sales: [&#x27;Amir&#x27;, &#x27;Eric&#x27;]
+list engineering
+Employees in Department engineering: [&#x27;Cole&#x27;, &#x27;Sally&#x27;, &#x27;Sam&#x27;]
+list hr 
+Employees in Department hr: [&#x27;George&#x27;]
+exit
+Exiting...
+</code></pre>
+<h2>Rust</h2>
+<p>This is my original rust solution. The solution takes advantage of the lessons learned from the median and mode refactoring by using entries when modifying <code>HashMap</code>s. When running into issues about typing being off or the size not being known at compile time, the errors made more sense. The stack vs. the heap is an integral concept that is never touched on in python.</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>collections<span class="token punctuation">::</span></span><span class="token class-name">HashMap</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>io<span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">let</span> <span class="token keyword">mut</span> employees_real<span class="token punctuation">:</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;&gt;</span> <span class="token operator">=</span> <span class="token class-name">HashMap</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">let</span> <span class="token keyword">mut</span> repeat <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	
+	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Welcome: to the employee directory! when you are done type exit.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;============================&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">while</span> repeat <span class="token punctuation">{</span>
+		<span class="token keyword">let</span> <span class="token keyword">mut</span> input <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token namespace">io<span class="token punctuation">::</span></span><span class="token function">stdin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">read_line</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> input<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">&quot;Invalid input!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">let</span> input <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Input: {}&quot;</span><span class="token punctuation">,</span> input<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		repeat <span class="token operator">=</span> <span class="token function">record_employee</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>input<span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> employees_real<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">record_employee</span><span class="token punctuation">(</span>command<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token punctuation">,</span> employees<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">bool</span> <span class="token punctuation">{</span>
+	<span class="token keyword">let</span> command_words<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">::</span>from<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">let</span> cmd <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">if</span> cmd <span class="token operator">==</span> <span class="token string">&quot;add&quot;</span> <span class="token punctuation">{</span>
+		<span class="token keyword">let</span> name <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">let</span> dep <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Added {} to {}&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> dep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		employees<span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span>dep<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">or_insert_with</span><span class="token punctuation">(</span><span class="token class-name">Vec</span><span class="token punctuation">::</span>new<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> cmd <span class="token operator">==</span> <span class="token string">&quot;list&quot;</span> <span class="token punctuation">{</span>
+		<span class="token keyword">let</span> list_type <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		
+		<span class="token keyword">if</span> list_type <span class="token operator">==</span> <span class="token string">&quot;employees&quot;</span> <span class="token punctuation">{</span>
+			<span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">for</span> <span class="token punctuation">(</span>_dept<span class="token punctuation">,</span> dept_emps<span class="token punctuation">)</span> <span class="token keyword">in</span> employees<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">for</span> emp <span class="token keyword">in</span> dept_emps<span class="token punctuation">.</span><span class="token function">into_iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					emps<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>emp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+			emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees: {:?}&quot;</span><span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+			<span class="token keyword">let</span> nut emps <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>list_type<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cloned</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap_or_default</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees in Department {}: {:?}&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+		<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Exiting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Output</p>
+<pre><code>Welcome: to the employee directory! when you are done type exit.
+============================
+Input: Add Sally to Engineering
+Added Sally to engineering
+Input: Add Amir to Sales
+Added Amir to sales
+Input: Add Juan to Accounting
+Added Juan to accounting
+Input: Add George to HR
+Added George to hr
+Input: Add Eric to Sales
+Added Eric to sales
+Input: Add Sam to Engineering
+Added Sam to engineering
+Input: Add Cole to Engineering
+Added Cole to engineering
+Input: List Employees
+Employees: [&quot;Amir&quot;, &quot;Cole&quot;, &quot;Eric&quot;, &quot;George&quot;, &quot;Juan&quot;, &quot;Sally&quot;, &quot;Sam&quot;]
+Input: List Sales
+Employees in Department sales: [&quot;Amir&quot;, &quot;Eric&quot;]
+Input: List Engineering
+Employees in Department engineering: [&quot;Cole&quot;, &quot;Sally&quot;, &quot;Sam&quot;]
+Input: List HR
+Employees in Department hr: [&quot;George&quot;]
+Input: Exit
+Exiting...
+</code></pre>
+<p>Looks good!!</p>
+<h3>Challenges</h3>
+<p>The major hurdle when creating the solution above was the described below. I decided to try asking ChatGPT for some help...</p>
+<p>Question by me:</p>
+<blockquote>
+<p>How to fix this error:</p>
+</blockquote>
+<pre><code>a value of type `Vec&lt;&amp;String&gt;` cannot be built from an iterator over elements of type `&amp;str`
+</code></pre>
+<p>from this line of rust code let command_words:</p>
+<pre class="language-rust"><code class="language-rust"><span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The response which was very helpful.</p>
+<blockquote>
+<p>The error message suggests that the <code>split_whitespace()</code> method is returning an iterator over <code>&amp;str</code> values, but you are trying to collect them into a <code>Vec&lt;&amp;String&gt;</code>, which expects references to <code>String</code> values.
+To fix this error, you can either change the type of <code>command_words</code> to <code>Vec&lt;&amp;str&gt;</code>:</p>
+</blockquote>
+<pre class="language-rust"><code class="language-rust">`<span class="token keyword">let</span> command_words<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>`
+</code></pre>
+<blockquote>
+<p>Or you can change the type of the elements in the <code>Vec</code> to <code>String</code> instead of <code>&amp;String</code>:</p>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">let</span> command_words<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">::</span>from<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>`
+</code></pre>
+<blockquote>
+<p>The <code>map()</code> method is used to transform each <code>&amp;str</code> value into a <code>String</code> value.</p>
+</blockquote>
+<h2>Refactoring</h2>
+<p>Now time for the refactoring!! I asked how the code above could be more idiomatic. Here was the response.</p>
+<blockquote>
+<p>Here are some suggestions to make the Rust code more idiomatic:</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>Use pattern matching instead of if/else statements:</li>
+</ol>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">match</span> cmd<span class="token punctuation">.</span><span class="token function">as_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;add&quot;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> name <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> dep <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Added {} to {}&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> dep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        employees<span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span>dep<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">or_insert_with</span><span class="token punctuation">(</span><span class="token class-name">Vec</span><span class="token punctuation">::</span>new<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+    <span class="token string">&quot;list&quot;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> list_type <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> list_type <span class="token operator">==</span> <span class="token string">&quot;employees&quot;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>_dept<span class="token punctuation">,</span> dept_emps<span class="token punctuation">)</span> <span class="token keyword">in</span> employees<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                emps<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span>dept_emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees: {:?}&quot;</span><span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token boolean">true</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>list_type<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cloned</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap_or_default</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees in Department {}: {:?}&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    _ <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Exiting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<ol start="2">
+<li>Use <code>if let</code> instead of <code>unwrap_or_default</code>:</li>
+</ol>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>emps<span class="token punctuation">)</span> <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>list_type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> emps<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees in Department {}: {:?}&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Department {} not found&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token boolean">true</span>
+</code></pre>
+<blockquote>
+<ol start="3">
+<li>Use <code>flatten</code> instead of nested loops:</li>
+</ol>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">let</span> emps <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">flatten</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cloned</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Vec</span><span class="token operator">&lt;</span>_<span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees: {:?}&quot;</span><span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token boolean">true</span>
+
+</code></pre>
+<blockquote>
+<ol start="4">
+<li>Use <code>&amp;str</code> instead of <code>String</code> when possible:</li>
+</ol>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">record_employee</span><span class="token punctuation">(</span>command<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">,</span> employees<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">bool</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> command_words<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span>_<span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> cmd <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">match</span> cmd<span class="token punctuation">.</span><span class="token function">as_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;add&quot;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> name <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> dep <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Added {} to {}&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> dep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            employees<span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span>dep<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">or_insert_with</span><span class="token punctuation">(</span><span class="token class-name">Vec</span><span class="token punctuation">::</span>new<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+        <span class="token string">&quot;list&quot;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">let</span> list_type <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">if</span> list_type <span class="token operator">==</span> <span class="token string">&quot;employees&quot;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">let</span> emps <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">flatten</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cloned</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Vec</span><span class="token operator">&lt;</span>_<span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees: {:?}&quot;</span><span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token boolean">true</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>emps<span class="token punctuation">)</span> <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>list_type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> emps<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees in Department {}: {:?}&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token boolean">true</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Department {} not found&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token boolean">true</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        _ <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Exiting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<ol start="5">
+<li>Use <code>let mut</code> only when necessary:</li>
+</ol>
+</blockquote>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> <span class="token class-name">Vec</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> dept_emps <span class="token keyword">in</span> employees<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    emps<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span>dept_emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees: {:?}&quot;</span><span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token boolean">true</span>
+</code></pre>
+<p>Since it is broken into a few sections. I&#x27;ve put it all into a working code block below with the exception of point #5 because it conflicts with the flatten method #3. Flatten makes more sense to me. It is debatable that #5 is a clearer way to express the logic.</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>collections<span class="token punctuation">::</span></span><span class="token class-name">HashMap</span><span class="token punctuation">;</span>
+<span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>io<span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">let</span> <span class="token keyword">mut</span> employees_real<span class="token punctuation">:</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;&gt;</span> <span class="token operator">=</span> <span class="token class-name">HashMap</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">let</span> <span class="token keyword">mut</span> repeat <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	
+	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Welcome: to the employee directory! when you are done type exit.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;============================&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">while</span> repeat <span class="token punctuation">{</span>
+		<span class="token keyword">let</span> <span class="token keyword">mut</span> input <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token namespace">io<span class="token punctuation">::</span></span><span class="token function">stdin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">read_line</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> input<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">&quot;Invalid input!&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">let</span> input <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Input: {}&quot;</span><span class="token punctuation">,</span> input<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		repeat <span class="token operator">=</span> <span class="token function">record_employee</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>input<span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> employees_real<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">record_employee</span><span class="token punctuation">(</span>command<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token class-name">String</span><span class="token punctuation">,</span> employees<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">bool</span> <span class="token punctuation">{</span>
+	<span class="token keyword">let</span> command_words<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span>_<span class="token operator">&gt;</span> <span class="token operator">=</span> command<span class="token punctuation">.</span><span class="token function">split_whitespace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">let</span> cmd <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">match</span> cmd<span class="token punctuation">.</span><span class="token function">as_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		
+		<span class="token string">&quot;add&quot;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+		    <span class="token keyword">let</span> name <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    <span class="token keyword">let</span> dep <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Added {} to {}&quot;</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> dep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    employees<span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span>dep<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">or_insert_with</span><span class="token punctuation">(</span><span class="token class-name">Vec</span><span class="token punctuation">::</span>new<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    <span class="token boolean">true</span>
+	    <span class="token punctuation">}</span>
+		
+	    <span class="token string">&quot;list&quot;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+		    <span class="token keyword">let</span> list_type <span class="token operator">=</span> command_words<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">to_lowercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		
+		    <span class="token keyword">if</span> list_type <span class="token operator">==</span> <span class="token string">&quot;employees&quot;</span> <span class="token punctuation">{</span>
+			    <span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">flatten</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">cloned</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">::</span><span class="token operator">&lt;</span><span class="token class-name">Vec</span><span class="token operator">&lt;</span>_<span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			    emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees: {:?}&quot;</span><span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>emps<span class="token punctuation">)</span> <span class="token operator">=</span> employees<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>list_type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">let</span> <span class="token keyword">mut</span> emps <span class="token operator">=</span> emps<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				emps<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Employees in Department {}: {:?}&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">,</span> emps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Department {} not found&quot;</span><span class="token punctuation">,</span> list_type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+			<span class="token boolean">true</span>
+	    <span class="token punctuation">}</span>
+		
+	    _ <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+		    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Exiting...&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		    <span class="token boolean">false</span>
+	    <span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Output</p>
+<pre><code>Welcome: to the employee directory! when you are done type exit.
+============================
+Input: Add Sally to Engineering
+Added Sally to engineering
+Input: Add Amir to Sales
+Added Amir to sales
+Input: Add Juan to Accounting
+Added Juan to accounting
+Input: Add George to HR
+Added George to hr
+Input: Add Eric to Sales
+Added Eric to sales
+Input: Add Sam to Engineering
+Added Sam to engineering
+Input: Add Cole to Engineering
+Added Cole to engineering
+Input: List Employees
+Employees: [&quot;Amir&quot;, &quot;Cole&quot;, &quot;Eric&quot;, &quot;George&quot;, &quot;Juan&quot;, &quot;Sally&quot;, &quot;Sam&quot;]
+Input: List Sales
+Employees in Department sales: [&quot;Amir&quot;, &quot;Eric&quot;]
+Input: List Engineering
+Employees in Department engineering: [&quot;Cole&quot;, &quot;Sally&quot;, &quot;Sam&quot;]
+Input: List HR
+Employees in Department hr: [&quot;George&quot;]
+Input: Exit
+Exiting...
+</code></pre>
+<p>Overall I&#x27;m impressed with the result. I think it helped show how to use the <code>collect::&lt;T&gt;()</code> method to convert types and how to use <code>if let</code> idiomatically.</p>]]></content:encoded>
+            <author>spencer@planetaria.tech (Spencer Sharp)</author>
+        </item>
         <item>
             <title><![CDATA[Median and Mode in Rust]]></title>
             <link>https://daniel-butler.com/articles/median-and-mode-rust</link>
