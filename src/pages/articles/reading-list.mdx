@@ -1,7 +1,14 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
 
+export const meta = {
+  author: 'Daniel Butler',
+  date: '2023-03-17',
+  title: 'Good Reads',
+  description:
+    'Collection of articles',
+}
 
-
-
+export default (props) => <ArticleLayout meta={meta} {...props} />
 
 # Overview
  List of articles I've found helpful, insightful, and want to remember.
