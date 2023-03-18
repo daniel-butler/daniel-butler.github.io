@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Wed, 15 Mar 2023 10:57:18 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 18 Mar 2023 03:32:19 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,20 @@
             <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2023</copyright>
+        <item>
+            <title><![CDATA[Good Reads]]></title>
+            <link>https://daniel-butler.com/articles/reading-list</link>
+            <guid>https://daniel-butler.com/articles/reading-list</guid>
+            <pubDate>Fri, 17 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Collection of articles]]></description>
+            <content:encoded><![CDATA[<h1>Overview</h1>
+<p>List of articles I&#x27;ve found helpful, insightful, and want to remember.</p>
+<h2>List</h2>
+<ul>
+<li><a href="https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding">https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding</a></li>
+</ul>]]></content:encoded>
+            <author>spencer@planetaria.tech (Spencer Sharp)</author>
+        </item>
         <item>
             <title><![CDATA[Rust HR Example Question]]></title>
             <link>https://daniel-butler.com/articles/hr-application</link>
