@@ -5,11 +5,15 @@ export const meta = {
     author: 'Daniel Butler',
     date: '2020-11-30',
     title: 'Remote Cat Laser Toy',
-    description: 'Automated cat laser controled remotely. ',
+    description: 'Remote controlled laser pointer for cat entertainment. ',
     logo: logoOpenShuttle,
     platform: null,
 }
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-Automated cat laser controled remotely.
+This was a fun side project inspired by Adafruit's [Cat Laser project](https://github.com/adafruit/CatLaser2/). The project was a remote controlled laser pointer that could be moved by looking at the camera and clicking different locations. 
+
+The project had a different set of complexities than I had dealt with before. It had a webserver which was responsible for displaying the video feed, calibrating the laser to the video displayed, converting the mouse clicks on the video to the servo coordinates, and communicating the coordinates to the raspberry pi via MQTT. The raspberry pi was responsible for accepting the coordinates then sending them to the servo and projecting a video feed from an attached camera. 
+
+The project was written in flask with several exertions to work with MQTT and the video feed. 
