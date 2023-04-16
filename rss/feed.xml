@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Tue, 11 Apr 2023 05:17:06 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 16 Apr 2023 10:02:59 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -24,6 +24,7 @@
 <h2>List</h2>
 <ul>
 <li><a href="https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding">https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding</a></li>
+<li><a href="https://skamille.medium.com/an-incomplete-list-of-skills-senior-engineers-need-beyond-coding-8ed4a521b29f">https://skamille.medium.com/an-incomplete-list-of-skills-senior-engineers-need-beyond-coding-8ed4a521b29f</a></li>
 </ul>]]></content:encoded>
             <author>spencer@planetaria.tech (Spencer Sharp)</author>
         </item>

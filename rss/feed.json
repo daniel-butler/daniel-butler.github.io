@@ -11,7 +11,7 @@
     "items": [
         {
             "id": "https://daniel-butler.com/articles/reading-list",
-            "content_html": "<h1>Overview</h1>\n<p>List of articles I&#x27;ve found helpful, insightful, and want to remember.</p>\n<h2>List</h2>\n<ul>\n<li><a href=\"https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding\">https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding</a></li>\n</ul>",
+            "content_html": "<h1>Overview</h1>\n<p>List of articles I&#x27;ve found helpful, insightful, and want to remember.</p>\n<h2>List</h2>\n<ul>\n<li><a href=\"https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding\">https://www.scattered-thoughts.net/writing/reflections-on-a-decade-of-coding</a></li>\n<li><a href=\"https://skamille.medium.com/an-incomplete-list-of-skills-senior-engineers-need-beyond-coding-8ed4a521b29f\">https://skamille.medium.com/an-incomplete-list-of-skills-senior-engineers-need-beyond-coding-8ed4a521b29f</a></li>\n</ul>",
             "url": "https://daniel-butler.com/articles/reading-list",
             "title": "Good Reads",
             "summary": "Collection of articles",
