@@ -60,34 +60,33 @@ export default function About() {
           </div>
           <div className="lg:order-first lg:row-span-2">
             <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-              I’m Daniel Butler. I live in Tampa Florida, where I flourish.
+              Hey, you!
             </h1>
             <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
               <p>
-                I’ve loved making things for as long as I can remember, and
-                wrote my first program when I was 6 years old, just two weeks
-                after my mom brought home the brand new Macintosh LC 550 that I
-                taught myself to type on.
+                These are hardly ever read, so I’ll keep it short and sweet.
               </p>
               <p>
-                The only thing I loved more than computers as a kid was space.
-                When I was 8, I climbed the 40-foot oak tree at the back of our
-                yard while wearing my older sister’s motorcycle helmet, counted
-                down from three, and jumped — hoping the tree was tall enough
-                that with just a bit of momentum I’d be able to get to orbit.
+                I went to school and started my career as an Accountant.
+                Because my boss and mentor at the time believed in my ability to learn and technical aptitude he gave me the space to explore and thrive as a software developer.
+                The first true development project was fixing a <a href={"./projects/receipt-capture"}>webpage</a> a consulting company developed for us (The CORE Group).
+                After that, I was hooked.
+                During my tenure at The CORE Group, we automated and digitized the entire Accounting process, to the point that when COVID hit none of the Accounting department needed to go to the office, even increasing efficiency and accuracy.
+                To a large extend we used the Business Process Management software <a href={"https://www.docuphase.com/"}>DocuPhase</a>.
+                We were doing things with DocuPhase that impressed them enough to invited me to <a href={"./speaking"}>speak as a keynote at their conference</a>.
+              </p>
+
+              <p>
+                After a few years of building various websites and honing the processes <a href={"./platforms"}>Connect Platform</a>, the company I worked for was acquired.
+                After the acquisition, my job at the new company moved away from software development which lead me to work at Amazon.
+                At Amazon, I’m apart of the Fulfillment Technology organization.
+                My work centers around Authentication, User Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.
+                Each one of those has at least one Tier one service associated with it.
+                Meaning that they are business critical and cannot go down.
+                The team at Amazon is great and is teaching me a lot about what it means to be a hire performing team and how to think and take criticism, with minimal ego.
               </p>
               <p>
-                I spent the next few summers indoors working on a rocket design,
-                while I recovered from the multiple surgeries it took to fix my
-                badly broken legs. It took nine iterations, but when I was 15 I
-                sent my dad’s Blackberry into orbit and was able to transmit a
-                photo back down to our family computer from space.
-              </p>
-              <p>
-                Today, I’m the founder of Planetaria, where we’re working on
-                civilian space suits and manned shuttle kits you can assemble at
-                home so that the next generation of kids really <em>can</em>{' '}
-                make it to orbit — from the comfort of their own backyards.
+                Also, on the side I run a Real Estate Post Rental website service <a href={"https://orderpost.app"}>Order Post App</a>.
               </p>
             </div>
           </div>
