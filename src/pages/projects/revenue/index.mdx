@@ -1,5 +1,9 @@
 import {ArticleLayout} from '@/components/ArticleLayout'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
+import revenueLandingPage from '@/pages/projects/revenue/revenue-landing-page.png'
+import revenueDemoVideo from '@/pages/projects/revenue/revenue-demo-video.mp4' import ExportedImage
+    from "next-image-export-optimizer";
+
 
 export const meta = {
     author: 'Daniel Butler',
@@ -13,6 +17,12 @@ export const meta = {
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
 # List
+<ExportedImage
+    width={650}
+    src={revenueLandingPage}
+    alt="hr login"
+/>
+
 fully automated journal entry creation based on a breakdown
 - Read excel files than generated the corresponding journal entries
 - Help save a lot of time
@@ -27,4 +37,3 @@ fully automated journal entry creation based on a breakdown
 - Figured out the department the checks were for
 - built with cqrs/ddd - really Shouldn't have been. It added too much overhead. 
 - The problem being solved didn't have heavy domain logic
-- 
