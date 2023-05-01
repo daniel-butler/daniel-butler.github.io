@@ -69,15 +69,15 @@ export default function About() {
               <p>
                 I went to school and started my career as an Accountant.
                 Because my boss and mentor at the time believed in my ability to learn and technical aptitude he gave me the space to explore and thrive as a software developer.
-                The first true development project was fixing a <a href={"./projects/receipt-capture"}>webpage</a> a consulting company developed for us (The CORE Group).
+                The first true development project was fixing a <a className={"text-sm font-medium text-teal-500"} href={"./projects/receipt-capture"}>webpage</a> a consulting company developed for us at The CORE Group.
                 After that, I was hooked.
                 During my tenure at The CORE Group, we automated and digitized the entire Accounting process, to the point that when COVID hit none of the Accounting department needed to go to the office, even increasing efficiency and accuracy.
-                To a large extend we used the Business Process Management software <a href={"https://www.docuphase.com/"}>DocuPhase</a>.
-                We were doing things with DocuPhase that impressed them enough to invited me to <a href={"./speaking"}>speak as a keynote at their conference</a>.
+                To a large extend we used the Business Process Management software <a className={"text-sm font-medium text-teal-500"} href={"https://www.docuphase.com/"}>DocuPhase</a>.
+                We were doing things with DocuPhase that impressed them enough to invited me to <a className={"text-sm font-medium text-teal-500"} href={"./speaking"}>speak as a keynote at their conference</a>.
               </p>
 
               <p>
-                After a few years of building various websites and honing the processes <a href={"./platforms"}>Connect Platform</a>, the company I worked for was acquired.
+                After a few years of building various websites and honing the processes <a className={"text-sm font-medium text-teal-500"} href={"./platforms"}>Connect Platform</a>, the company I worked for was acquired.
                 After the acquisition, my job at the new company moved away from software development which lead me to work at Amazon.
                 At Amazon, I’m apart of the Fulfillment Technology organization.
                 My work centers around Authentication, User Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.
@@ -86,7 +86,7 @@ export default function About() {
                 The team at Amazon is great and is teaching me a lot about what it means to be a hire performing team and how to think and take criticism, with minimal ego.
               </p>
               <p>
-                Also, on the side I run a Real Estate Post Rental website service <a href={"https://orderpost.app"}>Order Post App</a>.
+                Also, on the side I run a Real Estate Post Rental website service <a className={"text-sm font-medium text-teal-500"} href={"https://orderpost.app"}>Order Post App</a>.
               </p>
             </div>
           </div>
