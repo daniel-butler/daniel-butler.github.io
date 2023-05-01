@@ -12,4 +12,19 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-# TODO: Add Content
+# List
+fully automated journal entry creation based on a breakdown
+- Read excel files than generated the corresponding journal entries
+- Help save a lot of time
+- Was built piece meal until the final product which automated the full process
+- Commission statements had location and dates
+- The company was comprised of many different companies which required a lot of intercompany entries 
+- Flask application
+- Integrated with the accounting system dynamics nav
+- read through the excel tabs
+- displayed AR aging for all companies from the accounting system
+- auto calculated the invoice line that would go into the companies customer account that recorded the payment. 
+- Figured out the department the checks were for
+- built with cqrs/ddd - really Shouldn't have been. It added too much overhead. 
+- The problem being solved didn't have heavy domain logic
+- 
