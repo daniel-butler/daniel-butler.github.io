@@ -15,19 +15,33 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-# List
+# Overview
+The project was a webpage that automated the most difficult and tedious journal entries the revenue team had to complete.
+Additionally, aggregated aging data across the various entities tracked separately in the accounting system.
+The combined aging data was used to streamline the month end closing process.
+
 <ExportedImage
     width={650}
     src={revenueLandingPage}
     alt="hr login"
 />
 
-fully automated journal entry creation based on a breakdown
-- Read excel files than generated the corresponding journal entries
+## Features and Value added
+
+### Automated Journal Entries
+The webpage took an Excel file broken down by location and generated the various intercompany and Customer Invoice entries to clean up the Customer Aging.
+The webpage was processed by the backend server to pull out the relevant data reducing the fields needed to be entered.
+The final result was a csv file that was imported into each Companies .
+
+
+### Aging
+
+
+## Development Process
+
 - Help save a lot of time
 - Was built piece meal until the final product which automated the full process
-- Commission statements had location and dates
-- The company was comprised of many different companies which required a lot of intercompany entries 
+
 - Flask application
 - Integrated with the accounting system dynamics nav
 - read through the excel tabs
@@ -39,5 +53,5 @@ fully automated journal entry creation based on a breakdown
 
 <video
     className="aspect-video"
-    src="/projects/revenue/revenue-demo-video.mp4"
+    src="/media/revenue-demo-video.mp4"
 />
