@@ -71,7 +71,7 @@ def generate_imports():
         # ...
     )
     bus.handle(cmd)
-    return bus.uow.response  # TODO: see if there is a better way to return this!
+    return bus.uow.response  # TODO: see if there is a better way!
 ```
  In order to support the synchronous nature of the request/response of the webserver the message bus had to have separate methods to return a value.
 
@@ -80,29 +80,53 @@ class MessageBus:
     ...
 
     def handle_with_return_value(self, message: Message) -> typing.Any:
-        """Only handles message... Will not handle the events generated from the message (Command or Event) parameter"""
+        """Only handles message...
+        Will not handle the events generated
+        from the message (Command or Event) parameter
+        """
         if isinstance(message, events.Event):
-            logger.debug(f'Handling message of type Event with result value')
+            logger.debug(
+                'Handling message of type '
+                'Event with result value'
+            )
             try:
                 handler = self.event_handlers[type(message)]
-                return handler(message)  # <--------------------------------- Return happening here
+                return handler(message)  # <-- Return happening here
             except KeyError as e:
-                logger.exception(f'Exception handling Event {message} no handler set')
+                logger.exception(
+                    f'Exception handling Event '
+                    f'{message} no handler set'
+                )
                 raise
             except Exception as e:
-                logger.exception(f'Exception handling Event with return value {message} error: {e}', exc_info=True)
+                logger.exception(
+                    f'Exception handling Event with '
+                    f'return value {message} error: {e}',
+                    exc_info=True
+                )
                 raise
 
         if isinstance(message, commands.Command):
-            logger.debug(f'Handling message of type Command with result value')
+            logger.debug(
+                'Handling message of type '
+                'Command with result value'
+            )
             try:
                 handler = self.command_handlers[type(message)]
-                return handler(message)  # <--------------------------------- Return happening here
+                return handler(message)  # <-- Return happening here
             except KeyError as e:
-                logger.exception(f'Exception handling Command {message} no handler set', exc_info=True)
+                logger.exception(
+                    f'Exception handling Command '
+                    f'{message} no handler set',
+                    exc_info=True
+                )
                 raise
             except Exception as e:
-                logger.exception(f'Exception handling Command with return value {message} error: {e}', exc_info=True)
+                logger.exception(
+                    f'Exception handling Command with '
+                    f'return value {message} error: {e}',
+                    exc_info=True
+                )
                 raise
 ```
 
