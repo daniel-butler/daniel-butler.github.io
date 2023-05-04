@@ -16,6 +16,7 @@ export const meta = {
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
 # Overview
+
 The project was a webpage that automated the most difficult and tedious journal entries the revenue team had to complete.
 Additionally, aggregated aging data across the various entities tracked separately in the accounting system.
 The combined aging data was used to streamline the month end closing process.
@@ -105,7 +106,7 @@ class MessageBus:
                 raise
 ```
 
-Both of those broke crux of the Command and Query Responsibility Segregation.
+Both of those broke the crux of the Command and Query Responsibility Segregation which was used as the architecture of the codebase.
 
 ## Extras
 Because we could leverage the current process the team used the Excel file that was parsed used tab names to delineate which one to use.
