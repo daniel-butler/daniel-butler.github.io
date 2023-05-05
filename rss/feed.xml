@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Fri, 05 May 2023 14:09:57 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 05 May 2023 14:16:34 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -992,6 +992,10 @@ For more information about an error, try `rustc --explain E0277`.
 <li>8.3 <a href="https://www.daniel-butler.com/articles/median-and-mode-rust">Median and Mode</a></li>
 <li>8.3 <a href="https://www.daniel-butler.com/articles/ust-ray%E2%80%94y-bay%E2%80%94example-fay">Pig Latin</a></li>
 <li>8.3 <a href="https://daniel-butler.com">Employee Directory</a></li>
+</ul>
+<h3>17</h3>
+<ul>
+<li>3 <a href="https://www.daniel-butler.com/articles/rust-dyn-traits-example">Dynamic Traits</a></li>
 </ul>
 <p>More to come!</p>]]></content:encoded>
             <author>spencer@planetaria.tech (Spencer Sharp)</author>
