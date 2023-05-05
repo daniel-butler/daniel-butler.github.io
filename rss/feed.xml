@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Thu, 04 May 2023 23:57:01 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 05 May 2023 14:09:57 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,277 @@
             <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2023</copyright>
+        <item>
+            <title><![CDATA[Rust Book Dynamic Traits Example]]></title>
+            <link>https://daniel-butler.com/articles/rust-dyn-traits-example</link>
+            <guid>https://daniel-butler.com/articles/rust-dyn-traits-example</guid>
+            <pubDate>Fri, 05 May 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Expanding on the example in Rust Book's chapter 17 section 3. Refactored with ChatGPT 4s help.]]></description>
+            <content:encoded><![CDATA[<h2>Overview</h2>
+<p>The example comes from the prompt below in the <a href="https://doc.rust-lang.org/book/ch17-03-oo-design-patterns.html">rust book&#x27;s chapter 17 section 3</a>.</p>
+<blockquote>
+<p>To see the simplicity of maintaining code that uses the state pattern, try a few of these suggestions:</p>
+<ul>
+<li>Add a <code>reject</code> method that changes the post’s state from <code>PendingReview</code> back to <code>Draft</code>.</li>
+<li>Require two calls to <code>approve</code> before the state can be changed to <code>Published</code>.</li>
+<li>Allow users to add text content only when a post is in the <code>Draft</code> state. Hint: have the state object responsible for what might change about the content but not responsible for modifying the <code>Post</code>.</li>
+</ul>
+</blockquote>
+<h3>Result</h3>
+<p>Below is the code I wrote to solve the three challenges above. I struggled with getting the value for the <code>Optional&lt;Box&lt;...&gt;&gt;</code>. I&#x27;m starting to grasp that it all goes back to the types when working with rust. Types are not as big of a deal in Python, so that is taking some getting used to.</p>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">blog<span class="token punctuation">::</span></span><span class="token class-name">Post</span><span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> <span class="token keyword">mut</span> post <span class="token operator">=</span> <span class="token class-name">Post</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    post<span class="token punctuation">.</span><span class="token function">add_text</span><span class="token punctuation">(</span><span class="token string">&quot;I ate a salad for lunch today&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">assert_eq!</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> post<span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    post<span class="token punctuation">.</span><span class="token function">request_review</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">assert_eq!</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> post<span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	post<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token macro property">assert_eq!</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> post<span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	post<span class="token punctuation">.</span><span class="token function">request_review</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">assert_eq!</span><span class="token punctuation">(</span><span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> post<span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	post<span class="token punctuation">.</span><span class="token function">approve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	post<span class="token punctuation">.</span><span class="token function">approve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token macro property">assert_eq!</span><span class="token punctuation">(</span><span class="token string">&quot;I ate a salad for lunch today&quot;</span><span class="token punctuation">,</span> post<span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">mod</span> <span class="token module-declaration namespace">blog</span> <span class="token punctuation">{</span>
+	<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">Post</span> <span class="token punctuation">{</span>
+		state<span class="token punctuation">:</span> <span class="token class-name">Option</span><span class="token operator">&lt;</span><span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">,</span>
+		content<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token keyword">impl</span> <span class="token class-name">Post</span> <span class="token punctuation">{</span>
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Post</span> <span class="token punctuation">{</span>
+			<span class="token class-name">Post</span> <span class="token punctuation">{</span>
+				state<span class="token punctuation">:</span> <span class="token class-name">Some</span><span class="token punctuation">(</span><span class="token class-name">Box</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">Draft</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+				content<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">add_text</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">as_ref</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;Can add content: {}&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">can_add_content</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			
+				<span class="token keyword">if</span> s<span class="token punctuation">.</span><span class="token function">can_add_content</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+					<span class="token keyword">self</span><span class="token punctuation">.</span>content<span class="token punctuation">.</span><span class="token function">push_str</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">content</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">&amp;</span><span class="token keyword">str</span> <span class="token punctuation">{</span>
+			<span class="token keyword">let</span> content <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">as_ref</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">content</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">&quot;content: {}&quot;</span><span class="token punctuation">,</span> content<span class="token punctuation">)</span><span class="token punctuation">;</span>
+			content
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">request_review</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">request_review</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">approve</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">approve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">reject</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token keyword">trait</span> <span class="token type-definition class-name">State</span> <span class="token punctuation">{</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">request_review</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">approve</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">reject</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">content</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">&#x27;a</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> _post<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&#x27;a</span> <span class="token class-name">Post</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&#x27;a</span> <span class="token keyword">str</span> <span class="token punctuation">{</span>
+		 	<span class="token string">&quot;&quot;</span>
+		 <span class="token punctuation">}</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">can_add_content</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">bool</span> <span class="token punctuation">{</span>
+			<span class="token boolean">false</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">struct</span> <span class="token type-definition class-name">Draft</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+	
+	<span class="token keyword">impl</span> <span class="token class-name">State</span> <span class="token keyword">for</span> <span class="token class-name">Draft</span> <span class="token punctuation">{</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">request_review</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+			<span class="token class-name">Box</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">PendingReview</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">fn</span> <span class="token function-definition function">approve</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+		 	<span class="token keyword">self</span>
+		<span class="token punctuation">}</span>
+		 
+		<span class="token keyword">fn</span> <span class="token function-definition function">reject</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+		 	<span class="token keyword">self</span>
+		<span class="token punctuation">}</span>
+		 
+		<span class="token keyword">fn</span> <span class="token function-definition function">can_add_content</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">bool</span> <span class="token punctuation">{</span>
+			<span class="token boolean">true</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token keyword">struct</span> <span class="token type-definition class-name">PendingReview</span> <span class="token punctuation">{</span>
+		reviews<span class="token punctuation">:</span> <span class="token keyword">i8</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">impl</span> <span class="token class-name">PendingReview</span> <span class="token punctuation">{</span>
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">PendingReview</span> <span class="token punctuation">{</span>
+			<span class="token class-name">PendingReview</span> <span class="token punctuation">{</span> reviews<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">add_review</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+			<span class="token keyword">self</span><span class="token punctuation">.</span>reviews <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">get_reviews</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token keyword">i8</span> <span class="token punctuation">{</span>
+			<span class="token keyword">self</span><span class="token punctuation">.</span>reviews
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">impl</span> <span class="token class-name">State</span> <span class="token keyword">for</span> <span class="token class-name">PendingReview</span> <span class="token punctuation">{</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">request_review</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+			<span class="token keyword">self</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">fn</span> <span class="token function-definition function">approve</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+			<span class="token keyword">let</span> <span class="token keyword">mut</span> state <span class="token operator">=</span> <span class="token class-name">PendingReview</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			state<span class="token punctuation">.</span><span class="token function">add_review</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		
+			<span class="token keyword">if</span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">as_ref</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get_reviews</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+				<span class="token class-name">Box</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span>
+			<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+				<span class="token class-name">Box</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">Published</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">fn</span> <span class="token function-definition function">reject</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+		 	<span class="token class-name">Box</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">Draft</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+		 <span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	
+	<span class="token keyword">struct</span> <span class="token type-definition class-name">Published</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+	
+	<span class="token keyword">impl</span> <span class="token class-name">State</span> <span class="token keyword">for</span> <span class="token class-name">Published</span> <span class="token punctuation">{</span>
+		<span class="token keyword">fn</span> <span class="token function-definition function">request_review</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+			<span class="token keyword">self</span>
+		<span class="token punctuation">}</span>
+		
+		<span class="token keyword">fn</span> <span class="token function-definition function">approve</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+		 	<span class="token keyword">self</span>
+		 <span class="token punctuation">}</span>
+		 
+		<span class="token keyword">fn</span> <span class="token function-definition function">reject</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">:</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">Self</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Box</span><span class="token operator">&lt;</span><span class="token keyword">dyn</span> <span class="token class-name">State</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+		 	<span class="token keyword">self</span>
+		 <span class="token punctuation">}</span>
+		 
+		<span class="token keyword">fn</span> <span class="token function-definition function">content</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">&#x27;a</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> post<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&#x27;a</span> <span class="token class-name">Post</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&#x27;a</span> <span class="token keyword">str</span> <span class="token punctuation">{</span>
+			<span class="token operator">&amp;</span>post<span class="token punctuation">.</span>content
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2>Refinement</h2>
+<p>Now, what can be learned from asking ChatGPT?</p>
+<p>Open AI&#x27;s ChatGPT prompt.</p>
+<pre><code>Refactor this code to be more performant.
+</code></pre>
+<h3>Response</h3>
+<p>One possible way to make the code more performant is to avoid unnecessary allocations and cloning of data. One such example is in the <code>content()</code> method of the <code>State</code> trait, where the content is cloned unnecessarily.</p>
+<ol>
+<li>Instead, we can use a reference to the existing content to avoid the clone:</li>
+</ol>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">content</span><span class="token operator">&lt;</span><span class="token lifetime-annotation symbol">&#x27;a</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> post<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&#x27;a</span> <span class="token class-name">Post</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">&#x27;a</span> <span class="token keyword">str</span> <span class="token punctuation">{</span>
+    <span class="token operator">&amp;</span>post<span class="token punctuation">.</span>content
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="2">
+<li>Similarly, in the <code>add_text()</code> method of the <code>Post</code> struct, we can use a reference to the text to avoid the allocation and copying of the string:</li>
+</ol>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">add_text</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">Some</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span><span class="token function">as_ref</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> s<span class="token punctuation">.</span><span class="token function">can_add_content</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">self</span><span class="token punctuation">.</span>content<span class="token punctuation">.</span><span class="token function">push_str</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ol start="3">
+<li>We can also avoid unnecessary boxing and dynamic dispatch by using an enum instead of a trait object for the state of the post. This can simplify the code and make it more efficient:</li>
+</ol>
+<pre class="language-rust"><code class="language-rust"><span class="token keyword">mod</span> <span class="token module-declaration namespace">blog</span> <span class="token punctuation">{</span>
+    <span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">Post</span> <span class="token punctuation">{</span>
+        state<span class="token punctuation">:</span> <span class="token class-name">State</span><span class="token punctuation">,</span>
+        content<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token attribute attr-name">#[derive(Debug)]</span>
+    <span class="token keyword">enum</span> <span class="token type-definition class-name">State</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Draft</span> <span class="token punctuation">{</span> can_add_content<span class="token punctuation">:</span> <span class="token keyword">bool</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token class-name">PendingReview</span> <span class="token punctuation">{</span> reviews<span class="token punctuation">:</span> <span class="token keyword">i8</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token class-name">Published</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">impl</span> <span class="token class-name">Post</span> <span class="token punctuation">{</span>
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token class-name">Post</span> <span class="token punctuation">{</span>
+            <span class="token class-name">Post</span> <span class="token punctuation">{</span>
+                state<span class="token punctuation">:</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">Draft</span> <span class="token punctuation">{</span> can_add_content<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                content<span class="token punctuation">:</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">add_text</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> text<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">Draft</span> <span class="token punctuation">{</span> can_add_content<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token punctuation">{</span>
+                <span class="token keyword">self</span><span class="token punctuation">.</span>content<span class="token punctuation">.</span><span class="token function">push_str</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">content</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-&gt;</span> <span class="token operator">&amp;</span><span class="token keyword">str</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">Published</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token punctuation">{</span>
+                <span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">.</span>content
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token string">&quot;&quot;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">request_review</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">Draft</span> <span class="token punctuation">{</span> <span class="token punctuation">..</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token punctuation">{</span>
+                <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">PendingReview</span> <span class="token punctuation">{</span> reviews<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">approve</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">PendingReview</span> <span class="token punctuation">{</span> reviews <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token punctuation">{</span>
+                <span class="token operator">*</span>reviews <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token operator">*</span>reviews <span class="token operator">&gt;=</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">Published</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">pub</span> <span class="token keyword">fn</span> <span class="token function-definition function">reject</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token keyword">let</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">PendingReview</span> <span class="token punctuation">{</span> <span class="token punctuation">..</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token punctuation">{</span>
+                <span class="token keyword">self</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token class-name">State</span><span class="token punctuation">::</span><span class="token class-name">Draft</span> <span class="token punctuation">{</span> can_add_content<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>With these changes, the code should be more efficient and performant.</p>
+<h2>Summary</h2>
+<p>For the first two points, as best I can tell, it is already happening. And the last point is fair and even called out in the rusty book. We used <code>Box</code>s to show how they work with <code>dyn trait</code>s. Overall because I didn&#x27;t come up with a majority of the code it didn&#x27;t leave a lot of room for ChatGPT to fix it.</p>]]></content:encoded>
+            <author>spencer@planetaria.tech (Spencer Sharp)</author>
+        </item>
         <item>
             <title><![CDATA[Good Reads]]></title>
             <link>https://daniel-butler.com/articles/reading-list</link>
