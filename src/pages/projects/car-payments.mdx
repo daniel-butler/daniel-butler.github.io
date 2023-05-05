@@ -1,0 +1,23 @@
+import {ArticleLayout} from '@/components/ArticleLayout'
+import logoCoreFS from '@/images/logos/core-foodservice.svg'
+
+export const meta = {
+    author: 'Daniel Butler',
+    date: '2019-04-01',
+    title: 'Car Payments',
+    description: 'Automated adding employees into car payment platforms used.',
+    logo: logoCoreFS,
+    platform: 'Connect',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+## Overview
+When this was first developed it was a simple integration layer of the HR system into our car payments platform.
+The value is gave was to automatically remove terminated employees saving money whenever it was missed manually.
+Eventually, the service became an integral part and when The CORE Group and Acosta merged it was used as an example of how to properly integrate with a car payment platform.
+
+## Summary
+When implementing this task I learned the importance of making sure the functionality works the first time.
+There was a few rough patches where the employees were not being added and there was no monitoring in place to catch it.
+Once everything was working smoothly, it was a guide for how I developed other integrations.

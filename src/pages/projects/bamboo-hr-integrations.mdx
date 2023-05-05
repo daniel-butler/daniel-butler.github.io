@@ -1,0 +1,42 @@
+import {ArticleLayout} from '@/components/ArticleLayout'
+import logoCoreFS from '@/images/logos/core-foodservice.svg'
+
+export const meta = {
+    author: 'Daniel Butler',
+    date: '2019-01-01',
+    title: 'BambooHR Integrations',
+    description: 'BambooHR integration caching layer used for many different projects.',
+    logo: logoCoreFS,
+    platform: 'Connect',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+## Overview
+When developing the connect platform there needed to be information for each employee than was available in DocuPhase.
+The human capital management, BambooHR, provided a set of APIs at an individual and a custom limited view level, but necessary data was not readily available.
+An example of the data required was the hierarchy change to pull out anyone who reported to a director in their management chain and had not submitted an expense report need to be included in the reminder email.
+Some employees required five steps to get to a director.
+
+The solution was to programmatically call the BambooHR APIs at an individual level saving the data in a staging database.
+Essentially creating a caching layer other systems in the connect ecosystem could leverage.
+
+## Development
+The application was developed using a cli interface that could be used adhoc or via a scheduled task.
+It was developed following event driven architecture, which honestly was a bit overkill.
+
+## Integrations
+Eventually, as the scope of the requirements expanded the logic was adapted from a pure caching replication layer to the source of truth and home for various integrations.
+
+The integrations included the following projects.
+- [Out of Field](/projects/out-of-field). The entire logic flow was contained in the package, more details in the link.
+- [Car Payments](/projects/car-payments). The entire logic flow was contained in the package, more details in the link.
+- [COViD screener](/projects/covid-screener). The integration provided HR information like employees who are out for the day, the escalation path, who received reminders, and validation of the employee data entered.
+- [Receipt Capture](/projects/receipt-capture) Validation of employee data
+- [Expense Report](/projects/expense-reports) Hierarchy maps for expense reporting approvals.
+- When Acosta and The CORE Group merged it was the backbone of most of the integrations into the Acosta Corporate systems for reporting, payment information, etc.
+
+## Summary
+What a learned from this integration was how much the scope of a project can expand beyond what was originally considered.
+If I was to do it again. I would have removed the even driven architecture.
+It added unneeded complexity and was never finished because it did not fit the problem space.
