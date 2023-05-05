@@ -1,0 +1,290 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Daniel Butler',
+  date: '2023-05-05',
+  title: 'Rust Book Dynamic Traits Example',
+  description:
+    'Expanding on the example in Rust Book's chapter 17 section 3. Refactored with ChatGPT 4s help.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+## Overview
+The example comes from the prompt below in the [rust book's chapter 17 section 3](https://doc.rust-lang.org/book/ch17-03-oo-design-patterns.html). 
+
+> To see the simplicity of maintaining code that uses the state pattern, try a few of these suggestions:
+>
+> -   Add a `reject` method that changes the post’s state from `PendingReview` back to `Draft`.
+> -   Require two calls to `approve` before the state can be changed to `Published`.
+> -   Allow users to add text content only when a post is in the `Draft` state. Hint: have the state object responsible for what might change about the content but not responsible for modifying the `Post`.
+
+
+
+### Result
+Below is the code I wrote to solve the three challenges above. I struggled with getting the value for the `Optional<Box<...>>`. I'm starting to grasp that it all goes back to the types when working with rust. Types are not as big of a deal in Python, so that is taking some getting used to. 
+
+```rust
+use blog::Post;
+
+fn main() {
+    let mut post = Post::new();
+
+    post.add_text("I ate a salad for lunch today");
+    assert_eq!("", post.content());
+
+    post.request_review();
+    assert_eq!("", post.content());
+	
+	post.reject();
+	assert_eq!("", post.content());
+	
+	post.request_review();
+    assert_eq!("", post.content());
+	
+	post.approve();
+	post.approve();
+	assert_eq!("I ate a salad for lunch today", post.content());
+}
+
+
+mod blog {
+	pub struct Post {
+		state: Option<Box<dyn State>>,
+		content: String,
+	}
+	
+	impl Post {
+		pub fn new() -> Post {
+			Post {
+				state: Some(Box::new(Draft {})),
+				content: String::new(),
+			}
+		}
+		
+		pub fn add_text(&mut self, text: &str) {
+			if let Some(s) = self.state.as_ref() {
+				println!("Can add content: {}", s.can_add_content());
+			
+				if s.can_add_content() {
+					self.content.push_str(text);
+				}
+			}
+		}
+		
+		pub fn content(&self) -> &str {
+			let content = self.state.as_ref().unwrap().content(self);
+			println!("content: {}", content);
+			content
+		}
+		
+		pub fn request_review(&mut self) {
+			if let Some(s) = self.state.take() {
+				self.state = Some(s.request_review())
+			}
+		}
+		
+		pub fn approve(&mut self) {
+			if let Some(s) = self.state.take() {
+				self.state = Some(s.approve());
+			}
+		}
+		
+		pub fn reject(&mut self) {
+			if let Some(s) = self.state.take() {
+				self.state = Some(s.reject());
+			}
+		}
+	}
+	
+	trait State {
+		fn request_review(self: Box<Self>) -> Box<dyn State>;
+		fn approve(self: Box<Self>) -> Box<dyn State>;
+		fn reject(self: Box<Self>) -> Box<dyn State>;
+		fn content<'a>(&self, _post: &'a Post) -> &'a str {
+		 	""
+		 }
+		fn can_add_content(&self) -> bool {
+			false
+		}
+	}
+
+	struct Draft {}
+	
+	impl State for Draft {
+		fn request_review(self: Box<Self>) -> Box<dyn State> {
+			Box::new(PendingReview::new())
+		}
+		
+		fn approve(self: Box<Self>) -> Box<dyn State> {
+		 	self
+		}
+		 
+		fn reject(self: Box<Self>) -> Box<dyn State> {
+		 	self
+		}
+		 
+		fn can_add_content(&self) -> bool {
+			true
+		}
+	}
+	
+	struct PendingReview {
+		reviews: i8
+	}
+	impl PendingReview {
+		pub fn new() -> PendingReview {
+			PendingReview { reviews: 0 }
+		}
+		
+		pub fn add_review(&mut self) {
+			self.reviews += 1;
+		}
+		
+		pub fn get_reviews(&self) -> i8 {
+			self.reviews
+		}
+	}
+	impl State for PendingReview {
+		fn request_review(self: Box<Self>) -> Box<dyn State> {
+			self
+		}
+		
+		fn approve(self: Box<Self>) -> Box<dyn State> {
+			let mut state = PendingReview::new();
+			state.add_review();
+		
+			if self.as_ref().get_reviews() == 0 {
+				Box::new(state)
+			} else {
+				Box::new(Published {})
+			}
+		}
+		
+		fn reject(self: Box<Self>) -> Box<dyn State> {
+		 	Box::new(Draft {})
+		 }
+	}
+	
+	struct Published {}
+	
+	impl State for Published {
+		fn request_review(self: Box<Self>) -> Box<dyn State> {
+			self
+		}
+		
+		fn approve(self: Box<Self>) -> Box<dyn State> {
+		 	self
+		 }
+		 
+		fn reject(self: Box<Self>) -> Box<dyn State> {
+		 	self
+		 }
+		 
+		fn content<'a>(&self, post: &'a Post) -> &'a str {
+			&post.content
+		}
+	}
+}
+```
+
+
+## Refinement
+Now, what can be learned from asking ChatGPT?
+
+Open AI's ChatGPT prompt. 
+
+```
+Refactor this code to be more performant.
+```
+
+### Response
+
+One possible way to make the code more performant is to avoid unnecessary allocations and cloning of data. One such example is in the `content()` method of the `State` trait, where the content is cloned unnecessarily.
+
+1. Instead, we can use a reference to the existing content to avoid the clone:
+
+```rust
+fn content<'a>(&self, post: &'a Post) -> &'a str {
+    &post.content
+}
+```
+
+2. Similarly, in the `add_text()` method of the `Post` struct, we can use a reference to the text to avoid the allocation and copying of the string:
+
+```rust
+pub fn add_text(&mut self, text: &str) {
+    if let Some(s) = self.state.as_ref() {
+        if s.can_add_content() {
+            self.content.push_str(text);
+        }
+    }
+}
+```
+
+3. We can also avoid unnecessary boxing and dynamic dispatch by using an enum instead of a trait object for the state of the post. This can simplify the code and make it more efficient:
+
+```rust
+mod blog {
+    pub struct Post {
+        state: State,
+        content: String,
+    }
+
+    #[derive(Debug)]
+    enum State {
+        Draft { can_add_content: bool },
+        PendingReview { reviews: i8 },
+        Published,
+    }
+
+    impl Post {
+        pub fn new() -> Post {
+            Post {
+                state: State::Draft { can_add_content: true },
+                content: String::new(),
+            }
+        }
+
+        pub fn add_text(&mut self, text: &str) {
+            if let State::Draft { can_add_content: true } = self.state {
+                self.content.push_str(text);
+            }
+        }
+
+        pub fn content(&self) -> &str {
+            if let State::Published = self.state {
+                &self.content
+            } else {
+                ""
+            }
+        }
+
+        pub fn request_review(&mut self) {
+            if let State::Draft { .. } = self.state {
+                self.state = State::PendingReview { reviews: 0 };
+            }
+        }
+
+        pub fn approve(&mut self) {
+            if let State::PendingReview { reviews } = &mut self.state {
+                *reviews += 1;
+                if *reviews >= 2 {
+                    self.state = State::Published;
+                }
+            }
+        }
+
+        pub fn reject(&mut self) {
+            if let State::PendingReview { .. } = self.state {
+                self.state = State::Draft { can_add_content: true };
+            }
+        }
+    }
+}
+```
+
+With these changes, the code should be more efficient and performant.
+
+## Summary
+For the first two points, as best I can tell, it is already happening. And the last point is fair and even called out in the rusty book. We used `Box`s to show how they work with `dyn trait`s. Overall because I didn't come up with a majority of the code it didn't leave a lot of room for ChatGPT to fix it. 
