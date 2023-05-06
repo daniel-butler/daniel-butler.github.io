@@ -28,7 +28,7 @@ export default function ProjectsIndex({ projects }) {
       </Head>
       <SimpleLayout
         title="My dents in the universe."
-        intro="These are some of the projects I’ve worked on over the years. All built from scratch, independently, and with a lot of love. The joy of building something that improves the lives of others is what drives me to keep going."
+        intro="These are some of the projects I’ve worked on over the years. All built from scratch, independently, and with a lot of love. It sounds cheesy and honestly is a bit cheesy, but it is true. The joy of building something that improves the lives of others is what drives me to keep going."
       >
         <ul
           role="list"
