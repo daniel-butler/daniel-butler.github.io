@@ -246,7 +246,7 @@ export default function Home({ articles }) {
         </title>
         <meta
           name="description"
-          content="I’m Daniel, a software developer and entrepreneur based in Tampa Florida. I’m the founder and CEO of Order Post App, where we develop technologies that empower the Real Estate Post rental business."
+          content="I’m Daniel, a software developer with a focus on delivering value. "
         />
       </Head>
       <Container className="mt-9">
@@ -257,8 +257,7 @@ export default function Home({ articles }) {
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I’m Daniel, a Software Developer and entrepreneur based in Tampa, Florida.
             A Software Development Engineer at Amazon, Dad during the days and nights, and sometimes
-            the founder and CEO of Order Post App, where we develop technologies
-            that empower the Real Estate post rental business.
+            run Order Post App a tool for the Real Estate post rental business.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
