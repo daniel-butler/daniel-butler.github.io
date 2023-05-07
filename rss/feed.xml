@@ -4,7 +4,7 @@
         <title>Spencer Sharp</title>
         <link>https://daniel-butler.com</link>
         <description>Your blog description</description>
-        <lastBuildDate>Sat, 06 May 2023 00:49:24 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 07 May 2023 03:43:38 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -995,7 +995,7 @@ For more information about an error, try `rustc --explain E0277`.
 </ul>
 <h3>17</h3>
 <ul>
-<li>3 <a href="https://www.daniel-butler.com/articles/rust-dyn-traits-example">Dynamic Traits</a></li>
+<li>17.3 <a href="https://www.daniel-butler.com/articles/rust-dyn-traits-example">Dynamic Traits</a></li>
 </ul>
 <p>More to come!</p>]]></content:encoded>
             <author>spencer@planetaria.tech (Spencer Sharp)</author>
