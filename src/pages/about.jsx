@@ -83,7 +83,7 @@ export default function About() {
                 My work centers around Authentication, User Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.
                 Each one of those has at least one Tier one service associated with it.
                 Meaning that they are business critical and cannot go down.
-                The team at Amazon is great and is teaching me a lot about what it means to be a hire performing team and how to think and take criticism, with minimal ego.
+                The team at Amazon is great and is teaching me a lot about what it means to be in a high performing team and how to think and take criticism, with minimal ego.
               </p>
               <p>
                 Also, on the side I write tutorials, tips, and tricks for technology focused accountants at <a className={"text-sm font-medium text-teal-500"} href={"https://cpato.dev"}>CPA to Dev</a>.
