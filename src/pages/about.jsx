@@ -86,7 +86,7 @@ export default function About() {
                 The team at Amazon is great and is teaching me a lot about what it means to be a hire performing team and how to think and take criticism, with minimal ego.
               </p>
               <p>
-                Also, on the side I run a Real Estate Post Rental website service <a className={"text-sm font-medium text-teal-500"} href={"https://orderpost.app"}>Order Post App</a>.
+                Also, on the side I write tutorials, tips, and tricks for technology focused accountants at <a className={"text-sm font-medium text-teal-500"} href={"https://cpato.dev"}>CPA to Dev</a>.
               </p>
             </div>
           </div>
