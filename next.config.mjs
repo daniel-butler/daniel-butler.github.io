@@ -1,18 +1,17 @@
 import nextMDX from '@next/mdx'
 import remarkGfm from 'remark-gfm'
-import rehypePrism from '@mapbox/rehype-prism'
+import rehypeHighlight from 'rehype-highlight'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['jsx', 'mdx'],
   reactStrictMode: true,
-  swcMinify: true,
   transpilePackages: ["next-image-export-optimizer"],
   env: {
     nextImageExportOptimizer_imageFolderPath: "public/images",
     nextImageExportOptimizer_exportFolderPath: "out",
-    nextImageExportOptimizer_quality: 75,
-    nextImageExportOptimizer_storePicturesInWEBP: true,
+    nextImageExportOptimizer_quality: "75",
+    nextImageExportOptimizer_storePicturesInWEBP: "true",
     nextImageExportOptimizer_exportFolderName: "nextImageExportOptimizer",
 
     // If you do not want to use blurry placeholder images, then you can set
@@ -22,10 +21,9 @@ const nextConfig = {
     // If nextImageExportOptimizer_generateAndUseBlurImages is false and you
     // forget to set `placeholder="empty"`, you'll see 404 errors for the missing
     // placeholder images in the console.
-    nextImageExportOptimizer_generateAndUseBlurImages: true,
+    nextImageExportOptimizer_generateAndUseBlurImages: "true",
   },
   experimental: {
-    newNextLinkBehavior: true,
     scrollRestoration: true,
   },
   images: {
@@ -33,7 +31,6 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   },
-  webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
 
@@ -46,7 +43,7 @@ const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypePrism],
+    rehypePlugins: [rehypeHighlight],
   },
 })
 
