@@ -4,6 +4,7 @@ import rehypeHighlight from 'rehype-highlight'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   pageExtensions: ['jsx', 'mdx'],
   reactStrictMode: true,
   transpilePackages: ["next-image-export-optimizer"],
