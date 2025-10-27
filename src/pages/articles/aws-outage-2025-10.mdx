@@ -1,0 +1,69 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Daniel Butler',
+  date: '2025-10-27',
+  title: 'AWS Outage - Network Load Balancer Take',
+  description:
+    'Flapping in the wild.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+ > The opinions and information expressed in this posts are my own and in no way reflect the opinion of my Employer, Amazon.com
+
+A lot has been discussed about AWS’ DynamoDB outage already. If you haven’t read it yet I suggest spending the few minutes to go through it. The best lessons are from the scars of others!
+
+https://aws.amazon.com/message/101925/
+
+There is already a lot on the DNS delegators and how they failed. What I found interesting from reading between the lines was the Network Load Balancer (NLB) failure. AWS has another type of load balancer, Application load balancers (ALB). The ALBs weren’t impacted, why?
+
+The answer basically comes down to a case of real world flapping. This is the NLB quote from the report.
+
+> During the event the NLB health checking subsystem began to experience increased health check failures. This was caused by the health checking subsystem bringing new EC2 instances into service while the network state for those instances had not yet fully propagated. This meant that in some cases health checks would fail even though the underlying NLB node and backend targets were healthy. This resulted in health checks alternating between failing and healthy. This caused NLB nodes and backend targets to be removed from DNS, only to be returned to service when the next health check succeeded.
+
+The likely cause is Network Load Balancers passive health checks - Application Load Balancers don't have them.  Active health checks are calls to endpoint like `/health` while passive health checks monitor actual connections.
+
+ >With passive health checks, the load balancer observes how targets respond to connections. Passive health checks enable the load balancer to detect an unhealthy target before it is reported as unhealthy by the active health checks. You cannot disable, configure, or monitor passive health checks. Passive health checks are not supported for UDP traffic, and target groups with stickiness turned on. [Documentation Link](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html)
+
+The key point is passive health checks watch the actual traffic. There is no slack for errors.  Some requests worked while others didn't causing the targets to flap (`fail` -> `succeed` -`fail` -> `succeed` -> etc).
+
+It’s one of those hard lessons of why you don’t necessary want instantaneous feedback. Quick feedback is good but overwhelming feedback becomes noise or worse.
+
+I’m an outsider looking in, it seems like the biggest mismatch is the resource server wasn’t protected from its clients. Generally throttling is how that protection is implemented.
+
+As a bonus this is a visual representation of the failures and the cascading effect it had. Personally, the team I am on was involved in the cascading impact after the NLB failures were resolved.
+
+```mermaid
+gantt
+      title AWS US-EAST-1 Outage - Service Impact Timeline (14.5 hours)
+      dateFormat YYYY-MM-DD HH:mm
+
+      section Root Cause
+      DynamoDB DNS Failure           :crit, 2025-10-19 23:48, 2025-10-20 02:40
+
+      section Lambda
+      Lambda Wave 1 (DynamoDB)       :w1lambda, 2025-10-19 23:51, 2025-10-20 02:24
+      Lambda SQS Polling Issue       :active, 2025-10-20 02:24, 2025-10-20 06:00
+      Lambda Wave 2 (NLB)            :done, 2025-10-20 07:04, 2025-10-20 14:15
+
+      section Connect
+      Connect Wave 1 (DynamoDB)      :w1connect, 2025-10-19 23:56, 2025-10-20 05:00
+      Connect Wave 2 (NLB)           :done, 2025-10-20 07:04, 2025-10-20 13:20
+
+      section EC2 Cascade
+      EC2 DWFM Failures             :active, 2025-10-19 23:48, 2025-10-20 05:28
+      EC2 Network State Issues      :active, 2025-10-20 05:28, 2025-10-20 10:36
+      EC2 Throttling Recovery       :active, 2025-10-20 10:36, 2025-10-20 13:50
+
+      section NLB Cascade
+      NLB Connection Errors         :done, 2025-10-20 05:30, 2025-10-20 14:09
+
+      section Other Services
+      STS Wave 1 (DynamoDB)          :w1other, 2025-10-19 23:51, 2025-10-20 01:19
+      STS Wave 2 (NLB)               :done, 2025-10-20 08:31, 2025-10-20 09:59
+      Console Auth (DynamoDB)        :w1other, 2025-10-19 23:51, 2025-10-20 01:25
+      Redshift Query Failures (DDB)  :w1other, 2025-10-19 23:47, 2025-10-20 02:21
+      Redshift Cluster Impairment (EC2) :active, 2025-10-20 02:21, 2025-10-21 04:05
+      ECS EKS Fargate (EC2)          :w1other, 2025-10-19 23:45, 2025-10-20 14:20
+```
