@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.56.1-noble
-      options: --user 1001
 
     steps:
       - name: Get files
@@ -26,6 +25,9 @@ jobs:
 
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
+
+      - name: Install rsync
+        run: apt-get update && apt-get install -y rsync
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.7.3
