@@ -15,21 +15,27 @@ jobs:
     steps:
       - name: Get files
         uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
       - name: Install packages
         run: npm ci
+
       - name: Run tests
         run: npm test
+
       - name: Build project
         run: npm run build
+
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
+
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           branch: gh-pages
           folder: out
