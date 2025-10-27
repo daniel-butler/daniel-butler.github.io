@@ -1,12 +1,7 @@
 import nextMDX from '@next/mdx'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
-
-// Only import rehype-mermaid during build/dev, not during tests
-// (avoids playwright dependency in test environment)
-const rehypeMermaid = process.env.NODE_ENV === 'test'
-  ? null
-  : (await import('rehype-mermaid')).default
+import rehypeMermaid from 'rehype-mermaid'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -50,8 +45,7 @@ const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
-    // Filter out null plugins (e.g., rehypeMermaid during tests)
-    rehypePlugins: [rehypeMermaid, rehypeHighlight].filter(Boolean),
+    rehypePlugins: [rehypeMermaid, rehypeHighlight],
   },
 })
 
