@@ -45,3 +45,38 @@ pre[class*='language-'] {
 .token.combinator {
   color: theme('colors.zinc.400');
 }
+
+/* Mermaid diagram styles */
+.mermaid {
+  @apply flex justify-center my-8;
+}
+
+.mermaid svg {
+  @apply max-w-full h-auto;
+}
+
+/* Dark mode mermaid adjustments */
+.dark .mermaid .node rect,
+.dark .mermaid .node circle,
+.dark .mermaid .node ellipse,
+.dark .mermaid .node polygon {
+  fill: theme('colors.zinc.800');
+  stroke: theme('colors.pink.400');
+}
+
+.dark .mermaid .node .label {
+  color: theme('colors.zinc.100');
+}
+
+.dark .mermaid .edgeLabel {
+  background-color: theme('colors.zinc.800');
+  color: theme('colors.zinc.100');
+}
+
+.dark .mermaid .edgePath .path {
+  stroke: theme('colors.teal.300');
+}
+
+.dark .mermaid .arrowheadPath {
+  fill: theme('colors.teal.300');
+}

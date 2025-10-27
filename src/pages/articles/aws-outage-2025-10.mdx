@@ -10,9 +10,9 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
- > The opinions and information expressed in this posts are my own and in no way reflect the opinion of my Employer, Amazon.com
+ > The opinions and information expressed in this post, and every other one, are my own and in no way reflect the opinion of my employer, Amazon.
 
-A lot has been discussed about AWS’ DynamoDB outage already. If you haven’t read it yet I suggest spending the few minutes to go through it. The best lessons are from the scars of others!
+A lot has been discussed about AWS’s DynamoDB outage already. If you haven’t read it, yet I suggest spending a few minutes to go through it. The best lessons are from the scars of others!
 
 https://aws.amazon.com/message/101925/
 
@@ -24,7 +24,8 @@ The answer basically comes down to a case of real world flapping. This is the NL
 
 The likely cause is Network Load Balancers passive health checks - Application Load Balancers don't have them.  Active health checks are calls to endpoint like `/health` while passive health checks monitor actual connections.
 
- >With passive health checks, the load balancer observes how targets respond to connections. Passive health checks enable the load balancer to detect an unhealthy target before it is reported as unhealthy by the active health checks. You cannot disable, configure, or monitor passive health checks. Passive health checks are not supported for UDP traffic, and target groups with stickiness turned on. [Documentation Link](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html)
+> With passive health checks, the load balancer observes how targets respond to connections. Passive health checks enable the load balancer to detect an unhealthy target before it is reported as unhealthy by the active health checks. You cannot disable, configure, or monitor passive health checks. Passive health checks are not supported for UDP traffic, and target groups with stickiness turned on.
+> - [Documentation Link](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html)
 
 The key point is passive health checks watch the actual traffic. There is no slack for errors.  Some requests worked while others didn't causing the targets to flap (`fail` -> `succeed` -`fail` -> `succeed` -> etc).
 
@@ -32,7 +33,8 @@ It’s one of those hard lessons of why you don’t necessary want instantaneous
 
 I’m an outsider looking in, it seems like the biggest mismatch is the resource server wasn’t protected from its clients. Generally throttling is how that protection is implemented.
 
-As a bonus this is a visual representation of the failures and the cascading effect it had. Personally, the team I am on was involved in the cascading impact after the NLB failures were resolved.
+### Bonus
+Below is a visual representation of the failures and the cascading effect it had. The team I am on was impacted after the NLB failures were resolved.
 
 ```mermaid
 gantt
