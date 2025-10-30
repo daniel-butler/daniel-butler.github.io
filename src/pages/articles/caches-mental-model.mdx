@@ -1,0 +1,16 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = { author: 'Daniel Butler', date: '2025-10-29', title: 'Caching Mental Model', description: 'A way to think about caching in computer science', }
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+Caches are like trash cans. 
+When throwing out trash it goes in the closest bin.
+We don't walk to the trash can in the garage or outside everytime. 
+We collect it in different sized bins around the house.
+
+Read through caches are when the closest can is overflowing.
+It goes in the larger one in the kitchen. 
+
+Cache time to live (TTL) is trash days.
+The trash is "expired" and it has to leave. 
