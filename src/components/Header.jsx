@@ -113,18 +113,16 @@ export function Header() {
           {/* Nav links */}
           <nav className="hidden sm:block">
             <ul className="flex items-center">
-              <NavItem href="/" currentPath={currentPath}>Home</NavItem>
               <NavItem href="/about" currentPath={currentPath}>About</NavItem>
               <NavItem href="/articles" currentPath={currentPath}>Blog</NavItem>
               <NavItem href="/work" currentPath={currentPath}>Work</NavItem>
             </ul>
           </nav>
 
-          {/* Mobile nav (all links) + dark mode toggle */}
+          {/* Mobile nav + dark mode toggle */}
           <div className="flex items-center gap-2">
             <nav className="sm:hidden">
               <ul className="flex items-center">
-                <NavItem href="/" currentPath={currentPath}>Home</NavItem>
                 <NavItem href="/about" currentPath={currentPath}>About</NavItem>
                 <NavItem href="/articles" currentPath={currentPath}>Blog</NavItem>
                 <NavItem href="/work" currentPath={currentPath}>Work</NavItem>

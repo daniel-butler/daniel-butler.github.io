@@ -291,6 +291,15 @@ describe('Header component', () => {
     expect(siteLink).toHaveAttribute('href', '/')
   })
 
+  test('does not render a Home nav link (site name serves as home)', () => {
+    render(<Header />)
+    const navLinks = screen.getAllByRole('link')
+    const homeNavLinks = navLinks.filter(
+      (l) => l.getAttribute('href') === '/' && l.textContent !== 'Daniel Butler'
+    )
+    expect(homeNavLinks).toHaveLength(0)
+  })
+
   test('renders About nav link', () => {
     render(<Header />)
     const aboutLinks = screen.getAllByRole('link', { name: 'About' })
@@ -336,11 +345,6 @@ describe('Footer component', () => {
   test('renders without crashing', () => {
     render(<Footer />)
     expect(document.body).toBeTruthy()
-  })
-
-  test('renders Home link', () => {
-    render(<Footer />)
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/')
   })
 
   test('renders About link', () => {
