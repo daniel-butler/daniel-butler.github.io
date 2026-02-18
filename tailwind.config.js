@@ -4,6 +4,9 @@ module.exports = {
   darkMode: 'class',
   plugins: [require('@tailwindcss/typography')],
   theme: {
+    fontFamily: {
+      mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+    },
     fontSize: {
       xs: ['0.8125rem', { lineHeight: '1.5rem' }],
       sm: ['0.875rem', { lineHeight: '1.5rem' }],
@@ -66,7 +69,7 @@ module.exports = {
           '--tw-prose-th-borders': theme('colors.zinc.200'),
           '--tw-prose-td-borders': theme('colors.zinc.100'),
 
-          '--tw-prose-invert-body': theme('colors.zinc.400'),
+          '--tw-prose-invert-body': theme('colors.zinc.300'),
           '--tw-prose-invert-headings': theme('colors.zinc.200'),
           '--tw-prose-invert-links': theme('colors.teal.400'),
           '--tw-prose-invert-links-hover': theme('colors.teal.400'),
@@ -81,7 +84,7 @@ module.exports = {
           '--tw-prose-invert-code': theme('colors.zinc.300'),
           '--tw-prose-invert-code-bg': theme('colors.zinc.200 / 0.05'),
           '--tw-prose-invert-pre-code': theme('colors.zinc.100'),
-          '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 0.4)',
+          '--tw-prose-invert-pre-bg': '#0d1117',
           '--tw-prose-invert-pre-border': theme('colors.zinc.200 / 0.1'),
           '--tw-prose-invert-th-borders': theme('colors.zinc.700'),
           '--tw-prose-invert-td-borders': theme('colors.zinc.800'),
