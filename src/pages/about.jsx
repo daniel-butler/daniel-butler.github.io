@@ -11,6 +11,14 @@ import {
 } from '@/components/SocialIcons'
 import portraitImage from '@/images/portrait.jpg'
 
+function DownloadIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <path d="M4.75 14.75v1.5a3 3 0 0 0 3 3h8.5a3 3 0 0 0 3-3v-1.5M12 4.75v9.5M8.75 11l3.25 3.25L15.25 11" />
+    </svg>
+  )
+}
+
 function SocialLink({ className, href, children, icon: Icon }) {
   return (
     <li className={clsx(className, 'flex')}>
@@ -73,11 +81,11 @@ export default function About() {
                 After that, I was hooked.
                 During my tenure at The CORE Group, we automated and digitized the entire Accounting process, to the point that when COVID hit none of the Accounting department needed to go to the office, even increasing efficiency and accuracy.
                 To a large extend we used the Business Process Management software <a className={"text-sm font-medium text-teal-500"} href={"https://www.docuphase.com/"}>DocuPhase</a>.
-                We were doing things with DocuPhase that impressed them enough to invited me to <a className={"text-sm font-medium text-teal-500"} href={"./speaking"}>speak as a keynote at their conference</a>.
+                We were doing things with DocuPhase that impressed them enough to invited me to <a className={"text-sm font-medium text-teal-500"} href={"/work/zero-g-expense-reports"}>speak as a keynote at their conference</a>.
               </p>
 
               <p>
-                After a few years of building various websites and honing the processes <a className={"text-sm font-medium text-teal-500"} href={"./platforms"}>Connect Platform</a>, the company I worked for was acquired.
+                After a few years of building various websites and honing the processes of the <a className={"text-sm font-medium text-teal-500"} href={"/work"}>Connect Platform</a>, the company I worked for was acquired.
                 After the acquisition, my job at the new company moved away from software development which lead me to work at Amazon.
                 At Amazon, I’m apart of the Fulfillment Technology organization.
                 My work centers around Authentication, User Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.
@@ -107,6 +115,13 @@ export default function About() {
                 className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
               >
                 hi@daniel-butler.com
+              </SocialLink>
+              <SocialLink
+                href="/media/Daniel_Butler_-_CV_202104.pdf"
+                icon={DownloadIcon}
+                className="mt-4"
+              >
+                Download CV
               </SocialLink>
             </ul>
           </div>
