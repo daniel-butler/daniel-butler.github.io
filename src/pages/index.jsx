@@ -127,7 +127,7 @@ export default function Home({articles}) {
                     <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
                         I’m Daniel, a Software Developer and entrepreneur based in Tampa, Florida.
                         A Software Development Engineer at Amazon, Dad during the days and nights, and sometimes
-                        write tutorials for technology focused Accountants and CPAs at <a href="https://cpato.dev">CPA to Dev</a>.
+                        write tutorials for technology focused Accountants and CPAs at <a href="https://cpato.dev" className="text-teal-500 hover:text-teal-400 transition-colors">CPA to Dev</a>.
                     </p>
                     <div className="mt-6 flex gap-6">
                         <SocialLink

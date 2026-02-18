@@ -104,7 +104,7 @@ export function Header() {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="font-mono text-base font-semibold text-zinc-800 hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-400 transition"
+              className="text-base font-bold tracking-tight text-zinc-800 hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-400 transition"
             >
               Daniel Butler
             </Link>
@@ -120,12 +120,14 @@ export function Header() {
             </ul>
           </nav>
 
-          {/* Mobile nav (simple links) + dark mode toggle */}
-          <div className="flex items-center gap-4">
+          {/* Mobile nav (all links) + dark mode toggle */}
+          <div className="flex items-center gap-2">
             <nav className="sm:hidden">
               <ul className="flex items-center">
                 <NavItem href="/" currentPath={currentPath}>Home</NavItem>
+                <NavItem href="/about" currentPath={currentPath}>About</NavItem>
                 <NavItem href="/articles" currentPath={currentPath}>Blog</NavItem>
+                <NavItem href="/work" currentPath={currentPath}>Work</NavItem>
               </ul>
             </nav>
             <ModeToggle />

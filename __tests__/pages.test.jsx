@@ -338,6 +338,11 @@ describe('Footer component', () => {
     expect(document.body).toBeTruthy()
   })
 
+  test('renders Home link', () => {
+    render(<Footer />)
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/')
+  })
+
   test('renders About link', () => {
     render(<Footer />)
     expect(screen.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about')
