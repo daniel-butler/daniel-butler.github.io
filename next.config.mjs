@@ -45,7 +45,7 @@ const withMDX = nextMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeMermaid, rehypeHighlight],
+    rehypePlugins: [[rehypeMermaid, { strategy: 'pre-mermaid' }], rehypeHighlight],
   },
 })
 
