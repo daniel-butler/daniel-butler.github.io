@@ -36,7 +36,7 @@ export default function ArticlesIndex({ articles }) {
   return (
     <>
       <Head>
-        <title>Articles - Daniel Butler</title>
+        <title>Blog - Daniel Butler</title>
         <meta
           name="description"
           content="Long-form thoughts on programming, investing, business, and more, collected in chronological order."

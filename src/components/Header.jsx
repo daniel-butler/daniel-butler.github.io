@@ -119,7 +119,7 @@ export function Header() {
             <ul className="flex items-center">
               <NavItem href="/" currentPath={currentPath}>Home</NavItem>
               <NavItem href="/about" currentPath={currentPath}>About</NavItem>
-              <NavItem href="/articles" currentPath={currentPath}>Articles</NavItem>
+              <NavItem href="/articles" currentPath={currentPath}>Blog</NavItem>
               <NavItem href="/projects" currentPath={currentPath}>Projects</NavItem>
             </ul>
           </nav>
@@ -129,7 +129,7 @@ export function Header() {
             <nav className="sm:hidden">
               <ul className="flex items-center">
                 <NavItem href="/" currentPath={currentPath}>Home</NavItem>
-                <NavItem href="/articles" currentPath={currentPath}>Articles</NavItem>
+                <NavItem href="/articles" currentPath={currentPath}>Blog</NavItem>
               </ul>
             </nav>
             <ModeToggle />
