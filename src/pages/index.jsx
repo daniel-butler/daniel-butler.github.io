@@ -18,10 +18,6 @@ import me2 from '@/images/photos/me 2.jpeg'
 import me3 from '@/images/photos/me 3.jpeg'
 import me4 from '@/images/photos/me 4.jpeg'
 import charlotteSwing from '@/images/photos/charlotte on swing.jpeg'
-import logoCpaToDev from '@/images/logos/logoCpaToDev.svg'
-import logoCoreFS from '@/images/logos/core-foodservice.svg'
-import logoAmazon from '@/images/logos/amazon.svg'
-import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
 import {generateRssFeed} from '@/lib/generateRssFeed'
 import {getAllArticles} from '@/lib/getAllArticles'
 import {formatDate} from '@/lib/formatDate'
@@ -43,29 +39,6 @@ function MailIcon(props) {
             />
             <path
                 d="m4 6 6.024 5.479a2.915 2.915 0 0 0 3.952 0L20 6"
-                className="stroke-zinc-400 dark:stroke-zinc-500"
-            />
-        </svg>
-    )
-}
-
-function BriefcaseIcon(props) {
-    return (
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            {...props}
-        >
-            <path
-                d="M2.75 9.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z"
-                className="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"
-            />
-            <path
-                d="M3 14.25h6.249c.484 0 .952-.002 1.316.319l.777.682a.996.996 0 0 0 1.316 0l.777-.682c.364-.32.832-.319 1.316-.319H21M8.75 6.5V4.75a2 2 0 0 1 2-2h2.5a2 2 0 0 1 2 2V6.5"
                 className="stroke-zinc-400 dark:stroke-zinc-500"
             />
         </svg>
@@ -102,112 +75,6 @@ function SocialLink({icon: Icon, ...props}) {
             <Icon
                 className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300"/>
         </Link>
-    )
-}
-
-function Resume() {
-    let resume = [
-        {
-            company: 'Amazon',
-            title: 'Software Development Engineer II',
-            logo: logoAmazon,
-            start: '2022',
-            end: {
-                label: 'Present',
-                dateTime: new Date().getFullYear(),
-            },
-        },
-        {
-            company: 'Amazon',
-            title: 'Software Development Engineer I',
-            logo: logoAmazon,
-            start: '2021',
-            end: '2022',
-        },
-        {
-            company: 'CPA to DEV',
-            title: 'Founder',
-            logo: logoCpaToDev,
-            start: '2024',
-            end: {
-                label: 'Present',
-                dateTime: new Date().getFullYear(),
-            },
-        },
-        {
-            company: 'Order Post App LLC',
-            title: 'Founder',
-            logo: logoOpenShuttle,
-            start: '2022',
-            end: '2023',
-        },
-        {
-            company: 'The CORE Group',
-            title: 'Accounting System Developer',
-            logo: logoCoreFS,
-            start: '2018',
-            end: '2021',
-        },
-        {
-            company: 'The CORE Group',
-            title: 'Assistant Controller',
-            logo: logoCoreFS,
-            start: '2015',
-            end: '2018',
-        },
-        {
-            company: 'The CORE Group - HOPCO Foodservice',
-            title: 'Staff Accountant',
-            logo: logoCoreFS,
-            start: '2013',
-            end: '2015',
-        },
-    ]
-
-    return (
-        <div className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
-            <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                <BriefcaseIcon className="h-6 w-6 flex-none"/>
-                <span className="ml-3">Work</span>
-            </h2>
-            <ol className="mt-6 space-y-4">
-                {resume.map((role, roleIndex) => (
-                    <li key={roleIndex} className="flex gap-4">
-                        <div
-                            className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-                            <ExportedImage src={role.logo} alt="" className="h-7 w-7" unoptimized/>
-                        </div>
-                        <dl className="flex flex-auto flex-wrap gap-x-2">
-                            <dt className="sr-only">Company</dt>
-                            <dd className="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                                {role.company}
-                            </dd>
-                            <dt className="sr-only">Role</dt>
-                            <dd className="text-xs text-zinc-500 dark:text-zinc-400">
-                                {role.title}
-                            </dd>
-                            <dt className="sr-only">Date</dt>
-                            <dd
-                                className="ml-auto text-xs text-zinc-400 dark:text-zinc-500"
-                                aria-label={`${role.start.label ?? role.start} until ${
-                                    role.end.label ?? role.end
-                                }`}
-                            >
-                                <time dateTime={role.start.dateTime ?? role.start}>
-                                    {role.start.label ?? role.start}
-                                </time>
-                                {' '}
-                                <span aria-hidden="true">—</span>{' '}
-                                <time dateTime={role.end.dateTime ?? role.end}>
-                                    {role.end.label ?? role.end}
-                                </time>
-                            </dd>
-                        </dl>
-                    </li>
-                ))}
-            </ol>
-
-        </div>
     )
 }
 
@@ -288,11 +155,7 @@ export default function Home({articles}) {
             </Container>
             <Photos/>
             <Container className="mt-24 md:mt-28">
-                <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
-                    <div className="space-y-10 md:order-last lg:pl-16 xl:pl-24">
-                        {/*<Newsletter />*/}
-                        <Resume/>
-                    </div>
+                <div className="mx-auto max-w-xl">
                     <div className="flex flex-col gap-8">
                         {articles.map((article) => (
                             <Article key={article.slug} article={article}/>
