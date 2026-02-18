@@ -31,7 +31,7 @@ function ProjectRow({ project }) {
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
           <Link
-            href={`/projects/${project.slug}`}
+            href={`/work/${project.slug}`}
             className="hover:text-teal-500 dark:hover:text-teal-400 transition-colors"
           >
             {project.title}

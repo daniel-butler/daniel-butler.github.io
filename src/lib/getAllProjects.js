@@ -3,7 +3,7 @@ import * as path from 'path'
 
 async function importProject(projectFilename) {
   let { meta, default: component } = await import(
-    `../pages/projects/${projectFilename}`
+    `../pages/work/${projectFilename}`
   )
   return {
     slug: projectFilename.replace(/(\/index)?\.mdx$/, ''),
@@ -14,7 +14,7 @@ async function importProject(projectFilename) {
 
 export async function getAllProjects() {
   let projectFilenames = await glob(['*.mdx', '*/index.mdx'], {
-    cwd: path.join(process.cwd(), 'src/pages/projects'),
+    cwd: path.join(process.cwd(), 'src/pages/work'),
   })
 
   let projects = await Promise.all(projectFilenames.map(importProject))

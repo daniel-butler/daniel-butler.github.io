@@ -69,7 +69,7 @@ export default function About() {
               <p>
                 I went to school and started my career as an Accountant.
                 Because my boss and mentor at the time believed in my ability to learn and technical aptitude he gave me the space to explore and thrive as a software developer.
-                The first true development project was fixing a <a className={"text-sm font-medium text-teal-500"} href={"./projects/receipt-capture"}>webpage</a> a consulting company developed for us at The CORE Group.
+                The first true development project was fixing a <a className={"text-sm font-medium text-teal-500"} href={"/work/receipt-capture"}>webpage</a> a consulting company developed for us at The CORE Group.
                 After that, I was hooked.
                 During my tenure at The CORE Group, we automated and digitized the entire Accounting process, to the point that when COVID hit none of the Accounting department needed to go to the office, even increasing efficiency and accuracy.
                 To a large extend we used the Business Process Management software <a className={"text-sm font-medium text-teal-500"} href={"https://www.docuphase.com/"}>DocuPhase</a>.
