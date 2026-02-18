@@ -4,7 +4,6 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 import {Button} from '@/components/Button'
-import {Card} from '@/components/Card'
 import {Container} from '@/components/Container'
 import {
     CPAtoDevIcon,
@@ -89,16 +88,25 @@ function ArrowDownIcon(props) {
 
 function Article({article}) {
     return (
-        <Card as="article">
-            <Card.Title href={`/articles/${article.slug}`}>
-                {article.title}
-            </Card.Title>
-            <Card.Eyebrow as="time" dateTime={article.date} decorate>
+        <article>
+            <time
+                className="block text-xs font-mono text-zinc-400 dark:text-zinc-500"
+                dateTime={article.date}
+            >
                 {formatDate(article.date)}
-            </Card.Eyebrow>
-            <Card.Description>{article.description}</Card.Description>
-            <Card.Cta>Read more</Card.Cta>
-        </Card>
+            </time>
+            <h2 className="mt-1 text-base font-semibold text-zinc-800 dark:text-zinc-100">
+                <Link
+                    href={`/articles/${article.slug}`}
+                    className="hover:text-teal-500 dark:hover:text-teal-400 transition-colors"
+                >
+                    {article.title}
+                </Link>
+            </h2>
+            <p className="mt-1 text-sm leading-snug text-zinc-600 dark:text-zinc-400">
+                {article.description}
+            </p>
+        </article>
     )
 }
 
@@ -304,7 +312,7 @@ export default function Home({articles}) {
                         {/*<Newsletter />*/}
                         <Resume/>
                     </div>
-                    <div className="flex flex-col gap-16">
+                    <div className="flex flex-col gap-8">
                         {articles.map((article) => (
                             <Article key={article.slug} article={article}/>
                         ))}
