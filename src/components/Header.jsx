@@ -116,7 +116,7 @@ export function Header() {
               <NavItem href="/" currentPath={currentPath}>Home</NavItem>
               <NavItem href="/about" currentPath={currentPath}>About</NavItem>
               <NavItem href="/articles" currentPath={currentPath}>Blog</NavItem>
-              <NavItem href="/projects" currentPath={currentPath}>Projects</NavItem>
+              <NavItem href="/work" currentPath={currentPath}>Work</NavItem>
             </ul>
           </nav>
 
