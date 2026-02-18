@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
 import { Container } from '@/components/Container'
@@ -94,11 +94,7 @@ function NavItem({ href, children, currentPath }) {
 }
 
 export function Header() {
-  const [currentPath, setCurrentPath] = useState('/')
-
-  useEffect(() => {
-    setCurrentPath(window.location.pathname)
-  }, [])
+  const { pathname: currentPath } = useRouter()
 
   return (
     <header className="border-b border-zinc-100 dark:border-zinc-800">
