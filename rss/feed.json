@@ -10,6 +10,17 @@
     },
     "items": [
         {
+            "id": "https://daniel-butler.com/articles/you-try-it",
+            "content_html": "<blockquote>\n<p>you try it</p>\n</blockquote>\n<p>yes. really. that&#x27;s the whole prompt that can change your entire relationship with llms/ai.\nit&#x27;s absolutely magical the first time you see it.</p>\n<p>the biggest thing is you have to do this from a local agent environment like Claude Code, Cowork, codex, etc.</p>\n<p>try it and let me know what you think.</p>",
+            "url": "https://daniel-butler.com/articles/you-try-it",
+            "title": "The prompt everyone should know",
+            "summary": "it's so simple you should try it!",
+            "date_modified": "2026-02-20T00:00:00.000Z",
+            "author": {
+                "name": "Daniel Butler"
+            }
+        },
+        {
             "id": "https://daniel-butler.com/articles/caches-mental-model",
             "content_html": "<p>Caches are like trash cans.\nWhen throwing out trash it goes in the closest bin.\nWe don&#x27;t walk to the trash can in the garage or outside everytime.\nWe collect it in different sized bins around the house.</p>\n<p>Read through caches are when the closest can is overflowing.\nIt goes in the larger one in the kitchen.</p>\n<p>Cache time to live (TTL) is trash days.\nThe trash is &quot;expired&quot; and it has to leave.</p>",
             "url": "https://daniel-butler.com/articles/caches-mental-model",

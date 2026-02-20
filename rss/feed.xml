@@ -4,7 +4,7 @@
         <title>Daniel Butler</title>
         <link>https://daniel-butler.com</link>
         <description>A collection of thoughts</description>
-        <lastBuildDate>Wed, 18 Feb 2026 20:36:42 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 20 Feb 2026 20:48:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,21 @@
             <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2026</copyright>
+        <item>
+            <title><![CDATA[The prompt everyone should know]]></title>
+            <link>https://daniel-butler.com/articles/you-try-it</link>
+            <guid isPermaLink="false">https://daniel-butler.com/articles/you-try-it</guid>
+            <pubDate>Fri, 20 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[it's so simple you should try it!]]></description>
+            <content:encoded><![CDATA[<blockquote>
+<p>you try it</p>
+</blockquote>
+<p>yes. really. that&#x27;s the whole prompt that can change your entire relationship with llms/ai.
+it&#x27;s absolutely magical the first time you see it.</p>
+<p>the biggest thing is you have to do this from a local agent environment like Claude Code, Cowork, codex, etc.</p>
+<p>try it and let me know what you think.</p>]]></content:encoded>
+            <author>rss@daniel-butler.com (Daniel Butler)</author>
+        </item>
         <item>
             <title><![CDATA[Caching Mental Model]]></title>
             <link>https://daniel-butler.com/articles/caches-mental-model</link>
