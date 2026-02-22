@@ -4,7 +4,7 @@
         <title>Daniel Butler</title>
         <link>https://daniel-butler.com</link>
         <description>A collection of thoughts</description>
-        <lastBuildDate>Fri, 20 Feb 2026 20:48:58 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 22 Feb 2026 18:26:58 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,36 @@
             <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2026</copyright>
+        <item>
+            <title><![CDATA[Sheetmask released!]]></title>
+            <link>https://daniel-butler.com/articles/sheetmask-initial-release</link>
+            <guid isPermaLink="false">https://daniel-butler.com/articles/sheetmask-initial-release</guid>
+            <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Sheetmask anonymizes your data and keeps relationships intact. It is great for PnLs and other financial data where the structure matters.]]></description>
+            <content:encoded><![CDATA[<p>I built <a href="https://github.com/daniel-butler/sheetmask">sheetmask</a> to solve a specific problem: you have a real Excel report full of sensitive data and need a safe test fixture that matches its structure. Not a made-up spreadsheet. Something that looks and behaves like the real thing, without the real names and numbers.</p>
+<p>Most anonymization tools stop at replacing values. Sheetmask reads the file&#x27;s structure first: which sheets exist, what columns are in each, what the data types are, and how numbers relate to each other. That structural map makes the rest possible.</p>
+<h2>The workflow</h2>
+<p>Run <code>analyze</code> on your file:</p>
+<pre><code class="hljs language-bash">sheetmask analyze <span class="hljs-string">&quot;Q4 Finance Report.xlsx&quot;</span>
+</code></pre>
+<p>This prints a structured prompt describing the file&#x27;s sheets, columns, data types, and sample values. It captures which columns are derived (Gross Margin = Revenue - Cost) and which entities repeat across sheets (a manager name appearing in both a summary tab and a detail tab).</p>
+<p>Copy that prompt and paste it into Claude or ChatGPT. The LLM reads the structural analysis and writes a processor config telling sheetmask exactly how to handle each column: what kind of fake value to generate, which numeric columns to vary independently, and which to derive from others so the math stays consistent.</p>
+<p>Save the config the LLM returns, then run <code>process</code>:</p>
+<pre><code class="hljs language-bash">sheetmask process <span class="hljs-string">&quot;Q4 Finance Report.xlsx&quot;</span> --config q4_config.py
+<span class="hljs-comment"># Output: Q4 Finance Report_SYNTHETIC.xlsx</span>
+</code></pre>
+<h2>Why the LLM step is not optional</h2>
+<p>The config maps every column to a rule. Writing it by hand means reading each column, understanding the data type, deciding whether a number is independent or computed, and getting the formulas right across however many sheets the file has.</p>
+<p>The LLM does that work. It reads the sample data and the structure <code>analyze</code> extracted, understands the relationships, and produces a config sheetmask executes directly. You review it, run it, and get a synthetic file with fake names and fake numbers but real structure.</p>
+<p><code>analyze</code> does the structural work. The LLM does the semantic work. Together, they produce output that works as an actual test fixture.</p>
+<h2>Install</h2>
+<pre><code class="hljs language-bash">pip install git+https://github.com/daniel-butler/sheetmask.git
+</code></pre>
+<pre><code class="hljs language-bash">uv add git+https://github.com/daniel-butler/sheetmask.git
+</code></pre>
+<p>Source and docs: <a href="https://github.com/daniel-butler/sheetmask">https://github.com/daniel-butler/sheetmask</a></p>]]></content:encoded>
+            <author>rss@daniel-butler.com (Daniel Butler)</author>
+        </item>
         <item>
             <title><![CDATA[The prompt everyone should know]]></title>
             <link>https://daniel-butler.com/articles/you-try-it</link>

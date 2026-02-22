@@ -1,0 +1,55 @@
+<!DOCTYPE html><html class="h-full antialiased" lang="en"><head><meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width" data-next-head=""/><title data-next-head="">Sheetmask released! - Daniel Butler</title><meta name="description" content="Sheetmask anonymizes your data and keeps relationships intact. It is great for PnLs and other financial data where the structure matters." data-next-head=""/><script>
+  let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
+  updateMode()
+  darkModeMediaQuery.addEventListener('change', updateModeWithoutTransitions)
+  window.addEventListener('storage', updateModeWithoutTransitions)
+
+  function updateMode() {
+    let isSystemDarkMode = darkModeMediaQuery.matches
+    let isDarkMode = window.localStorage.isDarkMode === 'true' || (!('isDarkMode' in window.localStorage) && isSystemDarkMode)
+
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+
+    if (isDarkMode === isSystemDarkMode) {
+      delete window.localStorage.isDarkMode
+    }
+  }
+
+  function disableTransitionsTemporarily() {
+    document.documentElement.classList.add('[&_*]:!transition-none')
+    window.setTimeout(() => {
+      document.documentElement.classList.remove('[&_*]:!transition-none')
+    }, 0)
+  }
+
+  function updateModeWithoutTransitions() {
+    disableTransitionsTemporarily()
+    updateMode()
+  }
+</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/><link rel="alternate" type="application/rss+xml" href="https://daniel-butler.com/rss/feed.xml"/><link rel="alternate" type="application/feed+json" href="https://daniel-butler.com/rss/feed.json"/><link rel="preload" href="/_next/static/css/a95412744f648984.css" as="style"/><link rel="stylesheet" href="/_next/static/css/a95412744f648984.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-42372ed130431b0a.js"></script><script src="/_next/static/chunks/webpack-5e931bb610e47be1.js" defer=""></script><script src="/_next/static/chunks/framework-37f3832b4337c515.js" defer=""></script><script src="/_next/static/chunks/main-0b49c1a760b53436.js" defer=""></script><script src="/_next/static/chunks/pages/_app-15715b6efab12d60.js" defer=""></script><script src="/_next/static/chunks/pages/articles/sheetmask-initial-release-8f28e4556d74152a.js" defer=""></script><script src="/_next/static/wRcuFw6m0n3bGUflfhDBi/_buildManifest.js" defer=""></script><script src="/_next/static/wRcuFw6m0n3bGUflfhDBi/_ssgManifest.js" defer=""></script></head><body class="flex h-full flex-col bg-zinc-50 dark:bg-black"><div id="__next"><div class="min-h-screen bg-white dark:bg-zinc-950"><header class="border-b border-zinc-100 dark:border-zinc-800"><div class="sm:px-8"><div class="mx-auto max-w-7xl lg:px-8"><div class="relative px-4 sm:px-8 lg:px-12"><div class="mx-auto max-w-2xl lg:max-w-5xl"><div class="flex items-center justify-between py-4"><div class="flex-shrink-0"><a class="text-base font-bold tracking-tight text-zinc-800 hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-400 transition" href="/">Daniel Butler</a></div><nav class="hidden sm:block"><ul class="flex items-center"><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/about">About</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/articles">Blog</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/work">Work</a></li></ul></nav><div class="flex items-center gap-2"><nav class="sm:hidden"><ul class="flex items-center"><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/about">About</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/articles">Blog</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/work">Work</a></li></ul></nav><button type="button" aria-label="Toggle dark mode" class="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600"><path d="M8 12.25A4.25 4.25 0 0 1 12.25 8v0a4.25 4.25 0 0 1 4.25 4.25v0a4.25 4.25 0 0 1-4.25 4.25v0A4.25 4.25 0 0 1 8 12.25v0Z"></path><path d="M12.25 3v1.5M21.5 12.25H20M18.791 18.791l-1.06-1.06M18.791 5.709l-1.06 1.06M12.25 20v1.5M4.5 12.25H3M6.77 6.77 5.709 5.709M6.77 17.73l-1.061 1.061" fill="none"></path></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500"><path d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div></div></div></div></div></header><main><div class="sm:px-8 mt-16 lg:mt-32"><div class="mx-auto max-w-7xl lg:px-8"><div class="relative px-4 sm:px-8 lg:px-12"><div class="mx-auto max-w-2xl lg:max-w-5xl"><div class="xl:relative"><div class="mx-auto max-w-2xl"><article><header class="flex flex-col"><h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">Sheetmask released!</h1><time dateTime="2026-02-22" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">February 22, 2026</span></time></header><div class="mt-8 prose dark:prose-invert"><p>I built <a href="https://github.com/daniel-butler/sheetmask">sheetmask</a> to solve a specific problem: you have a real Excel report full of sensitive data and need a safe test fixture that matches its structure. Not a made-up spreadsheet. Something that looks and behaves like the real thing, without the real names and numbers.</p>
+<p>Most anonymization tools stop at replacing values. Sheetmask reads the file&#x27;s structure first: which sheets exist, what columns are in each, what the data types are, and how numbers relate to each other. That structural map makes the rest possible.</p>
+<h2>The workflow</h2>
+<p>Run <code>analyze</code> on your file:</p>
+<pre><code class="hljs language-bash">sheetmask analyze <span class="hljs-string">&quot;Q4 Finance Report.xlsx&quot;</span>
+</code></pre>
+<p>This prints a structured prompt describing the file&#x27;s sheets, columns, data types, and sample values. It captures which columns are derived (Gross Margin = Revenue - Cost) and which entities repeat across sheets (a manager name appearing in both a summary tab and a detail tab).</p>
+<p>Copy that prompt and paste it into Claude or ChatGPT. The LLM reads the structural analysis and writes a processor config telling sheetmask exactly how to handle each column: what kind of fake value to generate, which numeric columns to vary independently, and which to derive from others so the math stays consistent.</p>
+<p>Save the config the LLM returns, then run <code>process</code>:</p>
+<pre><code class="hljs language-bash">sheetmask process <span class="hljs-string">&quot;Q4 Finance Report.xlsx&quot;</span> --config q4_config.py
+<span class="hljs-comment"># Output: Q4 Finance Report_SYNTHETIC.xlsx</span>
+</code></pre>
+<h2>Why the LLM step is not optional</h2>
+<p>The config maps every column to a rule. Writing it by hand means reading each column, understanding the data type, deciding whether a number is independent or computed, and getting the formulas right across however many sheets the file has.</p>
+<p>The LLM does that work. It reads the sample data and the structure <code>analyze</code> extracted, understands the relationships, and produces a config sheetmask executes directly. You review it, run it, and get a synthetic file with fake names and fake numbers but real structure.</p>
+<p><code>analyze</code> does the structural work. The LLM does the semantic work. Together, they produce output that works as an actual test fixture.</p>
+<h2>Install</h2>
+<pre><code class="hljs language-bash">pip install git+https://github.com/daniel-butler/sheetmask.git
+</code></pre>
+<pre><code class="hljs language-bash">uv add git+https://github.com/daniel-butler/sheetmask.git
+</code></pre>
+<p>Source and docs: <a href="https://github.com/daniel-butler/sheetmask">https://github.com/daniel-butler/sheetmask</a></p></div></article></div></div></div></div></div></div></main><footer class="mt-32"><div class="sm:px-8"><div class="mx-auto max-w-7xl lg:px-8"><div class="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40"><div class="relative px-4 sm:px-8 lg:px-12"><div class="mx-auto max-w-2xl lg:max-w-5xl"><div class="flex flex-col items-center justify-between gap-6 sm:flex-row"><div class="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/about">About</a><a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/articles">Blog</a><a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/work">Work</a></div><p class="text-sm text-zinc-400 dark:text-zinc-500">© <!-- -->2026<!-- --> Daniel Butler. All rights reserved.</p></div></div></div></div></div></div></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/articles/sheetmask-initial-release","query":{},"buildId":"wRcuFw6m0n3bGUflfhDBi","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
