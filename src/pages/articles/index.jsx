@@ -1,9 +1,30 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 
 import { SimpleLayout } from '@/components/SimpleLayout'
 import { getAllArticles } from '@/lib/getAllArticles'
 import { formatDate } from '@/lib/formatDate'
+
+function TagFilter({ tags, active, onSelect }) {
+  return (
+    <div className="flex flex-wrap gap-x-5 gap-y-2 mb-10 text-sm font-mono">
+      {tags.map((tag) => (
+        <button
+          key={tag}
+          onClick={() => onSelect(tag)}
+          className={
+            tag === active
+              ? 'text-teal-500 dark:text-teal-400'
+              : 'text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors'
+          }
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 function Article({ article }) {
   return (
@@ -33,6 +54,20 @@ function Article({ article }) {
 }
 
 export default function ArticlesIndex({ articles }) {
+  const allTags = new Set()
+  articles.forEach((article) => {
+    if (article.tags) {
+      article.tags.forEach((tag) => allTags.add(tag))
+    }
+  })
+  const tags = ['All', ...Array.from(allTags).sort()]
+  const [activeTag, setActiveTag] = useState('All')
+
+  const filtered =
+    activeTag === 'All'
+      ? articles
+      : articles.filter((a) => a.tags && a.tags.includes(activeTag))
+
   return (
     <>
       <Head>
@@ -46,8 +81,9 @@ export default function ArticlesIndex({ articles }) {
         title="Writing on software design and investing."
         intro="Long-form thoughts on programming, investing, business, and more, collected in chronological order."
       >
+        {tags.length > 1 && <TagFilter tags={tags} active={activeTag} onSelect={setActiveTag} />}
         <div className="max-w-3xl">
-          {articles.map((article) => (
+          {filtered.map((article) => (
             <Article key={article.slug} article={article} />
           ))}
         </div>
