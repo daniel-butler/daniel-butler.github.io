@@ -1,0 +1,104 @@
+<!DOCTYPE html><html class="h-full antialiased" lang="en"><head><meta charSet="utf-8" data-next-head=""/><meta name="viewport" content="width=device-width" data-next-head=""/><title data-next-head="">OneNote Web Extractor: When synthetic clicks fail - Daniel Butler</title><meta name="description" content="Extract content from OneNote view-only links by using Playwright&#x27;s native clicks to generate trusted events. Built through systematic debugging of why programmatic clicks stopped working." data-next-head=""/><script>
+  let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
+  updateMode()
+  darkModeMediaQuery.addEventListener('change', updateModeWithoutTransitions)
+  window.addEventListener('storage', updateModeWithoutTransitions)
+
+  function updateMode() {
+    let isSystemDarkMode = darkModeMediaQuery.matches
+    let isDarkMode = window.localStorage.isDarkMode === 'true' || (!('isDarkMode' in window.localStorage) && isSystemDarkMode)
+
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+
+    if (isDarkMode === isSystemDarkMode) {
+      delete window.localStorage.isDarkMode
+    }
+  }
+
+  function disableTransitionsTemporarily() {
+    document.documentElement.classList.add('[&_*]:!transition-none')
+    window.setTimeout(() => {
+      document.documentElement.classList.remove('[&_*]:!transition-none')
+    }, 0)
+  }
+
+  function updateModeWithoutTransitions() {
+    disableTransitionsTemporarily()
+    updateMode()
+  }
+</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/><link rel="alternate" type="application/rss+xml" href="https://daniel-butler.com/rss/feed.xml"/><link rel="alternate" type="application/feed+json" href="https://daniel-butler.com/rss/feed.json"/><link rel="preload" href="/_next/static/css/a95412744f648984.css" as="style"/><link rel="stylesheet" href="/_next/static/css/a95412744f648984.css" data-n-g=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-42372ed130431b0a.js"></script><script src="/_next/static/chunks/webpack-5e931bb610e47be1.js" defer=""></script><script src="/_next/static/chunks/framework-37f3832b4337c515.js" defer=""></script><script src="/_next/static/chunks/main-0b49c1a760b53436.js" defer=""></script><script src="/_next/static/chunks/pages/_app-15715b6efab12d60.js" defer=""></script><script src="/_next/static/chunks/pages/articles/onenote-web-extractor-release-138ce36e7f35eb2c.js" defer=""></script><script src="/_next/static/xw9wzizS1J9J5gwQCDnxT/_buildManifest.js" defer=""></script><script src="/_next/static/xw9wzizS1J9J5gwQCDnxT/_ssgManifest.js" defer=""></script></head><body class="flex h-full flex-col bg-zinc-50 dark:bg-black"><div id="__next"><div class="min-h-screen bg-white dark:bg-zinc-950"><header class="border-b border-zinc-100 dark:border-zinc-800"><div class="sm:px-8"><div class="mx-auto max-w-7xl lg:px-8"><div class="relative px-4 sm:px-8 lg:px-12"><div class="mx-auto max-w-2xl lg:max-w-5xl"><div class="flex items-center justify-between py-4"><div class="flex-shrink-0"><a class="text-base font-bold tracking-tight text-zinc-800 hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-400 transition" href="/">Daniel Butler</a></div><nav class="hidden sm:block"><ul class="flex items-center"><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/about">About</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/articles">Blog</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/work">Work</a></li></ul></nav><div class="flex items-center gap-2"><nav class="sm:hidden"><ul class="flex items-center"><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/about">About</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/articles">Blog</a></li><li><a class="relative block px-3 py-2 text-sm transition text-zinc-600 hover:text-teal-500 dark:text-zinc-400 dark:hover:text-teal-400" href="/work">Work</a></li></ul></nav><button type="button" aria-label="Toggle dark mode" class="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600"><path d="M8 12.25A4.25 4.25 0 0 1 12.25 8v0a4.25 4.25 0 0 1 4.25 4.25v0a4.25 4.25 0 0 1-4.25 4.25v0A4.25 4.25 0 0 1 8 12.25v0Z"></path><path d="M12.25 3v1.5M21.5 12.25H20M18.791 18.791l-1.06-1.06M18.791 5.709l-1.06 1.06M12.25 20v1.5M4.5 12.25H3M6.77 6.77 5.709 5.709M6.77 17.73l-1.061 1.061" fill="none"></path></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500"><path d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div></div></div></div></div></header><main><div class="sm:px-8 mt-16 lg:mt-32"><div class="mx-auto max-w-7xl lg:px-8"><div class="relative px-4 sm:px-8 lg:px-12"><div class="mx-auto max-w-2xl lg:max-w-5xl"><div class="xl:relative"><div class="mx-auto max-w-2xl"><article><header class="flex flex-col"><h1 class="mt-6 text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">OneNote Web Extractor: When synthetic clicks fail</h1><time dateTime="2026-02-23" class="order-first flex items-center text-base text-zinc-400 dark:text-zinc-500"><span class="h-4 w-0.5 rounded-full bg-zinc-200 dark:bg-zinc-500"></span><span class="ml-3">February 23, 2026</span></time></header><div class="mt-8 prose dark:prose-invert"><p>I needed to extract content from old OneNote notebooks I had shared as view-only links. Playwright should have made this straightforward: navigate to the notebook, click sections, click pages, extract text. Except the clicks didn&#x27;t work.</p>
+<p>The sections highlighted when clicked. The URL changed. Network requests fired. But the content iframe stayed frozen on the section overview. No matter how long I waited, the page content never loaded.</p>
+<h2>The debugging process</h2>
+<p>I started with the obvious checks. Wait longer between actions. Try different selectors. Click parent elements instead of children. Take screenshots at each step to confirm the browser state matched expectations. Nothing changed the outcome.</p>
+<p>Then I checked the DOM carefully. After clicking a page, the <code>pageNode</code> element had the selected state applied. The browser knew I clicked it. OneNote&#x27;s JavaScript saw the click happen. It just didn&#x27;t respond.</p>
+<p>That narrowed the problem: OneNote was receiving the click event but choosing not to act on it.</p>
+<h2>The isTrusted check</h2>
+<p>Modern web apps can detect synthetic events. When you run <code>element.click()</code> in JavaScript, the browser sets <code>event.isTrusted</code> to <code>false</code>. Real user interactions set it to <code>true</code>. That&#x27;s the signal.</p>
+<p>I was using <code>page.evaluate()</code> to execute clicks inside the browser context:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// This generates isTrusted: false</span>
+<span class="hljs-keyword">await</span> page.<span class="hljs-title function_">evaluate</span>(<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;.pageNode&#x27;</span>).<span class="hljs-title function_">click</span>();
+});
+</code></pre>
+<p>OneNote Web checks <code>isTrusted</code> and ignores synthetic clicks. The event fires, the state updates, but the content load never triggers.</p>
+<h2>The fix</h2>
+<p>Playwright has a different way to click: native browser automation that generates real events with coordinates, timing, and trust markers.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// This generates isTrusted: true</span>
+<span class="hljs-keyword">await</span> page.<span class="hljs-title function_">locator</span>(<span class="hljs-string">&#x27;.pageNode&#x27;</span>).<span class="hljs-title function_">click</span>();
+</code></pre>
+<p>The difference:</p>
+<ul>
+<li><code>evaluate().click()</code> runs JavaScript in the browser</li>
+<li><code>locator().click()</code> uses the browser&#x27;s automation protocol to simulate an actual mouse click</li>
+</ul>
+<p>The second approach generates events that look identical to real user interaction. OneNote Web responds to them.</p>
+<p>Once I switched to native clicks, the content loaded immediately. Pages that had been stuck on the section overview now showed their actual text content.</p>
+<h2>What it does now</h2>
+<p><a href="https://github.com/daniel-butler/Onenote-web-extractor">OneNote Web Extractor</a> takes a JSON config listing sections and pages, navigates through the notebook using native Playwright clicks, waits for content to load in OneNote&#x27;s iframe, and saves the text to markdown files.</p>
+<p><strong>Config format:</strong></p>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;notebookUrl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://1drv.ms/o/c/your-notebook-id/...&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;outputDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./output&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;My Section&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Page 1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Page 2&quot;</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>Run:</strong></p>
+<pre><code class="hljs language-bash">node extract.js config.json
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>output/
+└── my-section/
+    ├── page-1.md
+    └── page-2.md
+</code></pre>
+<p>The extraction is slow—about 2-3 seconds per page—because OneNote&#x27;s iframe loading is asynchronous and there&#x27;s no reliable way to detect when it&#x27;s finished except waiting. But it works consistently.</p>
+<h2>What I learned</h2>
+<p><strong>Always check <code>event.isTrusted</code> when automation fails on modern web apps.</strong> If a click highlights an element but doesn&#x27;t trigger the expected behavior, the app is probably checking whether the event came from a real user.</p>
+<p>Playwright&#x27;s native interactions (<code>locator.click()</code>, <code>locator.type()</code>, etc.) generate trusted events. JavaScript&#x27;s DOM methods (<code>element.click()</code>, <code>element.dispatchEvent()</code>) do not.</p>
+<p>When building automation:</p>
+<ul>
+<li>Start with native Playwright methods</li>
+<li>Only fall back to <code>evaluate()</code> if you need to run custom logic inside the page context</li>
+<li>If clicks mysteriously stop working, suspect an <code>isTrusted</code> check</li>
+</ul>
+<p>The debugging process took hours. The fix was a single line. That&#x27;s how it goes sometimes.</p>
+<h2>Install</h2>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/daniel-butler/Onenote-web-extractor.git
+<span class="hljs-built_in">cd</span> Onenote-web-extractor
+npm install
+npx playwright install chromium
+</code></pre>
+<p>Source and docs: <a href="https://github.com/daniel-butler/Onenote-web-extractor">https://github.com/daniel-butler/Onenote-web-extractor</a></p>
+<hr/>
+<p>This was built to extract documentation from old work notebooks for a career timeline blog post. The tool ended up being more interesting than I expected—not because the extraction itself is novel, but because the debugging process revealed how modern web apps distinguish real users from automation.</p>
+<p>When synthetic clicks fail, native clicks succeed. That&#x27;s the whole trick.</p></div></article></div></div></div></div></div></div></main><footer class="mt-32"><div class="sm:px-8"><div class="mx-auto max-w-7xl lg:px-8"><div class="border-t border-zinc-100 pt-10 pb-16 dark:border-zinc-700/40"><div class="relative px-4 sm:px-8 lg:px-12"><div class="mx-auto max-w-2xl lg:max-w-5xl"><div class="flex flex-col items-center justify-between gap-6 sm:flex-row"><div class="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200"><a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/about">About</a><a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/articles">Blog</a><a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/work">Work</a></div><p class="text-sm text-zinc-400 dark:text-zinc-500">© <!-- -->2026<!-- --> Daniel Butler. All rights reserved.</p></div></div></div></div></div></div></footer></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{}},"page":"/articles/onenote-web-extractor-release","query":{},"buildId":"xw9wzizS1J9J5gwQCDnxT","nextExport":true,"autoExport":true,"isFallback":false,"scriptLoader":[]}</script></body></html>
