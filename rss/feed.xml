@@ -4,7 +4,7 @@
         <title>Daniel Butler</title>
         <link>https://daniel-butler.com</link>
         <description>A collection of thoughts</description>
-        <lastBuildDate>Sun, 22 Feb 2026 18:29:04 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 Feb 2026 00:15:24 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -17,7 +17,7 @@
             <title><![CDATA[Sheetmask released!]]></title>
             <link>https://daniel-butler.com/articles/sheetmask-initial-release</link>
             <guid isPermaLink="false">https://daniel-butler.com/articles/sheetmask-initial-release</guid>
-            <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+            <pubDate>Fri, 20 Feb 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Sheetmask anonymizes your data and keeps relationships intact. It is great for PnLs and other financial data where the structure matters.]]></description>
             <content:encoded><![CDATA[<p>I built <a href="https://github.com/daniel-butler/sheetmask">sheetmask</a> to solve a specific problem: you have a real Excel report full of sensitive data and need a safe test fixture that matches its structure. Not a made-up spreadsheet. Something that looks and behaves like the real thing, without the real names and numbers.</p>
 <p>Most anonymization tools stop at replacing values. Sheetmask reads the file&#x27;s structure first: which sheets exist, what columns are in each, what the data types are, and how numbers relate to each other. That structural map makes the rest possible.</p>
