@@ -4,7 +4,7 @@
         <title>Daniel Butler</title>
         <link>https://daniel-butler.com</link>
         <description>A collection of thoughts</description>
-        <lastBuildDate>Mon, 23 Feb 2026 06:05:16 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Feb 2026 04:04:47 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -13,6 +13,137 @@
             <link>https://daniel-butler.com</link>
         </image>
         <copyright>All rights reserved 2026</copyright>
+        <item>
+            <title><![CDATA[Get Your Data Out of OneNote (Without Fighting Microsoft's Export Tools)]]></title>
+            <link>https://daniel-butler.com/articles/onenote-extractor</link>
+            <guid isPermaLink="false">https://daniel-butler.com/articles/onenote-extractor</guid>
+            <pubDate>Tue, 24 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Extract OneNote notebooks to markdown in minutes with just a view-only link. No API setup, no OAuth, no fighting with export buttons.]]></description>
+            <content:encoded><![CDATA[<p><strong>Bottom line:</strong> Got a OneNote notebook you want in markdown? This tool extracts it in minutes with just a view-only link. No API setup, no OAuth dance, no fighting with Microsoft&#x27;s export button.</p>
+<h2>What You Get</h2>
+<p><strong>Clean markdown files</strong> from your OneNote notebooks:</p>
+<ul>
+<li>One .md file per page</li>
+<li>Organized by section (matches your notebook structure)</li>
+<li>Plain text that works anywhere (Obsidian, VS Code, grep, git)</li>
+<li>Extracted in 2-3 seconds per page</li>
+</ul>
+<p><strong>Use it when:</strong></p>
+<ul>
+<li>You want to migrate your notes to another platform</li>
+<li>You need a backup outside Microsoft&#x27;s ecosystem</li>
+<li>You have view-only access to a shared notebook and want your own copy</li>
+<li>Microsoft&#x27;s export button is grayed out or missing</li>
+<li>You want searchable, version-controllable text files</li>
+</ul>
+<p><strong>Skip it if:</strong></p>
+<ul>
+<li>You need images or formatting preserved (text only right now)</li>
+<li>You&#x27;re trying to scrape content you don&#x27;t have permission to access</li>
+<li>You need authenticated access (use Microsoft Graph API instead)</li>
+</ul>
+<h2>How Simple Is It?</h2>
+<p>Three steps:</p>
+<ol>
+<li><strong>Get a view-only link</strong> from OneNote Web (Share → View only)</li>
+<li><strong>Create a config file</strong> listing which sections and pages to extract</li>
+<li><strong>Run one command</strong>: <code>node extract.js my-config.json</code></li>
+</ol>
+<p>That&#x27;s it. Your markdown files appear in <code>output/</code>.</p>
+<h2>Why This Exists</h2>
+<p>Microsoft&#x27;s OneNote export tools are... well, let&#x27;s just say they could be better:</p>
+<ul>
+<li>PDF export loses structure and is hard to parse</li>
+<li>HTML export isn&#x27;t available for view-only links</li>
+<li>Graph API requires OAuth setup, app registration, and Microsoft 365 admin permissions (good luck with that)</li>
+</ul>
+<p><strong>This tool works with what you already have:</strong> a view-only link.</p>
+<p>No authentication. No API keys. No begging your IT department for Graph API access.</p>
+<h2>What Problem Did We Solve?</h2>
+<p>OneNote Web is smart about rejecting automation. When scripts try to click sections or pages, OneNote&#x27;s JavaScript checks if the clicks are &quot;trusted&quot; (from a real user) or &quot;untrusted&quot; (from a script). Regular automation gets ignored.</p>
+<p>We use <strong>Playwright&#x27;s native browser automation</strong>, which generates clicks identical to real user actions. OneNote can&#x27;t tell the difference. Problem solved.</p>
+<h2>Installation</h2>
+<pre><code class="hljs language-bash">npm install
+npx playwright install chromium
+</code></pre>
+<h2>Example Config</h2>
+<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;notebookUrl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://1drv.ms/o/c/your-link-here&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;outputDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./my-notes&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;sections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Work Notes&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Meeting 2024-01-15&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Project Ideas&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;TODO&quot;</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Personal&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Journal&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Reading List&quot;</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2>What You Won&#x27;t Get (Yet)</h2>
+<p>Current limitations:</p>
+<ul>
+<li><strong>Images</strong>: Text only (images are skipped)</li>
+<li><strong>Formatting</strong>: No bold, italics, or lists (plain text)</li>
+<li><strong>Auto-discovery</strong>: You have to manually list section and page names</li>
+<li><strong>Speed</strong>: About 2-3 seconds per page (not instant, but reliable)</li>
+</ul>
+<p>We built this to solve one problem well: get text out of OneNote. If you need rich formatting or images, you&#x27;ll want Microsoft&#x27;s official tools or Graph API.</p>
+<h2>Who Should Use This?</h2>
+<p><strong>This is for you if:</strong></p>
+<ul>
+<li>You&#x27;re leaving Microsoft 365 and want your notes</li>
+<li>You have old notebooks to archive as text</li>
+<li>You collaborate on shared notebooks and want your own copy</li>
+<li>You prefer plain text files over proprietary formats</li>
+<li>You want to version control your notes (markdown + git is nice)</li>
+</ul>
+<p><strong>Maybe skip this if:</strong></p>
+<ul>
+<li>You need pixel-perfect formatting</li>
+<li>You want to preserve images and drawings</li>
+<li>You&#x27;re working with authenticated notebooks (not view-only links)</li>
+<li>You&#x27;re perfectly happy in OneNote&#x27;s ecosystem</li>
+</ul>
+<h2>Legal &amp; Ethical</h2>
+<p>This is a <strong>personal data liberation tool</strong>.</p>
+<p><strong>Use it for:</strong></p>
+<ul>
+<li>Your own notebooks</li>
+<li>Shared notebooks you have permission to access</li>
+<li>Content you created or have rights to</li>
+</ul>
+<p><strong>Don&#x27;t use it to:</strong></p>
+<ul>
+<li>Scrape content you don&#x27;t have rights to</li>
+<li>Bypass access controls</li>
+<li>Violate Microsoft&#x27;s Terms of Service</li>
+</ul>
+<p>When in doubt, use Microsoft&#x27;s official export features.</p>
+<h2>Get Started</h2>
+<p>Repository: <a href="https://github.com/daniel-butler/onenote-web-extractor">github.com/daniel-butler/onenote-web-extractor</a></p>
+<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/daniel-butler/onenote-web-extractor
+<span class="hljs-built_in">cd</span> onenote-web-extractor
+npm install
+npx playwright install chromium
+node extract.js example-config.json
+</code></pre>
+<p>Full documentation in the README.</p>
+<h2>What&#x27;s Next</h2>
+<p>Possible improvements (PRs welcome):</p>
+<ul>
+<li>Image extraction</li>
+<li>Auto-discovery of sections/pages (no manual config)</li>
+<li>Markdown formatting (bold, lists, links)</li>
+<li>Parallel extraction (faster)</li>
+<li>Progress bars</li>
+</ul>
+<hr/>
+<p>Your data shouldn&#x27;t be locked in one vendor&#x27;s format. This tool gets you out.</p>]]></content:encoded>
+            <author>rss@daniel-butler.com (Daniel Butler)</author>
+        </item>
         <item>
             <title><![CDATA[OneNote Web Extractor: When synthetic clicks fail]]></title>
             <link>https://daniel-butler.com/articles/onenote-web-extractor-release</link>
