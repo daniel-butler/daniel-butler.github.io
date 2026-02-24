@@ -11,61 +11,26 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-**Bottom line:** Got a OneNote notebook you want in markdown? This tool extracts it in minutes with just a view-only link. No API setup, no OAuth dance, no fighting with Microsoft's export button.
+**Bottom line:** Got a OneNote notebook you want in markdown? This tool extracts it in minutes with just a view-only link. No API setup, no OAuth, no fighting with Microsoft's export button.
 
-## What You Get
-
-**Clean markdown files** from your OneNote notebooks:
-- One .md file per page
-- Organized by section (matches your notebook structure)  
-- Plain text that works anywhere (Obsidian, VS Code, grep, git)
-- Extracted in 2-3 seconds per page
-
-**Use it when:**
-- You want to migrate your notes to another platform
-- You need a backup outside Microsoft's ecosystem
-- You have view-only access to a shared notebook and want your own copy
-- Microsoft's export button is grayed out or missing
-- You want searchable, version-controllable text files
-
-**Skip it if:**
-- You need images or formatting preserved (text only right now)
-- You're trying to scrape content you don't have permission to access
-- You need authenticated access (use Microsoft Graph API instead)
-
-## How Simple Is It?
+## How It Works
 
 Three steps:
 
-1. **Get a view-only link** from OneNote Web (Share → View only)
-2. **Create a config file** listing which sections and pages to extract
-3. **Run one command**: `node extract.js my-config.json`
+1. Get a view-only link from OneNote Web (Share → View only)
+2. Create a config file listing sections and pages to extract
+3. Run `node extract.js my-config.json`
 
-That's it. Your markdown files appear in `output/`.
+Your markdown files appear in `output/`, one .md file per page, organized by section.
 
 ## Why This Exists
 
-Microsoft's OneNote export tools are... well, let's just say they could be better:
-- PDF export loses structure and is hard to parse
+Microsoft's export tools have issues:
+- PDF loses structure
 - HTML export isn't available for view-only links
-- Graph API requires OAuth setup, app registration, and Microsoft 365 admin permissions (good luck with that)
+- Graph API requires OAuth setup and admin permissions
 
-**This tool works with what you already have:** a view-only link.
-
-No authentication. No API keys. No begging your IT department for Graph API access.
-
-## What Problem Did We Solve?
-
-OneNote Web is smart about rejecting automation. When scripts try to click sections or pages, OneNote's JavaScript checks if the clicks are "trusted" (from a real user) or "untrusted" (from a script). Regular automation gets ignored.
-
-We use **Playwright's native browser automation**, which generates clicks identical to real user actions. OneNote can't tell the difference. Problem solved.
-
-## Installation
-
-```bash
-npm install
-npx playwright install chromium
-```
+OneNote Web also rejects normal automation by checking if clicks are "trusted" (real user) or "untrusted" (script). We use Playwright's native browser automation which generates real browser events. OneNote can't tell the difference.
 
 ## Example Config
 
@@ -76,60 +41,34 @@ npx playwright install chromium
   "sections": [
     {
       "name": "Work Notes",
-      "pages": ["Meeting 2024-01-15", "Project Ideas", "TODO"]
+      "pages": [
+        "Meeting 2024-01-15",
+        "Project Ideas",
+        "TODO"
+      ]
     },
     {
       "name": "Personal",
-      "pages": ["Journal", "Reading List"]
+      "pages": [
+        "Journal",
+        "Reading List"
+      ]
     }
   ]
 }
 ```
 
-## What You Won't Get (Yet)
+## Limitations
 
-Current limitations:
-- **Images**: Text only (images are skipped)
-- **Formatting**: No bold, italics, or lists (plain text)
-- **Auto-discovery**: You have to manually list section and page names
-- **Speed**: About 2-3 seconds per page (not instant, but reliable)
+Text only right now. Images, formatting, and auto-discovery of pages coming later. If you need those, use Microsoft's official tools or Graph API.
 
-We built this to solve one problem well: get text out of OneNote. If you need rich formatting or images, you'll want Microsoft's official tools or Graph API.
+## Legal
 
-## Who Should Use This?
-
-**This is for you if:**
-- You're leaving Microsoft 365 and want your notes
-- You have old notebooks to archive as text
-- You collaborate on shared notebooks and want your own copy
-- You prefer plain text files over proprietary formats
-- You want to version control your notes (markdown + git is nice)
-
-**Maybe skip this if:**
-- You need pixel-perfect formatting
-- You want to preserve images and drawings
-- You're working with authenticated notebooks (not view-only links)
-- You're perfectly happy in OneNote's ecosystem
-
-## Legal & Ethical
-
-This is a **personal data liberation tool**.
-
-**Use it for:**
-- Your own notebooks
-- Shared notebooks you have permission to access
-- Content you created or have rights to
-
-**Don't use it to:**
-- Scrape content you don't have rights to
-- Bypass access controls
-- Violate Microsoft's Terms of Service
-
-When in doubt, use Microsoft's official export features.
+Use this for your own notebooks or ones you have permission to access. Don't scrape content you don't have rights to.
 
 ## Get Started
 
-Repository: [github.com/daniel-butler/onenote-web-extractor](https://github.com/daniel-butler/onenote-web-extractor)
+[github.com/daniel-butler/onenote-web-extractor](https://github.com/daniel-butler/onenote-web-extractor)
 
 ```bash
 git clone https://github.com/daniel-butler/onenote-web-extractor
@@ -138,18 +77,5 @@ npm install
 npx playwright install chromium
 node extract.js example-config.json
 ```
-
-Full documentation in the README.
-
-## What's Next
-
-Possible improvements (PRs welcome):
-- Image extraction
-- Auto-discovery of sections/pages (no manual config)
-- Markdown formatting (bold, lists, links)
-- Parallel extraction (faster)
-- Progress bars
-
----
 
 Your data shouldn't be locked in one vendor's format. This tool gets you out.
