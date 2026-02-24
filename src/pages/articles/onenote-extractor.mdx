@@ -15,8 +15,6 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 
 ## How It Works
 
-Three steps:
-
 1. Get a view-only link from OneNote Web (Share → View only)
 2. Create a config file listing sections and pages to extract
 3. Run `node extract.js my-config.json`
@@ -25,10 +23,7 @@ Your markdown files appear in `output/`, one .md file per page, organized by sec
 
 ## Why This Exists
 
-Microsoft's export tools have issues:
-- PDF loses structure
-- HTML export isn't available for view-only links
-- Graph API requires OAuth setup and admin permissions
+Microsoft's export tools have issues: PDF loses structure, HTML export isn't available for view-only links, and Graph API requires OAuth setup and admin permissions.
 
 OneNote Web also rejects normal automation by checking if clicks are "trusted" (real user) or "untrusted" (script). We use Playwright's native browser automation which generates real browser events. OneNote can't tell the difference.
 
@@ -60,15 +55,9 @@ OneNote Web also rejects normal automation by checking if clicks are "trusted" (
 
 ## Limitations
 
-Text only right now. Images, formatting, and auto-discovery of pages coming later. If you need those, use Microsoft's official tools or Graph API.
+Text only right now. Images, formatting, and auto-discovery coming later. If you need those, use Microsoft's official tools or Graph API.
 
-## Legal
-
-Use this for your own notebooks or ones you have permission to access. Don't scrape content you don't have rights to.
-
-## Get Started
-
-[github.com/daniel-butler/onenote-web-extractor](https://github.com/daniel-butler/onenote-web-extractor)
+**Get it:** [github.com/daniel-butler/onenote-web-extractor](https://github.com/daniel-butler/onenote-web-extractor)
 
 ```bash
 git clone https://github.com/daniel-butler/onenote-web-extractor
@@ -77,5 +66,3 @@ npm install
 npx playwright install chromium
 node extract.js example-config.json
 ```
-
-Your data shouldn't be locked in one vendor's format. This tool gets you out.
