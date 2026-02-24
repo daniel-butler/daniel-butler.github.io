@@ -14,7 +14,6 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 **Bottom line:** Got a OneNote notebook you want in markdown? This tool extracts it in minutes with just a view-only link. No API setup, no OAuth, no fighting with Microsoft's export button.
 
 ## How It Works
-
 1. Get a view-only link from OneNote Web (Share → View only)
 2. Create a config file listing sections and pages to extract
 3. Run `node extract.js my-config.json`
@@ -22,7 +21,6 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 Your markdown files appear in `output/`, one .md file per page, organized by section.
 
 ## Why This Exists
-
 Microsoft's export tools have issues: PDF loses structure, HTML export isn't available for view-only links, and Graph API requires OAuth setup and admin permissions.
 
 OneNote Web also rejects normal automation by checking if clicks are "trusted" (real user) or "untrusted" (script). We use Playwright's native browser automation which generates real browser events. OneNote can't tell the difference.
@@ -54,7 +52,6 @@ OneNote Web also rejects normal automation by checking if clicks are "trusted" (
 ```
 
 ## Limitations
-
 Text only right now. Images, formatting, and auto-discovery coming later. If you need those, use Microsoft's official tools or Graph API.
 
 **Get it:** [github.com/daniel-butler/onenote-web-extractor](https://github.com/daniel-butler/onenote-web-extractor)
