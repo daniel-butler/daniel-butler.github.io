@@ -4,7 +4,7 @@
         <title>Daniel Butler</title>
         <link>https://daniel-butler.com</link>
         <description>A collection of thoughts</description>
-        <lastBuildDate>Tue, 24 Feb 2026 04:17:46 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Feb 2026 04:27:12 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -21,7 +21,6 @@
             <description><![CDATA[Extract OneNote notebooks to markdown in minutes with just a view-only link. No API setup, no OAuth, no fighting with export buttons.]]></description>
             <content:encoded><![CDATA[<p><strong>Bottom line:</strong> Got a OneNote notebook you want in markdown? This tool extracts it in minutes with just a view-only link. No API setup, no OAuth, no fighting with Microsoft&#x27;s export button.</p>
 <h2>How It Works</h2>
-<p>Three steps:</p>
 <ol>
 <li>Get a view-only link from OneNote Web (Share → View only)</li>
 <li>Create a config file listing sections and pages to extract</li>
@@ -29,12 +28,7 @@
 </ol>
 <p>Your markdown files appear in <code>output/</code>, one .md file per page, organized by section.</p>
 <h2>Why This Exists</h2>
-<p>Microsoft&#x27;s export tools have issues:</p>
-<ul>
-<li>PDF loses structure</li>
-<li>HTML export isn&#x27;t available for view-only links</li>
-<li>Graph API requires OAuth setup and admin permissions</li>
-</ul>
+<p>Microsoft&#x27;s export tools have issues: PDF loses structure, HTML export isn&#x27;t available for view-only links, and Graph API requires OAuth setup and admin permissions.</p>
 <p>OneNote Web also rejects normal automation by checking if clicks are &quot;trusted&quot; (real user) or &quot;untrusted&quot; (script). We use Playwright&#x27;s native browser automation which generates real browser events. OneNote can&#x27;t tell the difference.</p>
 <h2>Example Config</h2>
 <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
@@ -60,18 +54,14 @@
 <span class="hljs-punctuation">}</span>
 </code></pre>
 <h2>Limitations</h2>
-<p>Text only right now. Images, formatting, and auto-discovery of pages coming later. If you need those, use Microsoft&#x27;s official tools or Graph API.</p>
-<h2>Legal</h2>
-<p>Use this for your own notebooks or ones you have permission to access. Don&#x27;t scrape content you don&#x27;t have rights to.</p>
-<h2>Get Started</h2>
-<p><a href="https://github.com/daniel-butler/onenote-web-extractor">github.com/daniel-butler/onenote-web-extractor</a></p>
+<p>Text only right now. Images, formatting, and auto-discovery coming later. If you need those, use Microsoft&#x27;s official tools or Graph API.</p>
+<p><strong>Get it:</strong> <a href="https://github.com/daniel-butler/onenote-web-extractor">github.com/daniel-butler/onenote-web-extractor</a></p>
 <pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/daniel-butler/onenote-web-extractor
 <span class="hljs-built_in">cd</span> onenote-web-extractor
 npm install
 npx playwright install chromium
 node extract.js example-config.json
-</code></pre>
-<p>Your data shouldn&#x27;t be locked in one vendor&#x27;s format. This tool gets you out.</p>]]></content:encoded>
+</code></pre>]]></content:encoded>
             <author>rss@daniel-butler.com (Daniel Butler)</author>
         </item>
         <item>
