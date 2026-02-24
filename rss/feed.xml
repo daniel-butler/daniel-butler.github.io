@@ -4,7 +4,7 @@
         <title>Daniel Butler</title>
         <link>https://daniel-butler.com</link>
         <description>A collection of thoughts</description>
-        <lastBuildDate>Tue, 24 Feb 2026 04:27:12 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 24 Feb 2026 05:00:31 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <image>
@@ -62,85 +62,6 @@ npm install
 npx playwright install chromium
 node extract.js example-config.json
 </code></pre>]]></content:encoded>
-            <author>rss@daniel-butler.com (Daniel Butler)</author>
-        </item>
-        <item>
-            <title><![CDATA[OneNote Web Extractor: When synthetic clicks fail]]></title>
-            <link>https://daniel-butler.com/articles/onenote-web-extractor-release</link>
-            <guid isPermaLink="false">https://daniel-butler.com/articles/onenote-web-extractor-release</guid>
-            <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Extract content from OneNote view-only links by using Playwright's native clicks to generate trusted events. Built through systematic debugging of why programmatic clicks stopped working.]]></description>
-            <content:encoded><![CDATA[<p>I needed to extract content from old OneNote notebooks I had shared as view-only links. Playwright should have made this straightforward: navigate to the notebook, click sections, click pages, extract text. Except the clicks didn&#x27;t work.</p>
-<p>The sections highlighted when clicked. The URL changed. Network requests fired. But the content iframe stayed frozen on the section overview. No matter how long I waited, the page content never loaded.</p>
-<h2>The debugging process</h2>
-<p>I started with the obvious checks. Wait longer between actions. Try different selectors. Click parent elements instead of children. Take screenshots at each step to confirm the browser state matched expectations. Nothing changed the outcome.</p>
-<p>Then I checked the DOM carefully. After clicking a page, the <code>pageNode</code> element had the selected state applied. The browser knew I clicked it. OneNote&#x27;s JavaScript saw the click happen. It just didn&#x27;t respond.</p>
-<p>That narrowed the problem: OneNote was receiving the click event but choosing not to act on it.</p>
-<h2>The isTrusted check</h2>
-<p>Modern web apps can detect synthetic events. When you run <code>element.click()</code> in JavaScript, the browser sets <code>event.isTrusted</code> to <code>false</code>. Real user interactions set it to <code>true</code>. That&#x27;s the signal.</p>
-<p>I was using <code>page.evaluate()</code> to execute clicks inside the browser context:</p>
-<pre><code class="hljs language-javascript"><span class="hljs-comment">// This generates isTrusted: false</span>
-<span class="hljs-keyword">await</span> page.<span class="hljs-title function_">evaluate</span>(<span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;.pageNode&#x27;</span>).<span class="hljs-title function_">click</span>();
-});
-</code></pre>
-<p>OneNote Web checks <code>isTrusted</code> and ignores synthetic clicks. The event fires, the state updates, but the content load never triggers.</p>
-<h2>The fix</h2>
-<p>Playwright has a different way to click: native browser automation that generates real events with coordinates, timing, and trust markers.</p>
-<pre><code class="hljs language-javascript"><span class="hljs-comment">// This generates isTrusted: true</span>
-<span class="hljs-keyword">await</span> page.<span class="hljs-title function_">locator</span>(<span class="hljs-string">&#x27;.pageNode&#x27;</span>).<span class="hljs-title function_">click</span>();
-</code></pre>
-<p>The difference:</p>
-<ul>
-<li><code>evaluate().click()</code> runs JavaScript in the browser</li>
-<li><code>locator().click()</code> uses the browser&#x27;s automation protocol to simulate an actual mouse click</li>
-</ul>
-<p>The second approach generates events that look identical to real user interaction. OneNote Web responds to them.</p>
-<p>Once I switched to native clicks, the content loaded immediately. Pages that had been stuck on the section overview now showed their actual text content.</p>
-<h2>What it does now</h2>
-<p><a href="https://github.com/daniel-butler/Onenote-web-extractor">OneNote Web Extractor</a> takes a JSON config listing sections and pages, navigates through the notebook using native Playwright clicks, waits for content to load in OneNote&#x27;s iframe, and saves the text to markdown files.</p>
-<p><strong>Config format:</strong></p>
-<pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;notebookUrl&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;https://1drv.ms/o/c/your-notebook-id/...&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;outputDir&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./output&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;sections&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-    <span class="hljs-punctuation">{</span>
-      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;My Section&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Page 1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Page 2&quot;</span><span class="hljs-punctuation">]</span>
-    <span class="hljs-punctuation">}</span>
-  <span class="hljs-punctuation">]</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<p><strong>Run:</strong></p>
-<pre><code class="hljs language-bash">node extract.js config.json
-</code></pre>
-<p><strong>Output:</strong></p>
-<pre><code>output/
-└── my-section/
-    ├── page-1.md
-    └── page-2.md
-</code></pre>
-<p>The extraction is slow—about 2-3 seconds per page—because OneNote&#x27;s iframe loading is asynchronous and there&#x27;s no reliable way to detect when it&#x27;s finished except waiting. But it works consistently.</p>
-<h2>What I learned</h2>
-<p><strong>Always check <code>event.isTrusted</code> when automation fails on modern web apps.</strong> If a click highlights an element but doesn&#x27;t trigger the expected behavior, the app is probably checking whether the event came from a real user.</p>
-<p>Playwright&#x27;s native interactions (<code>locator.click()</code>, <code>locator.type()</code>, etc.) generate trusted events. JavaScript&#x27;s DOM methods (<code>element.click()</code>, <code>element.dispatchEvent()</code>) do not.</p>
-<p>When building automation:</p>
-<ul>
-<li>Start with native Playwright methods</li>
-<li>Only fall back to <code>evaluate()</code> if you need to run custom logic inside the page context</li>
-<li>If clicks mysteriously stop working, suspect an <code>isTrusted</code> check</li>
-</ul>
-<p>The debugging process took hours. The fix was a single line. That&#x27;s how it goes sometimes.</p>
-<h2>Install</h2>
-<pre><code class="hljs language-bash">git <span class="hljs-built_in">clone</span> https://github.com/daniel-butler/Onenote-web-extractor.git
-<span class="hljs-built_in">cd</span> Onenote-web-extractor
-npm install
-npx playwright install chromium
-</code></pre>
-<p>Source and docs: <a href="https://github.com/daniel-butler/Onenote-web-extractor">https://github.com/daniel-butler/Onenote-web-extractor</a></p>
-<hr/>
-<p>This was built to extract documentation from old work notebooks for a career timeline blog post. The tool ended up being more interesting than I expected—not because the extraction itself is novel, but because the debugging process revealed how modern web apps distinguish real users from automation.</p>
-<p>When synthetic clicks fail, native clicks succeed. That&#x27;s the whole trick.</p>]]></content:encoded>
             <author>rss@daniel-butler.com (Daniel Butler)</author>
         </item>
         <item>
