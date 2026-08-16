@@ -17,6 +17,8 @@ const browser = await chromium.launch()
 const page = await browser.newPage()
 
 await page.goto(`file://${source}`, { waitUntil: 'load' })
+// Without this the PDF can render before JetBrains Mono swaps in.
+await page.evaluate(() => document.fonts.ready)
 await page.pdf({
   path: output,
   format: 'Letter',
