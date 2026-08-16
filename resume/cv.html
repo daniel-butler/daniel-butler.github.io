@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daniel Butler — CV</title>
+<style>
+  :root {
+    --ink:      #27272a; /* zinc-800 */
+    --muted:    #52525b; /* zinc-600 */
+    --faint:    #a1a1aa; /* zinc-400 */
+    --accent:   #14b8a6; /* teal-500 */
+    --rule:     #e4e4e7; /* zinc-200 */
+  }
+
+  @page { size: Letter; margin: 0.55in 0.6in; }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 9.6pt;
+    line-height: 1.38;
+    color: var(--muted);
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* ---------- header ---------- */
+
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 11px; }
+
+  h1 {
+    margin: 0;
+    font-size: 25pt;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+
+  .title { margin-top: 2px; font-size: 10.5pt; font-weight: 600; color: var(--accent); }
+
+  .contact {
+    margin-top: 7px;
+    font-size: 8.6pt;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 9px;
+  }
+  .contact span::after { content: "·"; margin-left: 9px; color: var(--faint); }
+  .contact span:last-child::after { content: ""; margin: 0; }
+
+  .summary { margin-top: 10px; font-size: 9.4pt; color: var(--muted); max-width: 46em; }
+
+  /* ---------- sections ---------- */
+
+  h2 {
+    margin: 12px 0 7px;
+    font-size: 8.4pt;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+  }
+
+  .job { margin-bottom: 9px; break-inside: avoid; }
+
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+
+  .company { font-size: 10.4pt; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+
+  .dates { font-size: 8.4pt; color: var(--faint); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  .role { font-size: 9.2pt; font-weight: 600; color: var(--muted); margin-top: 1px; }
+
+  .role .dates { font-weight: 400; }
+
+  .roles { margin-top: 2px; }
+  .roles div { display: flex; justify-content: space-between; gap: 12px; font-size: 9.2pt; font-weight: 600; color: var(--muted); }
+
+  ul { margin: 5px 0 0; padding-left: 15px; }
+  li { margin-bottom: 2.5px; }
+  li::marker { color: var(--faint); }
+
+  /* ---------- two-up footer sections ---------- */
+
+  .cols { display: flex; gap: 26px; break-inside: avoid; }
+  .cols > div { flex: 1; }
+
+  .edu { margin-bottom: 6px; break-inside: avoid; }
+  .edu .school { font-weight: 700; color: var(--ink); font-size: 9.4pt; }
+  .edu .degree { font-size: 9pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Daniel Butler</h1>
+  <div class="title">Senior Software Development Engineer &nbsp;·&nbsp; CPA</div>
+  <div class="contact">
+    <span>Tampa, FL</span>
+    <span><a href="mailto:hi@daniel-butler.com">hi@daniel-butler.com</a></span>
+    <span><a href="https://daniel-butler.com/?utm_source=cv&utm_campaign=resume">daniel-butler.com</a></span>
+    <span><a href="https://github.com/daniel-butler">github.com/daniel-butler</a></span>
+    <span><a href="https://www.linkedin.com/in/dbutlercpa/">linkedin.com/in/dbutlercpa</a></span>
+  </div>
+  <p class="summary">
+    Accountant turned engineer. I build and operate business-critical services at scale, and I am
+    passionate about empowering and freeing people to do the heads-up work that creates value.
+  </p>
+</header>
+
+<h2>Experience</h2>
+
+<div class="job">
+  <div class="job-head">
+    <div class="company">Amazon</div>
+    <div class="dates">2021 — Present</div>
+  </div>
+  <div class="roles">
+    <div><span>Senior Software Development Engineer</span><span class="dates">2026 — Present</span></div>
+    <div><span>Software Development Engineer II</span><span class="dates">2022 — 2026</span></div>
+    <div><span>Software Development Engineer I</span><span class="dates">2021 — 2022</span></div>
+  </div>
+  <ul>
+    <li>Engineer in the Fulfillment Technology organization, working across Authentication, User
+        Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.</li>
+    <li>Each of those areas owns at least one Tier 1 service — business critical, and cannot go down.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div class="company">CPA to DEV</div>
+    <div class="dates">2024 — Present</div>
+  </div>
+  <div class="role">Founder</div>
+  <ul>
+    <li>Write tutorials, tips, and tricks that help technology-focused accountants and CPAs move into
+        software development — <a href="https://cpato.dev">cpato.dev</a>.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div class="company">Order Post App LLC</div>
+    <div class="dates">2022 — 2023</div>
+  </div>
+  <div class="role">Founder</div>
+</div>
+
+<div class="job">
+  <div class="job-head">
+    <div class="company">The CORE Group</div>
+    <div class="dates">2013 — 2021</div>
+  </div>
+  <div class="roles">
+    <div><span>Accounting System Developer</span><span class="dates">2018 — 2021</span></div>
+  </div>
+  <ul>
+    <li>Developed, refined, and implemented the Connect platform —
+        <a href="https://daniel-butler.com/work?utm_source=cv&utm_campaign=resume">daniel-butler.com/work</a>.</li>
+    <li>Automated and digitized the accounting process end to end; when COVID hit, no one in the
+        department needed to go to the office, and efficiency and accuracy both went up.</li>
+    <li>Delivered greenfield projects for HR, Sales Admin, Operations, and Accounting staff.</li>
+    <li>Rolled out, upgraded, and migrated the ERP and related ecosystem relied on by the whole organization.</li>
+    <li>Keynote speaker at the DocuPhase user conference on the work our team shipped on their platform.</li>
+  </ul>
+  <div class="roles" style="margin-top:8px">
+    <div><span>Assistant Controller</span><span class="dates">2015 — 2018</span></div>
+  </div>
+  <ul>
+    <li>Managed an accounting department that grew from 4 to 13 people through a merger and subsequent acquisitions.</li>
+    <li>Built five standard journal-entry macro spreadsheets that save 40 hours per month.</li>
+    <li>Selected and trained alongside the VP of Finance on DocuPhase business process software.</li>
+  </ul>
+  <div class="roles" style="margin-top:8px">
+    <div><span>Staff Accountant — HOPCO Foodservice</span><span class="dates">2013 — 2015</span></div>
+  </div>
+  <ul>
+    <li>Owned monthly journal entries, balance sheet reconciliation, and trial balance preparation.</li>
+    <li>Managed $1MM in annual corporate card spend and $600k in fleet card spend.</li>
+    <li>Negotiated office supply vendor selection, cutting $2k per year off $70k of spend.</li>
+  </ul>
+</div>
+
+<div class="cols">
+  <div>
+    <h2>Education</h2>
+    <div class="edu">
+      <div class="school">University of South Florida</div>
+      <div class="degree">B.S. in Accountancy · 2015</div>
+    </div>
+    <div class="edu">
+      <div class="school">Hillsborough Community College</div>
+      <div class="degree">Associate's · 2010</div>
+    </div>
+  </div>
+  <div>
+    <h2>Credentials &amp; Writing</h2>
+    <div class="edu">
+      <div class="school">Certified Public Accountant</div>
+      <div class="degree">Florida</div>
+    </div>
+    <div class="edu">
+      <div class="school">Writing</div>
+      <div class="degree">
+        <a href="https://daniel-butler.com/articles?utm_source=cv&utm_campaign=resume">daniel-butler.com/articles</a>
+        · <a href="https://cpato.dev">cpato.dev</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

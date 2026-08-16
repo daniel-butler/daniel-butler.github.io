@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "cv": "node resume/build.mjs"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {

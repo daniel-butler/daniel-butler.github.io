@@ -42,13 +42,20 @@ function Resume() {
   let resume = [
     {
       company: 'Amazon',
-      title: 'Software Development Engineer II',
+      title: 'Senior Software Development Engineer',
       logo: logoAmazon,
-      start: '2022',
+      start: '2026',
       end: {
         label: 'Present',
         dateTime: new Date().getFullYear(),
       },
+    },
+    {
+      company: 'Amazon',
+      title: 'Software Development Engineer II',
+      logo: logoAmazon,
+      start: '2022',
+      end: '2026',
     },
     {
       company: 'Amazon',
@@ -209,17 +216,18 @@ export default function About() {
                 The first true development project was fixing a <a className={"text-sm font-medium text-teal-500"} href={"/work/receipt-capture"}>webpage</a> a consulting company developed for us at The CORE Group.
                 After that, I was hooked.
                 During my tenure at The CORE Group, we automated and digitized the entire Accounting process, to the point that when COVID hit none of the Accounting department needed to go to the office, even increasing efficiency and accuracy.
-                To a large extend we used the Business Process Management software <a className={"text-sm font-medium text-teal-500"} href={"https://www.docuphase.com/"}>DocuPhase</a>.
-                We were doing things with DocuPhase that impressed them enough to invited me to <a className={"text-sm font-medium text-teal-500"} href={"/work/zero-g-expense-reports"}>speak as a keynote at their conference</a>.
+                To a large extent we used the Business Process Management software <a className={"text-sm font-medium text-teal-500"} href={"https://www.docuphase.com/"}>DocuPhase</a>.
+                We were doing things with DocuPhase that impressed them enough to invite me to <a className={"text-sm font-medium text-teal-500"} href={"/work/zero-g-expense-reports"}>speak as a keynote at their conference</a>.
               </p>
 
               <p>
                 After a few years of building various websites and honing the processes of the <a className={"text-sm font-medium text-teal-500"} href={"/work"}>Connect Platform</a>, the company I worked for was acquired.
-                After the acquisition, my job at the new company moved away from software development which lead me to work at Amazon.
-                At Amazon, I’m apart of the Fulfillment Technology organization.
+                After the acquisition, my job at the new company moved away from software development which led me to work at Amazon.
+                At Amazon, I’m a part of the Fulfillment Technology organization.
                 My work centers around Authentication, User Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.
                 Each one of those has at least one Tier one service associated with it.
                 Meaning that they are business critical and cannot go down.
+                In July 2026 I stepped up to Senior Software Development Engineer.
                 The team at Amazon is great and is teaching me a lot about what it means to be in a high performing team and how to think and take criticism, with minimal ego.
               </p>
               <p>
@@ -246,7 +254,7 @@ export default function About() {
                 hi@daniel-butler.com
               </SocialLink>
               <SocialLink
-                href="/media/Daniel_Butler_-_CV_202104.pdf"
+                href="/media/Daniel_Butler_CV.pdf"
                 icon={DownloadIcon}
                 className="mt-4"
               >

@@ -163,7 +163,7 @@ describe('About page', () => {
     render(<About />)
     const cvLink = screen.getByRole('link', { name: /download cv/i })
     expect(cvLink).toBeInTheDocument()
-    expect(cvLink).toHaveAttribute('href', '/media/Daniel_Butler_-_CV_202104.pdf')
+    expect(cvLink).toHaveAttribute('href', '/media/Daniel_Butler_CV.pdf')
   })
 
   test('renders email contact link', () => {
