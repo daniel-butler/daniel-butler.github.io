@@ -44,8 +44,8 @@
   body {
     margin: 0;
     font-family: var(--sans);
-    font-size: 9.2pt;
-    line-height: 1.38;
+    font-size: 9.7pt;
+    line-height: 1.46;
     color: var(--zinc-600);
     -webkit-font-smoothing: antialiased;
   }
@@ -56,7 +56,7 @@
 
   h1 {
     margin: 0;
-    font-size: 26pt;
+    font-size: 29pt;
     font-weight: 900;          /* font-black, as on the site */
     letter-spacing: -0.05em;   /* tracking-tighter */
     line-height: 1;
@@ -82,19 +82,19 @@
   .contact i { font-style: normal; color: var(--zinc-400); margin: 0 5px; }
 
   .summary {
-    margin: 9px 0 0;
-    font-size: 9.6pt;
+    margin: 12px 0 0;
+    font-size: 10.2pt;
     color: var(--zinc-600);
     max-width: 47em;
   }
 
   /* ---------- section eyebrow + rule ---------- */
 
-  section { margin-top: 11px; break-inside: avoid; }
+  section { margin-top: 16px; break-inside: avoid; }
 
   h2 {
-    margin: 0 0 7px;
-    padding-bottom: 3px;
+    margin: 0 0 10px;
+    padding-bottom: 4px;
     border-bottom: 1px solid var(--zinc-400);
     font-family: var(--mono);
     font-size: 7.4pt;
@@ -107,11 +107,11 @@
   /* ---------- experience ---------- */
 
   .job { break-inside: avoid; }
-  .job + .job { margin-top: 9px; }
+  .job + .job { margin-top: 15px; }
 
-  /* Type scale with real steps: 26 / 11.5 / 9.6 / 9.1, not a 1pt band. */
+  /* Type scale with real steps: 29 / 13 / 10.2 / 9.6, not a 1pt band. */
   .company {
-    font-size: 11.5pt;
+    font-size: 13pt;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--zinc-900);
@@ -123,11 +123,11 @@
     justify-content: space-between;
     align-items: baseline;
     gap: 14px;
-    margin-top: 4px;
+    margin-top: 6px;
   }
   .stint + ul { margin-top: 3px; }
 
-  .role { font-size: 9.6pt; font-weight: 600; color: var(--zinc-700); }
+  .role { font-size: 10.2pt; font-weight: 600; color: var(--zinc-700); }
   .role .at { font-weight: 400; color: var(--zinc-500); }
 
   .dates {
@@ -138,7 +138,7 @@
   }
 
   ul { margin: 0; padding-left: 15px; }
-  li { margin-top: 1px; font-size: 9.1pt; }
+  li { margin-top: 2px; font-size: 9.6pt; }
   li::marker { color: var(--zinc-400); }
 
   /* ---------- tools ---------- */
@@ -149,9 +149,9 @@
   .tools {
     display: grid;
     grid-template-columns: max-content 1fr;
-    column-gap: 16px;
-    row-gap: 2px;
-    font-size: 9.1pt;
+    column-gap: 18px;
+    row-gap: 4px;
+    font-size: 9.6pt;
   }
   .tools dt {
     font-family: var(--mono);
@@ -169,9 +169,9 @@
   .cols { display: flex; gap: 34px; }
   .cols > section { flex: 1; }
 
-  .entry + .entry { margin-top: 8px; }
-  .entry .what { font-size: 9.6pt; font-weight: 600; color: var(--zinc-900); }
-  .entry .meta { font-size: 8.9pt; color: var(--zinc-500); }
+  .entry + .entry { margin-top: 10px; }
+  .entry .what { font-size: 10.2pt; font-weight: 600; color: var(--zinc-900); }
+  .entry .meta { font-size: 9.4pt; color: var(--zinc-500); }
 </style>
 </head>
 <body>
@@ -219,26 +219,6 @@
           Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.</li>
       <li>Each of those areas owns at least one Tier 1 service — business critical, and cannot go down.</li>
     </ul>
-  </div>
-
-  <div class="job">
-    <div class="company">CPA to DEV</div>
-    <div class="stint">
-      <span class="role">Founder</span>
-      <span class="dates">2024 — Present</span>
-    </div>
-    <ul>
-      <li>Write tutorials, tips, and tricks that help technology-focused accountants and CPAs move
-          into software development — <a href="https://cpato.dev">cpato.dev</a>.</li>
-    </ul>
-  </div>
-
-  <div class="job">
-    <div class="company">Order Post App LLC</div>
-    <div class="stint">
-      <span class="role">Founder</span>
-      <span class="dates">2022 — 2023</span>
-    </div>
   </div>
 
   <div class="job">
