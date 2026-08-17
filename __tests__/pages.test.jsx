@@ -190,9 +190,10 @@ describe('About page', () => {
     expect(screen.getByText('Software Development Engineer II')).toBeInTheDocument()
   })
 
-  test('renders CPA to DEV in resume', () => {
+  test('omits the retired side ventures from the resume', () => {
     render(<About />)
-    expect(screen.getByText('CPA to DEV')).toBeInTheDocument()
+    expect(screen.queryByText('CPA to DEV')).not.toBeInTheDocument()
+    expect(screen.queryByText('Order Post App LLC')).not.toBeInTheDocument()
   })
 
   test('resume shows Present for current roles', () => {

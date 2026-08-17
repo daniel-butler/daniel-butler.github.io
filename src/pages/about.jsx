@@ -10,10 +10,8 @@ import {
   StackOverflowIcon,
 } from '@/components/SocialIcons'
 import portraitImage from '@/images/portrait.jpg'
-import logoCpaToDev from '@/images/logos/logoCpaToDev.svg'
 import logoCoreFS from '@/images/logos/core-foodservice.svg'
 import logoAmazon from '@/images/logos/amazon.svg'
-import logoOpenShuttle from '@/images/logos/open-shuttle.svg'
 
 function BriefcaseIcon(props) {
   return (
@@ -63,23 +61,6 @@ function Resume() {
       logo: logoAmazon,
       start: '2021',
       end: '2022',
-    },
-    {
-      company: 'CPA to DEV',
-      title: 'Founder',
-      logo: logoCpaToDev,
-      start: '2024',
-      end: {
-        label: 'Present',
-        dateTime: new Date().getFullYear(),
-      },
-    },
-    {
-      company: 'Order Post App LLC',
-      title: 'Founder',
-      logo: logoOpenShuttle,
-      start: '2022',
-      end: '2023',
     },
     {
       company: 'The CORE Group',
@@ -229,9 +210,6 @@ export default function About() {
                 Meaning that they are business critical and cannot go down.
                 In July 2026 I stepped up to Senior Software Development Engineer.
                 The team at Amazon is great and is teaching me a lot about what it means to be in a high performing team and how to think and take criticism, with minimal ego.
-              </p>
-              <p>
-                Also, on the side I write tutorials, tips, and tricks for technology focused accountants at <a className={"text-sm font-medium text-teal-500"} href={"https://cpato.dev"}>CPA to Dev</a>.
               </p>
             </div>
           </div>

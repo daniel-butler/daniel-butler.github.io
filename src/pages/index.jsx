@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import {Container} from '@/components/Container'
 import {
-    CPAtoDevIcon,
     GitHubIcon,
     LinkedInIcon,
     StackOverflowIcon,
@@ -126,8 +125,7 @@ export default function Home({articles}) {
                     </h1>
                     <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
                         I’m Daniel, a Software Developer and entrepreneur based in Tampa, Florida.
-                        A Senior Software Development Engineer at Amazon, Dad during the days and nights, and sometimes
-                        write tutorials for technology focused Accountants and CPAs at <a href="https://cpato.dev" className="text-teal-500 hover:text-teal-400 transition-colors">CPA to Dev</a>.
+                        A Senior Software Development Engineer at Amazon, and Dad during the days and nights.
                     </p>
                     <div className="mt-6 flex gap-6">
                         <SocialLink
@@ -144,11 +142,6 @@ export default function Home({articles}) {
                             href="https://stackoverflow.com/users/7838574/daniel-butler"
                             aria-label="Follow on StackOverflow"
                             icon={StackOverflowIcon}
-                        />
-                        <SocialLink
-                            href="https://cpato.dev"
-                            aria-label="Follow on CPA to Dev"
-                            icon={CPAtoDevIcon}
                         />
                     </div>
                 </div>
