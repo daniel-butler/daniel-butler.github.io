@@ -6,7 +6,7 @@
 <style>
   /* JetBrains Mono is the site's only configured font family (tailwind.config.js).
      Vendored as a latin-subset variable woff2 so `npm run cv` works offline.
-     SIL Open Font License 1.1. */
+     SIL Open Font License 1.1 — see fonts/OFL.txt. */
   @font-face {
     font-family: 'JetBrains Mono';
     font-style: normal;
@@ -16,157 +16,162 @@
   }
 
   :root {
-    /* Straight from the site's Tailwind palette. */
     --zinc-900: #18181b;
-    --zinc-800: #27272a;
+    --zinc-700: #3f3f46;
     --zinc-600: #52525b;
     --zinc-500: #71717a;
     --zinc-400: #a1a1aa;
-    --zinc-100: #f4f4f5;
-    --zinc-50:  #fafafa;
-    --teal-500: #14b8a6;
 
-    /* Tailwind preflight's default sans stack — what the site's body text
-       actually resolves to, since tailwind.config.js only defines `mono`. */
+    /* teal-700, not the site's teal-500. teal-500 measures 2.49:1 on white --
+       fine backlit, unreadable printed. teal-700 is 5.47:1 and keeps the hue. */
+    --teal: #0f766e;
+
+    /* Tailwind preflight's default sans stack -- what the site's body text
+       resolves to, since tailwind.config.js only defines `mono`. */
     --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
             'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
-  /* Zero page margin so the zinc-50 background bleeds to the paper edge,
-     the way bg-zinc-50 covers the site's viewport. Padding stands in. */
-  @page { size: Letter; margin: 0; }
+  /* No page background and no filled panels anywhere: browsers drop
+     background-color when "Background graphics" is off, which is the default
+     in most print dialogs. Structure is carried by rules and type only, and
+     borders print regardless of that setting. */
+  @page { size: Letter; margin: 0.5in 0.6in; }
 
   * { box-sizing: border-box; }
-  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   body {
     margin: 0;
-    padding: 0.45in 0.55in;
-    background: var(--zinc-50);
     font-family: var(--sans);
-    font-size: 9.3pt;
-    line-height: 1.5;
+    font-size: 9.2pt;
+    line-height: 1.38;
     color: var(--zinc-600);
     -webkit-font-smoothing: antialiased;
   }
 
-  a { color: var(--teal-500); text-decoration: none; font-weight: 600; }
+  a { color: var(--teal); text-decoration: none; font-weight: 500; }
 
-  /* ---------- header: mirrors the site's h1 + intro paragraph ---------- */
+  /* ---------- header ---------- */
 
   h1 {
     margin: 0;
-    font-size: 27pt;
-    font-weight: 900;          /* font-black */
+    font-size: 26pt;
+    font-weight: 900;          /* font-black, as on the site */
     letter-spacing: -0.05em;   /* tracking-tighter */
-    color: var(--zinc-800);
-    line-height: 1.05;
+    line-height: 1;
+    color: var(--zinc-900);
   }
 
   .title {
-    margin-top: 5px;
-    font-size: 10pt;
+    margin-top: 6px;
+    font-size: 11pt;
     font-weight: 600;
-    color: var(--teal-500);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.012em;
+    color: var(--teal);
   }
 
-  /* text-xs font-mono text-zinc-400 — the site's metadata treatment. */
+  /* Mono metadata, echoing how the site sets article timestamps. */
   .contact {
-    margin-top: 8px;
+    margin-top: 9px;
     font-family: var(--mono);
-    font-size: 7.6pt;
-    color: var(--zinc-400);
+    font-size: 7.8pt;
+    color: var(--zinc-500);
   }
   .contact a { font-weight: 400; color: var(--zinc-500); }
-  .contact .sep { color: var(--zinc-400); margin: 0 6px; }
+  .contact i { font-style: normal; color: var(--zinc-400); margin: 0 5px; }
 
   .summary {
     margin: 9px 0 0;
     font-size: 9.6pt;
     color: var(--zinc-600);
-    max-width: 44em;
+    max-width: 47em;
   }
 
-  /* ---------- section header: the Work card's icon + label ---------- */
+  /* ---------- section eyebrow + rule ---------- */
+
+  section { margin-top: 11px; break-inside: avoid; }
 
   h2 {
-    display: flex;
-    align-items: center;
-    margin: 0 0 9px;
-    font-size: 9pt;
-    font-weight: 600;
-    color: var(--zinc-900);
-  }
-  h2 svg { width: 15px; height: 15px; flex: none; }
-  h2 span { margin-left: 9px; }
-
-  /* ---------- card: rounded-2xl border border-zinc-100 ---------- */
-
-  .card {
-    margin-top: 13px;
-    padding: 13px 15px;
-    border: 1px solid var(--zinc-100);
-    border-radius: 16px;       /* rounded-2xl */
-    background: #fff;
-    break-inside: avoid;
-  }
-
-  /* ---------- roles ---------- */
-
-  .role { display: flex; gap: 11px; break-inside: avoid; }
-  .role + .role { margin-top: 9px; }
-
-  /* The site's logo chip: rounded-full, ring-1 ring-zinc-900/5, shadow-md. */
-  .chip {
-    margin-top: 2px;
-    width: 30px;
-    height: 30px;
-    flex: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background: #fff;
-    box-shadow: 0 4px 6px -1px rgba(39, 39, 42, 0.05);
-    outline: 1px solid rgba(24, 24, 27, 0.05);
-    outline-offset: -1px;
-  }
-  .chip img { width: 21px; height: 21px; object-fit: contain; }
-
-  .body { flex: 1; min-width: 0; }
-
-  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-
-  .company { font-size: 9.8pt; font-weight: 600; color: var(--zinc-900); letter-spacing: -0.015em; }
-
-  .stint { font-size: 8.8pt; color: var(--zinc-500); }
-  .stint strong { font-weight: 600; color: var(--zinc-600); }
-
-  /* Dates in mono, like the site's article timestamps. */
-  .dates {
+    margin: 0 0 7px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--zinc-400);
     font-family: var(--mono);
     font-size: 7.4pt;
-    color: var(--zinc-400);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--zinc-500);
+  }
+
+  /* ---------- experience ---------- */
+
+  .job { break-inside: avoid; }
+  .job + .job { margin-top: 9px; }
+
+  /* Type scale with real steps: 26 / 11.5 / 9.6 / 9.1, not a 1pt band. */
+  .company {
+    font-size: 11.5pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--zinc-900);
+    line-height: 1.2;
+  }
+
+  .stint {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .stint + ul { margin-top: 3px; }
+
+  .role { font-size: 9.6pt; font-weight: 600; color: var(--zinc-700); }
+  .role .at { font-weight: 400; color: var(--zinc-500); }
+
+  .dates {
+    font-family: var(--mono);
+    font-size: 7.8pt;
+    color: var(--zinc-500);
     white-space: nowrap;
   }
 
-  ul { margin: 4px 0 0; padding-left: 14px; }
-  li { margin-bottom: 1.5px; font-size: 8.9pt; }
+  ul { margin: 0; padding-left: 15px; }
+  li { margin-top: 1px; font-size: 9.1pt; }
   li::marker { color: var(--zinc-400); }
 
-  .stints { margin-top: 3px; }
-  .stints .row + .row { margin-top: 1px; }
+  /* ---------- tools ---------- */
 
-  /* ---------- two-up footer ---------- */
+  /* Label column in mono, values in sans -- same split the rest of the page
+     uses for metadata vs. content. Stacked rather than inline so no group
+     orphans a trailing item onto its own line. */
+  .tools {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 16px;
+    row-gap: 2px;
+    font-size: 9.1pt;
+  }
+  .tools dt {
+    font-family: var(--mono);
+    font-size: 7.4pt;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--zinc-500);
+    line-height: 1.7;
+  }
+  .tools dd { margin: 0; color: var(--zinc-700); }
 
-  .cols { display: flex; gap: 13px; break-inside: avoid; }
-  .cols > .card { flex: 1; margin-top: 13px; }
+  /* ---------- footer two-up ---------- */
 
-  .entry + .entry { margin-top: 7px; }
-  .entry .what { font-size: 9.2pt; font-weight: 600; color: var(--zinc-900); }
-  .entry .meta { font-size: 8.6pt; color: var(--zinc-500); }
+  .cols { display: flex; gap: 34px; }
+  .cols > section { flex: 1; }
+
+  .entry + .entry { margin-top: 8px; }
+  .entry .what { font-size: 9.6pt; font-weight: 600; color: var(--zinc-900); }
+  .entry .meta { font-size: 8.9pt; color: var(--zinc-500); }
 </style>
 </head>
 <body>
@@ -175,7 +180,7 @@
   <h1>Daniel Butler</h1>
   <div class="title">Senior Software Development Engineer &nbsp;·&nbsp; CPA</div>
   <div class="contact">
-    Tampa, FL<span class="sep">·</span><a href="mailto:hi@daniel-butler.com">hi@daniel-butler.com</a><span class="sep">·</span><a href="https://daniel-butler.com/?utm_source=cv&utm_campaign=resume">daniel-butler.com</a><span class="sep">·</span><a href="https://github.com/daniel-butler">github.com/daniel-butler</a><span class="sep">·</span><a href="https://www.linkedin.com/in/dbutlercpa/">linkedin.com/in/dbutlercpa</a>
+    Tampa, FL<i>·</i><a href="mailto:hi@daniel-butler.com">hi@daniel-butler.com</a><i>·</i><a href="https://daniel-butler.com/?utm_source=cv&utm_campaign=resume">daniel-butler.com</a><i>·</i><a href="https://github.com/daniel-butler">github.com/daniel-butler</a><i>·</i><a href="https://www.linkedin.com/in/dbutlercpa/">linkedin.com/in/dbutlercpa</a>
   </div>
   <p class="summary">
     Accountant turned engineer. I build and operate business-critical services at scale, and I am
@@ -183,94 +188,101 @@
   </p>
 </header>
 
-<div class="card">
-  <h2>
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M2.75 9.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z" fill="#f4f4f5" stroke="#a1a1aa"/>
-      <path d="M3 14.25h6.249c.484 0 .952-.002 1.316.319l.777.682a.996.996 0 0 0 1.316 0l.777-.682c.364-.32.832-.319 1.316-.319H21M8.75 6.5V4.75a2 2 0 0 1 2-2h2.5a2 2 0 0 1 2 2V6.5" stroke="#a1a1aa"/>
-    </svg>
-    <span>Work</span>
-  </h2>
+<section>
+  <h2>Tools</h2>
+  <dl class="tools">
+    <dt>Languages</dt><dd>Rust · Python · SQL · JavaScript</dd>
+    <dt>Frameworks</dt><dd>Flask · Django · Next.js</dd>
+    <dt>Platforms</dt><dd>AWS · DocuPhase · Salesforce</dd>
+  </dl>
+</section>
 
-  <div class="role">
-    <div class="chip"><img src="../src/images/logos/amazon.svg" alt=""></div>
-    <div class="body">
-      <div class="row"><span class="company">Amazon</span><span class="dates">2021 — Present</span></div>
-      <div class="stints">
-        <div class="row"><span class="stint"><strong>Senior Software Development Engineer</strong></span><span class="dates">2026 — Present</span></div>
-        <div class="row"><span class="stint">Software Development Engineer II</span><span class="dates">2022 — 2026</span></div>
-        <div class="row"><span class="stint">Software Development Engineer I</span><span class="dates">2021 — 2022</span></div>
-      </div>
-      <ul>
-        <li>Engineer in the Fulfillment Technology organization, working across Authentication, User
-            Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.</li>
-        <li>Each of those areas owns at least one Tier 1 service — business critical, and cannot go down.</li>
-      </ul>
+<section>
+  <h2>Experience</h2>
+
+  <div class="job">
+    <div class="company">Amazon</div>
+    <div class="stint">
+      <span class="role">Senior Software Development Engineer</span>
+      <span class="dates">2026 — Present</span>
+    </div>
+    <div class="stint">
+      <span class="role">Software Development Engineer II</span>
+      <span class="dates">2022 — 2026</span>
+    </div>
+    <div class="stint">
+      <span class="role">Software Development Engineer I</span>
+      <span class="dates">2021 — 2022</span>
+    </div>
+    <ul>
+      <li>Engineer in the Fulfillment Technology organization, working across Authentication, User
+          Lifecycle Management, Fulfillment Center Menus, and Labor Activity Tracking.</li>
+      <li>Each of those areas owns at least one Tier 1 service — business critical, and cannot go down.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="company">CPA to DEV</div>
+    <div class="stint">
+      <span class="role">Founder</span>
+      <span class="dates">2024 — Present</span>
+    </div>
+    <ul>
+      <li>Write tutorials, tips, and tricks that help technology-focused accountants and CPAs move
+          into software development — <a href="https://cpato.dev">cpato.dev</a>.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="company">Order Post App LLC</div>
+    <div class="stint">
+      <span class="role">Founder</span>
+      <span class="dates">2022 — 2023</span>
     </div>
   </div>
 
-  <div class="role">
-    <div class="chip"><img src="../src/images/logos/logoCpaToDev.svg" alt=""></div>
-    <div class="body">
-      <div class="row"><span class="company">CPA to DEV</span><span class="dates">2024 — Present</span></div>
-      <div class="stints"><div class="row"><span class="stint"><strong>Founder</strong></span></div></div>
-      <ul>
-        <li>Write tutorials, tips, and tricks that help technology-focused accountants and CPAs move
-            into software development — <a href="https://cpato.dev">cpato.dev</a>.</li>
-      </ul>
+  <div class="job">
+    <div class="company">The CORE Group</div>
+
+    <div class="stint">
+      <span class="role">Accounting System Developer</span>
+      <span class="dates">2018 — 2021</span>
     </div>
-  </div>
+    <ul>
+      <li>Developed, refined, and implemented the Connect platform —
+          <a href="https://daniel-butler.com/work?utm_source=cv&utm_campaign=resume">daniel-butler.com/work</a>.</li>
+      <li>Automated and digitized the accounting process end to end; when COVID hit, no one in the
+          department needed to go to the office, and efficiency and accuracy both went up.</li>
+      <li>Delivered greenfield projects for HR, Sales Admin, Operations, and Accounting staff.</li>
+      <li>Rolled out, upgraded, and migrated the ERP and related ecosystem relied on organization-wide.</li>
+      <li>Keynote speaker at the DocuPhase user conference on the work our team shipped on their platform.</li>
+    </ul>
 
-  <div class="role">
-    <div class="chip"><img src="../src/images/logos/open-shuttle.svg" alt=""></div>
-    <div class="body">
-      <div class="row"><span class="company">Order Post App LLC</span><span class="dates">2022 — 2023</span></div>
-      <div class="stints"><div class="row"><span class="stint"><strong>Founder</strong></span></div></div>
+    <div class="stint">
+      <span class="role">Assistant Controller</span>
+      <span class="dates">2015 — 2018</span>
     </div>
-  </div>
+    <ul>
+      <li>Managed an accounting department that grew from 4 to 13 people through a merger and acquisitions.</li>
+      <li>Built five standard journal-entry macro spreadsheets that save 40 hours per month.</li>
+      <li>Selected and trained alongside the VP of Finance on DocuPhase business process software.</li>
+    </ul>
 
-  <div class="role">
-    <div class="chip"><img src="../src/images/logos/core-foodservice.svg" alt=""></div>
-    <div class="body">
-      <div class="row"><span class="company">The CORE Group</span><span class="dates">2013 — 2021</span></div>
-
-      <div class="stints"><div class="row"><span class="stint"><strong>Accounting System Developer</strong></span><span class="dates">2018 — 2021</span></div></div>
-      <ul>
-        <li>Developed, refined, and implemented the Connect platform —
-            <a href="https://daniel-butler.com/work?utm_source=cv&utm_campaign=resume">daniel-butler.com/work</a>.</li>
-        <li>Automated and digitized the accounting process end to end; when COVID hit, no one in the
-            department needed to go to the office, and efficiency and accuracy both went up.</li>
-        <li>Delivered greenfield projects for HR, Sales Admin, Operations, and Accounting staff.</li>
-        <li>Rolled out, upgraded, and migrated the ERP and related ecosystem relied on organization-wide.</li>
-        <li>Keynote speaker at the DocuPhase user conference on the work our team shipped on their platform.</li>
-      </ul>
-
-      <div class="stints" style="margin-top:7px"><div class="row"><span class="stint"><strong>Assistant Controller</strong></span><span class="dates">2015 — 2018</span></div></div>
-      <ul>
-        <li>Managed an accounting department that grew from 4 to 13 people through a merger and acquisitions.</li>
-        <li>Built five standard journal-entry macro spreadsheets that save 40 hours per month.</li>
-        <li>Selected and trained alongside the VP of Finance on DocuPhase business process software.</li>
-      </ul>
-
-      <div class="stints" style="margin-top:7px"><div class="row"><span class="stint"><strong>Staff Accountant</strong> — HOPCO Foodservice</span><span class="dates">2013 — 2015</span></div></div>
-      <ul>
-        <li>Owned monthly journal entries, balance sheet reconciliation, and trial balance preparation.</li>
-        <li>Managed $1MM in annual corporate card spend and $600k in fleet card spend.</li>
-        <li>Negotiated office supply vendor selection, cutting $2k per year off $70k of spend.</li>
-      </ul>
+    <div class="stint">
+      <span class="role">Staff Accountant <span class="at">— HOPCO Foodservice</span></span>
+      <span class="dates">2013 — 2015</span>
     </div>
+    <ul>
+      <li>Owned monthly journal entries, balance sheet reconciliation, and trial balance preparation.</li>
+      <li>Managed $1MM in annual corporate card spend and $600k in fleet card spend.</li>
+      <li>Negotiated office supply vendor selection, cutting $2k per year off $70k of spend.</li>
+    </ul>
   </div>
-</div>
+</section>
 
 <div class="cols">
-  <div class="card">
-    <h2>
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="#a1a1aa" aria-hidden="true">
-        <path d="M12 13.5 3 9l9-4.5L21 9l-9 4.5Z" fill="#f4f4f5"/>
-        <path d="M6.75 11.25v4.6c0 .3.14.58.4.74C8.3 17.3 10 17.9 12 17.9s3.7-.6 4.85-1.31c.26-.16.4-.44.4-.74v-4.6M20.25 9.75v4.5"/>
-      </svg>
-      <span>Education</span>
-    </h2>
+  <section>
+    <h2>Education</h2>
     <div class="entry">
       <div class="what">University of South Florida</div>
       <div class="meta">B.S. in Accountancy · 2015</div>
@@ -279,16 +291,10 @@
       <div class="what">Hillsborough Community College</div>
       <div class="meta">Associate's · 2010</div>
     </div>
-  </div>
+  </section>
 
-  <div class="card">
-    <h2>
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="#a1a1aa" aria-hidden="true">
-        <path d="M9 12.75 11.25 15 15 9.75" />
-        <path d="M12 2.75 14.5 5H18v3.5L20.25 11 18 13.5V17h-3.5L12 19.25 9.5 17H6v-3.5L3.75 11 6 8.5V5h3.5L12 2.75Z" fill="#f4f4f5"/>
-      </svg>
-      <span>Credentials &amp; Writing</span>
-    </h2>
+  <section>
+    <h2>Credentials &amp; Writing</h2>
     <div class="entry">
       <div class="what">Certified Public Accountant</div>
       <div class="meta">Florida</div>
@@ -300,7 +306,7 @@
         · <a href="https://cpato.dev">cpato.dev</a>
       </div>
     </div>
-  </div>
+  </section>
 </div>
 
 </body>
